@@ -39,12 +39,12 @@ shopt -s -o nounset
 # ***********
 
 # PreTeXt distribution
-declare MB=${HOME}/mathbook/mathbook
+declare MB=/mnt/f/Programming/pretext
 # FlexDoc installation
-declare FDH=/opt/flexdoc/flexdoc-xml-1.12.5
+declare FDH=/mnt/f/Programming/flexdoc-xml-1.14
 
 # DocFlex output directory
-declare FDOUTDIR=${HOME}/mathbook/website/pretextbook.org/doc/schema
+declare FDOUTDIR=/mnt/f/Programming/pretext/doc/schema
 # Java root to locate executables
 # (if not set by system: uncomment and set)
 declare JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
@@ -90,7 +90,7 @@ trang -o disable-abstract-elements -I rnc -O xsd pretext.rnc pretext.xsd
 #  v1.12 requires Oracle Java (ie OpenJDK lacks "javafx")
 
 ${JAVA_HOME}/bin/java ${JAVA_OPTIONS} -cp ${CLASS_PATH} xyz.flexdoc.xml.Generator \
-    -flexdocconfig ${FDH}/bin/linux/flexdoc.config -quiet \
+    -flexdocconfig ${FDH}/lib/flexdoc.config -quiet \
     -nodialog -launchviewer=false -d ${FDOUTDIR} pretext.xsd
 
 # exit cleanly
