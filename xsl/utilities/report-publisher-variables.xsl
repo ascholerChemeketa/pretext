@@ -43,6 +43,8 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 <!-- into output unnecessarily -->
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+    xmlns:exsl="http://exslt.org/common"
+    extension-element-prefixes="exsl"
 >
 
 <!-- DEBUGGING -->
@@ -51,6 +53,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 <!-- Standard conversion groundwork -->
 <xsl:import href="../publisher-variables.xsl"/>
 <xsl:import href="../pretext-assembly.xsl"/>
+<xsl:import href="../pretext-common.xsl"/>
 
 <!-- Intend output for a text file -->
 <xsl:output method="text" encoding="UTF-8"/>
@@ -82,6 +85,21 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:text>qrcode-image</xsl:text>
     <xsl:text> </xsl:text>
     <xsl:value-of select="$qrcode-image"/>
+    <xsl:text>&#xa;</xsl:text>
+    <!-- 2024-07-21 theme for html build -->
+    <xsl:text>html-theme-name</xsl:text>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="$html-theme-name"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:text>html-theme-option-list</xsl:text>
+    <xsl:text> </xsl:text>
+    <xsl:variable name="html-theme-opt-temp"><xsl:apply-templates select="exsl:node-set($html-theme-option-list)" mode="serialize"/>
+    </xsl:variable>
+    <xsl:value-of select="$html-theme-opt-temp"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:text>html-theme-options</xsl:text>
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="$html-theme-options"/>
     <xsl:text>&#xa;</xsl:text>
     <!-- -->
 
