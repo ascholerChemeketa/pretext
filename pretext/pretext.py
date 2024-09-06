@@ -3175,22 +3175,13 @@ def epub(xml_source, pub_file, out_file, dest_dir, math_format, stringparams):
     # EPUB exists from above xsltproc call
     css_dir = os.path.join(tmp_dir, "EPUB", "css")
     os.mkdir(css_dir)
-    stylefile = packaging_tree.xpath("/packaging/css/@stylefile")[0]
-    colorfile = packaging_tree.xpath("/packaging/css/@colorfile")[0]
-    for cssfilename in [
-        str(stylefile),
-        str(colorfile),
-        "pretext.css",
-        "pretext_add_on.css",
-        "setcolors.css",
-    ]:
-        css = os.path.join(get_ptx_xsl_path(), "..", "css", cssfilename)
-        shutil.copy2(css, css_dir)
+
+    # All styles are baked into one of these two files
     if math_format == "kindle":
-        css = os.path.join(get_ptx_xsl_path(), "..", "css", "kindle.css")
+        css = os.path.join(get_ptx_xsl_path(), "../css/dist/kindle.css")
         shutil.copy2(css, css_dir)
     if math_format == "svg":
-        css = os.path.join(get_ptx_xsl_path(), "..", "css", "epub.css")
+        css = os.path.join(get_ptx_xsl_path(), "../css/dist/epub.css")
         shutil.copy2(css, css_dir)
 
     # EPUB Cover File
@@ -3399,9 +3390,11 @@ def epub(xml_source, pub_file, out_file, dest_dir, math_format, stringparams):
     images = packaging_tree.xpath("/packaging/images/image[@filename]")
     for im in images:
         source = os.path.join(source_dir, str(im.get("sourcename")))
-        dest = os.path.join(xhtml_dir, str(im.get("filename")))
-        os.makedirs(os.path.dirname(dest), exist_ok=True)
-        shutil.copy2(source, dest)
+        # empty image names in sample book were breaking my build
+        if im.get("sourcename") != "":
+            dest = os.path.join(xhtml_dir, str(im.get("filename")))
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            shutil.copy2(source, dest)
 
     # clean-up the trash
     # TODO: squelch knowls or find alternative
@@ -3555,6 +3548,143 @@ def _runestone_services(params):
     altrs_version = services.xpath("/all/version")[0].text
     return (altrs_js, altrs_css, altrs_cdn_url, altrs_version)
 
+# Helper to move a prebuilt css theme into the build directory as theme.css
+def _move_prebuilt_theme(theme_name, theme_opts, tmp_dir):
+        css_src = os.path.join(get_ptx_path(), "css/dist")
+        css_dest = os.path.join(tmp_dir, "_static", "pretext", "css")
+
+        src = os.path.join(get_ptx_path(), "css/dist/theme-{}.css".format(theme_name))
+        dest = os.path.join(get_ptx_path(), os.path.join(css_dest, "theme.css"))
+        log.debug("Using prebuilt theme: " + theme_name)
+
+        # copy src -> dest with modifications
+        with open(src, 'r') as theme_file:
+            filedata = theme_file.read()
+
+            # modify file so that it points to the map file theme.css.map
+            filedata = re.sub(r'sourceMappingURL=[^\s]*', r'sourceMappingURL=theme.css.map', filedata)
+
+            # append some css variables to the file so that colors can be customized
+            # without rebuilding the theme
+            regular_vars = {k:v for k, v in theme_opts['variables'].items() if "-dark" not in k}
+            dark_vars = {k.replace("-dark",""):v for k, v in theme_opts['variables'].items() if "-dark" in k}
+            if regular_vars:
+                filedata += "\n/* generated from pub variables */\n:root {"
+                for key, value in regular_vars.items():
+                    filedata += "--{}: {};".format(key, value)
+                filedata += "}"
+            if dark_vars:
+                filedata += "\n/* generated from pub variables */\n:root.dark-mode {"
+                for key, value in dark_vars.items():
+                    filedata += "--{}: {};".format(key, value)
+                filedata += "}"
+
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with open(dest, 'w+') as file:
+                file.write(filedata)
+
+        # map file copied as is
+        shutil.copy(src + ".map", dest + ".map")
+
+# Helper to build a custom version of a theme
+def _build_custom_theme(xml, theme_name, theme_opts, tmp_dir):
+    ptx_path = get_ptx_path()
+    script = os.path.join(ptx_path, "script", "cssbuilder", "cssbuilder.mjs")
+    css_dest = os.path.join(tmp_dir, "_static", "pretext", "css")
+
+    # if doing building a compltely custom theme, update entry-point to include full path as string
+    if theme_name == "custom":
+        theme_opts['options']['entry-point'] = os.path.join(get_source_path(xml), theme_opts['options']['entry-point'])
+
+    # attempt build
+    error_message = "Node.js is required to build customized themes. Make sure it is installed and in your PATH"
+    try:
+        import subprocess, json
+        # theme name is prefixed with "theme-" in the cssbuilder script output
+        full_name = "theme-{}".format(theme_name)
+        log.debug("Building custom theme: " + full_name)
+        log.debug("Theme options:" + json.dumps(theme_opts))
+        result = subprocess.run(["node", script, "-t", full_name, "-o", css_dest, "-c", json.dumps(theme_opts)], capture_output=True, timeout=10)
+        if result.stdout:
+            log.debug(result.stdout.decode())
+        if result.stderr:
+            error_message = result.stderr.decode()
+            raise Exception("Failed to build custom theme")
+    except Exception as e:
+        log.error(error_message)
+        raise e
+
+def check_color_contrast(color1, color2):
+    from coloraide import Color
+    contrast = Color(color1).contrast(color2, method='wcag21')
+    if contrast < 4.5:
+        log.warning("Color " + color1 + " does not have enough contrast with expected background color " + color2 + ". Contrast ratio is " + str(contrast) + " but should be at least 4.5. Adjust your publisher file html/css/variables to ensure sufficient contrast.")
+
+def build_or_copy_theme(xml, pub_file, stringparams, tmp_dir):
+    theme_name = get_publisher_variable(xml, pub_file, stringparams, 'html-theme-name')
+    theme_opts_json = get_publisher_variable(xml, pub_file, stringparams, 'html-theme-options')
+    import json
+    theme_opts = json.loads(theme_opts_json)
+
+    # attempt basic sanity check of colors
+    for var, check_color in theme_opts['contrast-checks'].items():
+        if var in theme_opts['variables']:
+            check_color_contrast(theme_opts['variables'][var], check_color)
+
+    # prerolled themes with no options get copied from css/dist; otherwise, build a custom theme
+    prerolled = "-legacy" in theme_name or theme_name == "default-modern"
+    print(theme_name)
+    print(prerolled)
+    print(theme_opts)
+    if prerolled and not theme_opts['options']:
+        _move_prebuilt_theme(theme_name, theme_opts, tmp_dir)
+    else:
+        _build_custom_theme(xml, theme_name, theme_opts, tmp_dir)
+
+# todo - rewrite other code that does similar things to use this function?
+def get_web_asset(url):
+    """Get the contents of an http request"""
+    try:
+        import requests
+    except ImportError:
+        msg = 'The "requests" module is not available and is necessary for downloading files.'
+        log.debug(msg)
+        raise Exception(msg)
+
+    try:
+        services_response = requests.get(url)
+    except requests.exceptions.RequestException as e:
+        msg = '\n'.join(['There was a network problem while trying to download "{}"',
+                            'and the reported problem is:',
+                            '{}'
+                            ])
+        log.debug(msg.format(url, e))
+        raise Exception(msg.format(url, e))
+
+    # Check that an online request was "OK", HTTP response code 200
+    response_status_code = services_response.status_code
+    if response_status_code != 200:
+        msg = '\n'.join(["The file {} was not found",
+                            "the server returned response code {}"
+                            ])
+        log.debug(msg.format(url, response_status_code))
+        raise Exception(msg.format(url, response_status_code))
+
+    return services_response.content
+
+def download_file(url, dest_filename):
+    """Write a web asset to a local file"""
+    contents = get_web_asset(url)
+    try:
+        import pathlib
+        output_file = pathlib.Path(dest_filename)
+        output_file.parent.mkdir(exist_ok=True, parents=True)
+
+        with open(dest_filename, 'wb') as f:
+            f.write(contents)
+    except Exception as e:
+        raise Exception("Failed to save download", dest_filename)
+
 def html(
     xml, pub_file, stringparams, xmlid_root, file_format, extra_xsl, out_file, dest_dir
 ):
@@ -3569,26 +3699,59 @@ def html(
     # names for scratch directories
     tmp_dir = get_temporary_directory()
 
-    # See if we can get the very latest Runestone Services from the Runestone
-    # CDN.  A non-empty version (fourth parameter) indicates success
-    #  "altrs" = alternate Runestone
-    altrs_js, altrs_css, altrs_cdn_url, altrs_version = _runestone_services(stringparams)
-    online_success = (altrs_version != '')
-    # report repository version always, supersede if newer found
-    msg = 'Runestone Services (via PreTeXt repository): version {}'
-    log.info(msg.format(get_runestone_services_version()))
-    if online_success:
-        msg = 'Runestone Services (using newer, via online CDN query): version {}'
-        log.info(msg.format(altrs_version))
-    # with a successful online query, we load up some string parameters
-    # the receiving stylesheet has the parameters default to empty strings
-    # which translates to consulting the services file in the repository,
-    # so we do nothing when the online query fails
-    if online_success:
-        stringparams["altrs-js"] = altrs_js
-        stringparams["altrs-css"] = altrs_css
-        stringparams["altrs-cdn-url"] = altrs_cdn_url
-        stringparams["altrs-version"] = altrs_version
+    # Decide which Runestone Services to use
+    if "debug.rs.dev" not in stringparams:
+        # See if we can get the very latest Runestone Services from the Runestone
+        # CDN.  A non-empty version (fourth parameter) indicates success
+        #  "altrs" = alternate Runestone
+        altrs_js, altrs_css, altrs_cdn_url, altrs_version = _runestone_services(stringparams)
+        online_success = (altrs_version != '')
+        # report repository version always, supersede if newer found
+        msg = 'Runestone Services (via PreTeXt repository): version {}'
+        log.info(msg.format(get_runestone_services_version()))
+        if online_success:
+            msg = 'Runestone Services (using newer, via online CDN query): version {}'
+            log.info(msg.format(altrs_version))
+            # with a successful online query, we load up some string parameters
+            # the receiving stylesheet has the parameters default to empty strings
+            # which translates to consulting the services file in the repository,
+            # so we do nothing when the online query fails
+            stringparams["altrs-js"] = altrs_js
+            stringparams["altrs-css"] = altrs_css
+            stringparams["altrs-cdn-url"] = altrs_cdn_url
+            stringparams["altrs-version"] = altrs_version
+
+            # get all the runestone files and place in tmp dir
+            services_file_name = "dist-{}.tgz".format(altrs_version)
+            output_dir = os.path.join(tmp_dir, "_static")
+            services_full_path = os.path.join(output_dir, services_file_name)
+            final_output_path = os.path.join(dest_dir, "_static", services_file_name)
+            if file_format  == "html" and os.path.exists(final_output_path):
+                msg = "Using existing Runestone Services located in {}. Delete Runestone files there to force a fresh download."
+                log.info(msg.format(os.path.join(dest_dir, '_static')))
+                os.path.exists(services_full_path)
+                stringparams["rs-local-files"] = "yes"
+            else:
+                try:
+                    msg = 'Downloading Runestone Services, version {}'
+                    log.info(msg.format(altrs_version))
+                    download_file(altrs_cdn_url + services_file_name, services_full_path)
+                    log.info("Extracting Runestone Services from archive file")
+                    import tarfile
+                    file = tarfile.open(services_full_path)
+                    file.extractall(output_dir)
+                    file.close()
+                    stringparams["rs-local-files"] = "yes"
+                except Exception as e:
+                    log.warning(e)
+                    log.warning("Failed to download all Runestone Services files - will rely on links to web resources")
+    else:
+        log.info("Building for local developmental Runestone Services. Make sure to build Runestone Services to _static in the output directory.")
+        stringparams["altrs-js"] = "prefix-runtime.bundle.js:prefix-runtime-libs.bundle.js:prefix-runestone.bundle.js"
+        stringparams["altrs-css"] = "prefix-runtime-libs.css:prefix-runestone.css"
+        stringparams["altrs-cdn-url"] = ""
+        stringparams["altrs-version"] = "dev"
+        stringparams["rs-local-files"] = "yes"
 
     # support publisher file, and subtree argument
     if pub_file:
@@ -3607,6 +3770,9 @@ def html(
 
     # place CSS and JS in scratch directory
     copy_html_css_js(tmp_dir)
+
+    # build or copy theme
+    build_or_copy_theme(xml, pub_file, stringparams, tmp_dir)
 
     # Write output into temporary directory
     log.info("converting {} to HTML in {}".format(xml, tmp_dir))
@@ -4415,12 +4581,11 @@ def copy_html_css_js(work_dir):
     '''Copy all necessary CSS and JS into working directory'''
 
     # Place support files where expected.
-    # We are not careful about placing files that are not used/necessary.
-    # In particular, all CSS themes are present for the situation where
-    # the reader can choose/switch themes on-the-fly.
-    css_src = os.path.join(get_ptx_path(), "css")
+    # We are not careful about placing only modules that are needed, all are copied.
+    css_src = os.path.join(get_ptx_path(), "css/dist/modules")
     css_dest = os.path.join(work_dir, "_static", "pretext", "css")
-    shutil.copytree(css_src, css_dest)
+    if os.path.isdir(css_src):
+        shutil.copytree(css_src, css_dest)
 
     js_src = os.path.join(get_ptx_path(), "js")
     js_dest = os.path.join(work_dir, "_static", "pretext", "js")
@@ -4524,7 +4689,7 @@ def get_publisher_variable(xml_source, pub_file, params, variable):
     with open(temp_file, 'r') as f:
         for line in f:
             parts = line.split()
-            pairs[parts[0]] =  parts[1]
+            pairs[parts[0]] = " ".join(parts[1:]) if len(parts) > 1 else None
 
     if variable in pairs:
         return pairs[variable]
