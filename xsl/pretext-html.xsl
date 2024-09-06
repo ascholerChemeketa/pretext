@@ -10647,6 +10647,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:call-template name="converter-blurb-html-no-date"/>
     <html>
         <xsl:call-template name="language-attributes"/>
+        <xsl:call-template name="html-theme-html-hook"/>
         <!-- Open Graph Protocol only in "meta" elements, within "head" -->
         <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
             <title>
@@ -10707,8 +10708,8 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
                 </xsl:choose>
                 <!-- ignore MathJax signals everywhere, then enable selectively -->
                 <xsl:text> ignore-math</xsl:text>
-                <xsl:value-of select="$extra-body-classes"/>
             </xsl:attribute>
+            <xsl:value-of select="$extra-body-classes"/>
             <!-- assistive "Skip to main content" link    -->
             <!-- this *must* be first for maximum utility -->
             <xsl:call-template name="skip-to-content-link" />
@@ -13000,16 +13001,7 @@ TODO:
 <!-- CSS header -->
 <xsl:template name="css">
     <xsl:if test="not($b-debug-react)">
-        <link href="{$html.css.dir}/pretext.css" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/pretext_add_on.css" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-shellfile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-bannerfile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-navbarfile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-tocfile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-knowlfile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-stylefile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/{$html-css-colorfile}" rel="stylesheet" type="text/css"/>
-        <link href="{$html.css.dir}/setcolors.css" rel="stylesheet" type="text/css"/>
+        <link href="{$html.css.dir}/theme.css" rel="stylesheet" type="text/css"/>
     </xsl:if>
     <!-- If extra CSS is specified, then unpack multiple CSS files -->
     <xsl:if test="not($html.css.extra = '')">
