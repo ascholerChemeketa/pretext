@@ -3184,22 +3184,13 @@ def epub(xml_source, pub_file, out_file, dest_dir, math_format, stringparams):
     # EPUB exists from above xsltproc call
     css_dir = os.path.join(tmp_dir, "EPUB", "css")
     os.mkdir(css_dir)
-    stylefile = packaging_tree.xpath("/packaging/css/@stylefile")[0]
-    colorfile = packaging_tree.xpath("/packaging/css/@colorfile")[0]
-    for cssfilename in [
-        str(stylefile),
-        str(colorfile),
-        "pretext.css",
-        "pretext_add_on.css",
-        "setcolors.css",
-    ]:
-        css = os.path.join(get_ptx_xsl_path(), "..", "css", cssfilename)
-        shutil.copy2(css, css_dir)
+
+    # All styles are baked into one of these two files
     if math_format == "kindle":
-        css = os.path.join(get_ptx_xsl_path(), "..", "css", "kindle.css")
+        css = os.path.join(get_ptx_xsl_path(), "../css/dist/kindle.css")
         shutil.copy2(css, css_dir)
     if math_format == "svg":
-        css = os.path.join(get_ptx_xsl_path(), "..", "css", "epub.css")
+        css = os.path.join(get_ptx_xsl_path(), "../css/dist/epub.css")
         shutil.copy2(css, css_dir)
 
     # EPUB Cover File
@@ -3408,9 +3399,11 @@ def epub(xml_source, pub_file, out_file, dest_dir, math_format, stringparams):
     images = packaging_tree.xpath("/packaging/images/image[@filename]")
     for im in images:
         source = os.path.join(source_dir, str(im.get("sourcename")))
-        dest = os.path.join(xhtml_dir, str(im.get("filename")))
-        os.makedirs(os.path.dirname(dest), exist_ok=True)
-        shutil.copy2(source, dest)
+        # empty image names in sample book were breaking my build
+        if im.get("sourcename") != "":
+            dest = os.path.join(xhtml_dir, str(im.get("filename")))
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            shutil.copy2(source, dest)
 
     # clean-up the trash
     # TODO: squelch knowls or find alternative
@@ -3564,6 +3557,99 @@ def _runestone_services(params):
     altrs_version = services.xpath("/all/version")[0].text
     return (altrs_js, altrs_css, altrs_cdn_url, altrs_version)
 
+# Helper to move a prebuilt css theme into the build directory as theme.css
+def _move_prebuilt_theme(theme_name, theme_opts, tmp_dir):
+        css_src = os.path.join(get_ptx_path(), "css/dist")
+        css_dest = os.path.join(tmp_dir, "_static", "pretext", "css")
+
+        src = os.path.join(get_ptx_path(), "css/dist/theme-{}.css".format(theme_name))
+        dest = os.path.join(get_ptx_path(), os.path.join(css_dest, "theme.css"))
+        log.debug("Using prebuilt theme: " + theme_name)
+
+        # copy src -> dest with modifications
+        with open(src, 'r') as theme_file:
+            filedata = theme_file.read()
+
+            # modify file so that it points to the map file theme.css.map
+            filedata = re.sub(r'sourceMappingURL=[^\s]*', r'sourceMappingURL=theme.css.map', filedata)
+
+            # append some css variables to the file so that colors can be customized
+            # without rebuilding the theme
+            regular_vars = {k:v for k, v in theme_opts['variables'].items() if "-dark" not in k}
+            dark_vars = {k.replace("-dark",""):v for k, v in theme_opts['variables'].items() if "-dark" in k}
+            if regular_vars:
+                filedata += "\n/* generated from pub variables */\n:root {"
+                for key, value in regular_vars.items():
+                    filedata += "--{}: {};".format(key, value)
+                filedata += "}"
+            if dark_vars:
+                filedata += "\n/* generated from pub variables */\n:root.dark-mode {"
+                for key, value in dark_vars.items():
+                    filedata += "--{}: {};".format(key, value)
+                filedata += "}"
+
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with open(dest, 'w+') as file:
+                file.write(filedata)
+
+        # map file copied as is
+        shutil.copy(src + ".map", dest + ".map")
+
+# Helper to build a custom version of a theme
+def _build_custom_theme(xml, theme_name, theme_opts, tmp_dir):
+    ptx_path = get_ptx_path()
+    script = os.path.join(ptx_path, "script", "cssbuilder", "cssbuilder.mjs")
+    css_dest = os.path.join(tmp_dir, "_static", "pretext", "css")
+
+    # if doing building a compltely custom theme, update entry-point to include full path as string
+    if theme_name == "custom":
+        theme_opts['options']['entry-point'] = os.path.join(get_source_path(xml), theme_opts['options']['entry-point'])
+
+    # attempt build
+    error_message = "Node.js is required to build customized themes. Make sure it is installed and in your PATH"
+    try:
+        import subprocess, json
+        # theme name is prefixed with "theme-" in the cssbuilder script output
+        full_name = "theme-{}".format(theme_name)
+        log.debug("Building custom theme: " + full_name)
+        log.debug("Theme options:" + json.dumps(theme_opts))
+        result = subprocess.run(["node", script, "-t", full_name, "-o", css_dest, "-c", json.dumps(theme_opts)], capture_output=True, timeout=10)
+        if result.stdout:
+            log.debug(result.stdout.decode())
+        if result.stderr:
+            error_message = result.stderr.decode()
+            raise Exception("Failed to build custom theme")
+    except Exception as e:
+        log.error(error_message)
+        raise e
+
+def check_color_contrast(color1, color2):
+    from coloraide import Color
+    contrast = Color(color1).contrast(color2, method='wcag21')
+    if contrast < 4.5:
+        log.warning("Color " + color1 + " does not have enough contrast with expected background color " + color2 + ". Contrast ratio is " + str(contrast) + " but should be at least 4.5. Adjust your publisher file html/css/variables to ensure sufficient contrast.")
+
+def build_or_copy_theme(xml, pub_file, stringparams, tmp_dir):
+    theme_name = get_publisher_variable(xml, pub_file, stringparams, 'html-theme-name')
+    theme_opts_json = get_publisher_variable(xml, pub_file, stringparams, 'html-theme-options')
+    import json
+    theme_opts = json.loads(theme_opts_json)
+
+    # attempt basic sanity check of colors
+    for var, check_color in theme_opts['contrast-checks'].items():
+        if var in theme_opts['variables']:
+            check_color_contrast(theme_opts['variables'][var], check_color)
+
+    # prerolled themes with no options get copied from css/dist; otherwise, build a custom theme
+    prerolled = "-legacy" in theme_name or theme_name == "default-modern"
+    print(theme_name)
+    print(prerolled)
+    print(theme_opts)
+    if prerolled and not theme_opts['options']:
+        _move_prebuilt_theme(theme_name, theme_opts, tmp_dir)
+    else:
+        _build_custom_theme(xml, theme_name, theme_opts, tmp_dir)
+
 # todo - rewrite other code that does similar things to use this function?
 def get_web_asset(url):
     """Get the contents of an http request"""
@@ -3695,6 +3781,9 @@ def html(
 
     # place CSS and JS in scratch directory
     copy_html_css_js(tmp_dir)
+
+    # build or copy theme
+    build_or_copy_theme(xml, pub_file, stringparams, tmp_dir)
 
     # Write output into temporary directory
     log.info("converting {} to HTML in {}".format(xml, tmp_dir))
@@ -4559,12 +4648,11 @@ def copy_html_css_js(work_dir):
     '''Copy all necessary CSS and JS into working directory'''
 
     # Place support files where expected.
-    # We are not careful about placing files that are not used/necessary.
-    # In particular, all CSS themes are present for the situation where
-    # the reader can choose/switch themes on-the-fly.
-    css_src = os.path.join(get_ptx_path(), "css")
+    # We are not careful about placing only modules that are needed, all are copied.
+    css_src = os.path.join(get_ptx_path(), "css/dist/modules")
     css_dest = os.path.join(work_dir, "_static", "pretext", "css")
-    shutil.copytree(css_src, css_dest)
+    if os.path.isdir(css_src):
+        shutil.copytree(css_src, css_dest)
 
     js_src = os.path.join(get_ptx_path(), "js")
     js_dest = os.path.join(work_dir, "_static", "pretext", "js")
