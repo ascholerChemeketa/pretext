@@ -1,0 +1,42 @@
+// This file contains functions and mixins for working with colors in SCSS
+
+@use "sass:map";
+
+@mixin scss-to-css($colors) {
+  @each $name, $value in $colors {
+    --#{$name}: #{$value};
+  }
+}
+
+@function mixes($color, $other, $mix-amounts) {
+  $result: ();
+
+  @each $i in $mix-amounts {
+    $result: map.set($result, '#{$color}-#{$other}-#{$i}', 'color-mix(in oklab, var(--#{$color}), #{$other} #{$i}%)');
+  }
+
+  @return $result;
+}
+
+$std-mixes: (1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 65, 70, 75, 80, 85, 90, 95, 96, 97, 98, 99);
+
+// Creates a map of color blends for a given color
+// By default it creates blends with black, white, and gray at $std-mixes amounts
+// Mixing is done using css color-mix function so that if a theme file has the base
+// css variable overridden, the blends will be updated accordingly
+@function get-blends($color, $shades: $std-mixes, $tints: $std-mixes, $tones: $std-mixes, ) {
+  $shades: mixes($color, black, $std-mixes);
+  $tints: mixes($color, white, $std-mixes);
+  $tones: mixes($color, gray, $std-mixes);
+
+  $blends: map.merge(
+    $tints,
+    $shades
+  );
+
+  $blends: map.merge(
+    $blends,
+    $tones
+  );
+  @return $blends;
+}

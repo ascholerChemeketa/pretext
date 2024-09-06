@@ -1,0 +1,27 @@
+/* The Greg's L for proofs, etc */
+.ptx-content .proof {
+    border-right: 1px solid #666;
+    padding-right: 0.625em;
+    margin-right: -0.725em;
+}
+
+.ptx-content .proof:after {
+    content: '';
+    border-bottom: 1px solid #666;
+    display: block;
+    margin-left: auto;
+    margin-right: -0.625em;
+    /* so the corner of the L meets */
+    width: 1.5em;
+    padding-bottom: 0.25em;
+}
+
+.ptx-content .proof .proof {
+    margin-right: -0.2em;
+    border-right: 1.5px solid #ddd;
+}
+
+.ptx-content .proof .proof:after {
+    border-bottom: 1.5px solid #ddd;
+    width: 1em;
+}

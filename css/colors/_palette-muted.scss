@@ -1,0 +1,46 @@
+// Implements a palette with one main --primary-color
+// Less dramatic _palette-single.scss
+
+@use "sass:meta";
+@use "sass:color";
+@use "sass:map";
+@use "colors/color-helpers" as colorHelpers;
+@use "colors/color-vars" as color-vars;
+
+$primary-color: #2a5ea4 !default;
+
+$primary-color: rgb(30, 105, 3);
+// Start with values from color-vars
+$colors: map.merge(
+  color-vars.$colors, ()
+);
+
+// Compute color blends and add them as variables
+$blends: colorHelpers.get-blends('primary-color');
+$colors: map.merge(
+  $colors,
+  $blends
+);
+
+// Override some colors
+$colors: map.merge(
+  $colors,
+  (
+    "primary-color": $primary-color,
+
+    "toc-text": "var(--primary-color-black-30)",
+    "parttoctext": "var(--toc-text)",
+    "parttoc": "#f0f0f0",
+    "parttocactive": "var(--primary-color-white-15)",
+    "highlighttoc": "var(--primary-color-white-15)",
+    "chaptertoc": "var(--parttoc)",
+    "documenttitle": "var(--primary-color)",
+    "tocborder": "var(--primary-color-gray-80)",
+    "highlighttocborder": "var(--tocborder)",
+    "bannerbackground": "#fafafa",
+    "sectiontoc": "#fafafa",
+    "bodytitle": "var(--primary-color-black-20)",
+    "knowlbackground": #f8f8f8,
+    "knowlborder": var(--primary-color-gray-80),
+  )
+);
