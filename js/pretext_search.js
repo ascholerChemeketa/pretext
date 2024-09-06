@@ -6,23 +6,23 @@
 // var ptx_lunr_search_style = "reference";
 
 // since there is only one search box now, this can be simplified
-function doSearch(searchlocation="A") {
+function doSearch(searchlocation = "A") {
     // Get the search terms from the input text box
     var terms;
-    if(searchlocation == "A") {
+    if (searchlocation == "A") {
         terms = document.getElementById("ptxsearch").value;
     } else {
         terms = document.getElementById("ptxsearchB").value;
     }
-    
-    localStorage.setItem('last-search-terms', JSON.stringify({terms: terms, time: Date.now()}));
-    
+
+    localStorage.setItem('last-search-terms', JSON.stringify({ terms: terms, time: Date.now() }));
+
     // Where do we want to put the results?
     let resultArea = document.getElementById("searchresults")
     resultArea.innerHTML = "";  // clear out any previous results
     // assume AND for multiple words
     var searchterms = terms;
-    if(searchlocation == "B") {
+    if (searchlocation == "B") {
         document.getElementById("ptxsearch").value = searchterms
         console.log("ptxsearch value", document.getElementById("ptxsearch").value);
     } else {
@@ -31,9 +31,9 @@ function doSearch(searchlocation="A") {
 
     searchterms = searchterms.toLowerCase().trim();
     let pageResult = [];
-    if(searchterms != "") {
+    if (searchterms != "") {
         pageResult = ptx_lunr_idx.query((q) => {
-            for(let term of searchterms.split(' ')) {
+            for (let term of searchterms.split(' ')) {
                 q.term(term, { fields: ["title"], boost: 20 }); //exact title match with 20x weight
                 q.term(term, { wildcard: lunr.Query.wildcard.TRAILING, fields: ["title"], boost: 10 }); //inexact title 10x weight
                 q.term(term, { fields: ["body"], boost: 5 }); //exact body 5x weight
@@ -85,7 +85,7 @@ function augmentResults(result, docs) {
 
         //extra score multiplier based on level - prioritize sections over subsections/exercises/etc...
         const LEVEL_WEIGHTS = [3, 2, 1.5]
-        if( res.level < 2 ) 
+        if (res.level < 2)
             res.score *= LEVEL_WEIGHTS[res.level];
 
         res.body = '';
@@ -93,10 +93,10 @@ function augmentResults(result, docs) {
         const REVEAL_WINDOW = 30;
         let titleMarked = false;
         for (const hit in res.matchData.metadata) {
-            if(res.matchData.metadata[hit].title) {
+            if (res.matchData.metadata[hit].title) {
                 //only show one match in title as locations change after first markup
-                if(!titleMarked) {
-                    if(!res.matchData.metadata[hit].title.position)
+                if (!titleMarked) {
+                    if (!res.matchData.metadata[hit].title.position)
                         continue;
                     let positionData = res.matchData.metadata[hit].title.position[0];
                     const startClipInd = positionData[0];
@@ -106,7 +106,7 @@ function augmentResults(result, docs) {
                     titleMarked = true;
                 }
             } else if (res.matchData.metadata[hit].body) {
-                if(!res.matchData.metadata[hit].body.position)
+                if (!res.matchData.metadata[hit].body.position)
                     continue;
                 const bodyContent = info.body;
                 let positionData = res.matchData.metadata[hit].body.position[0];
@@ -114,9 +114,9 @@ function augmentResults(result, docs) {
                 const endInd = positionData[0] + positionData[1] + REVEAL_WINDOW;
                 const startClipInd = positionData[0];
                 const endClipInd = positionData[0] + positionData[1];
-                let resultSnippet = (startInd > 0 ? '...' : '' ) + bodyContent.substring(startInd, startClipInd);
+                let resultSnippet = (startInd > 0 ? '...' : '') + bodyContent.substring(startInd, startClipInd);
                 resultSnippet += '<span class="search-result-clip-highlight">' + bodyContent.substring(startClipInd, endClipInd) + '</span>';
-                resultSnippet += bodyContent.substring(endClipInd, endInd) + (endInd < bodyContent.length ? '...' : '' ) + '<br/>';
+                resultSnippet += bodyContent.substring(endClipInd, endInd) + (endInd < bodyContent.length ? '...' : '') + '<br/>';
                 res.body += resultSnippet;
             }
         }
@@ -124,28 +124,26 @@ function augmentResults(result, docs) {
 }
 
 function rearrangedArray(arry) {
-   // return a new array which is arry (with depth) sorted according to meas,
-   // again as an array with depth.
-   // "with depth'' means that large children drag along their parents.
-   let newarry = [];
-   let startind = 0;
-   let numtograb = 0;
-let ct = 1;
-   while (arry.length > 0 && ct < 500) {
-++ct;  // just in case something goes wrong
-       const locofmax = maxLocation(arry)
-       let segmentstart = locofmax;
-       let segmentlength = 1;
-       while (arry[segmentstart].level == "2") {
-           --segmentstart
-       }
-       while (segmentstart + segmentlength < arry.length && arry[segmentstart + segmentlength].level == "2") {
-           ++segmentlength
-       }
-// console.log("locofmax", locofmax, "starting", segmentstart, "going", segmentlength, "from", arry.length);
-       newarry.push(...arry.splice(segmentstart,segmentlength));
-   }
-// console.log("newarry", newarry);
+    // return a new array which is arry (with depth) sorted according to meas,
+    // again as an array with depth.
+    // "with depth'' means that large children drag along their parents.
+    let newarry = [];
+    let startind = 0;
+    let numtograb = 0;
+    let ct = 1;  // emergency stop counter
+    while (arry.length > 0 && ct < 500) {
+        ++ct;
+        const locofmax = maxLocation(arry)
+        let segmentstart = locofmax;
+        let segmentlength = 1;
+        while (arry[segmentstart].level == "2") {
+            --segmentstart
+        }
+        while (segmentstart + segmentlength < arry.length && arry[segmentstart + segmentlength].level == "2") {
+            ++segmentlength
+        }
+        newarry.push(...arry.splice(segmentstart, segmentlength));
+    }
     return newarry
 }
 function maxLocation(arry) {
@@ -185,7 +183,7 @@ function addResultToPage(searchterms, result, docs, numUnshown, resultArea) {
         document.getElementById("searchempty").style.display = "none";
     }
     let len = result.length;
-    console.log("first result", result[0]);
+
     if (len == 0) {
         if (document.getElementById("searchempty")) {
             document.getElementById("searchempty").style.display = "block";
@@ -194,32 +192,26 @@ function addResultToPage(searchterms, result, docs, numUnshown, resultArea) {
             noresults.classList.add("noresults");
             search_no_results_string = "No results were found"
             noresults.innerHTML = search_no_results_string + ".";
-   //     console.log("the new variable", search_results_heading_string);
             resultArea.appendChild(noresults);
         }
         document.getElementById("searchresultsplaceholder").style.display = null;
         return
     }
-// console.log("result",result);
     let allScores = result.map(function (r) { return r.score });
-// console.log(typeof allScores[0], "allScores",allScores);
-    allScores.sort((a,b) => (a - b));
+    allScores.sort((a, b) => (a - b));
     allScores.reverse();
-// console.log("allScores, sorted",allScores);
-
-//    let high = result[Math.floor(len*0.25)].score;
-//    let med = result[Math.floor(len*0.5)].score;
-//    let low = result[Math.floor(len*0.75)].score;
-    // sort the results by their position in the book, not their score
-    let high = allScores[Math.floor(len*0.20)];
-    let med = allScores[Math.floor(len*0.40)];
-    let low = allScores[Math.floor(len*0.75)];
     if (ptx_lunr_search_style == "reference") {
+        // sort the results by their position in the book, not their score
         result = rearrangedArray(result);
     }
     let indent = "1";
     let currIndent = indent;
     let origResult = resultArea;
+
+
+    let high = allScores[Math.floor(len * 0.20)];
+    let med = allScores[Math.floor(len * 0.40)];
+    let low = allScores[Math.floor(len * 0.75)];
     // Create list entries indenting as needed.  
     for (const res of result) {
         let link = document.createElement("a")
@@ -231,7 +223,7 @@ function addResultToPage(searchterms, result, docs, numUnshown, resultArea) {
             link.classList.add("medium_result")
         } else if (res.score >= low) {
             link.classList.add("low_result")
-        } else { 
+        } else {
             link.classList.add("no_result")
         }
         currIndent = res.level;
@@ -260,6 +252,17 @@ function addResultToPage(searchterms, result, docs, numUnshown, resultArea) {
         bullet.appendChild(p);
         resultArea.appendChild(bullet);
     }
+
+    // Auto-close search results when a result is clicked in case result is on
+    // the same page search started from
+    const resultsDiv = document.getElementById('searchresultsplaceholder');
+    const backDiv = document.querySelector('.searchresultsbackground');
+    resultArea.querySelectorAll("a").forEach((link) => {
+        link.addEventListener('click', (e) => {
+            backDiv.style.display = 'none';
+            resultsDiv.style.display = 'none';
+        });
+    });
     //Could print message about how many results are not shown. No way to localize it though...
     // if(numUnshown > 0) {
     //     let bullet = document.createElement("li");
@@ -274,22 +277,18 @@ function addResultToPage(searchterms, result, docs, numUnshown, resultArea) {
     MathJax.typesetPromise();
 }
 
+window.addEventListener("load", function (event) {
+    const resultsDiv = document.getElementById('searchresultsplaceholder');
 
-function showHelp() {
-    let state = document.getElementById("helpme").style.display;
-    if (state == "none") {
-        document.getElementById("helpme").style.display = "block";
-        document.getElementById("helpbutt").innerHTML = "Hide Help"
-    } else {
-        document.getElementById("helpme").style.display = "none";
-        document.getElementById("helpbutt").innerHTML = "Show Help"
-    }
-}
+    //insert a div to be backgroud behind searchresultsplaceholder
+    const backDiv = document.createElement("div");
+    backDiv.classList.add("searchresultsbackground");
+    backDiv.style.display = 'none';
+    resultsDiv.parentNode.appendChild(backDiv);
 
-
-window.addEventListener("load",function(event) {
     document.getElementById("searchbutton").addEventListener('click', (e) => {
-        document.getElementById('searchresultsplaceholder').style.display = null;
+        resultsDiv.style.display = null;
+        backDiv.style.display = null;
         let searchInput = document.getElementById("ptxsearch");
         searchInput.value = JSON.parse(localStorage.getItem("last-search-terms")).terms;
         searchInput.select();
@@ -301,7 +300,8 @@ window.addEventListener("load",function(event) {
     });
 
     document.getElementById("closesearchresults").addEventListener('click', (e) => {
-        document.getElementById('searchresultsplaceholder').style.display = 'none';
+        resultsDiv.style.display = 'none';
+        backDiv.style.display = 'none';
         document.getElementById('searchbutton').focus();
     });
 });
