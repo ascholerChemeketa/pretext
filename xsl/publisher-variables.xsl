@@ -2285,8 +2285,16 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
             <xsl:value-of select="$publication/html/css/@theme"/>
         </xsl:when>
         <xsl:otherwise>
+            <!-- legacy style detection -->
             <xsl:choose>
-                <!-- hopefully eventually remove the legacy detection -->
+                <!-- crc and min are best detected via @shell -->
+                <xsl:when test="contains($publication/html/css/@shell, 'crc')">
+                    <xsl:text>crc-legacy</xsl:text>
+                </xsl:when>
+                <xsl:when test="contains($publication/html/css/@shell, 'min')">
+                    <xsl:text>min-legacy</xsl:text>
+                </xsl:when>
+                <!-- others by @style                         -->
                 <xsl:when test="$publication/html/css/@style">
                     <xsl:value-of select="$publication/html/css/@style"/>
                     <xsl:text>-legacy</xsl:text>
@@ -2323,9 +2331,9 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <!-- Must be an option in the theme -->
         <xsl:when test="$html-theme/option[@name = $optname]">
             <xsl:choose>
-                <xsl:when test="$publication/html/css/@*[name() = $optname]">
+                <xsl:when test="$publication/html/css/options/@*[name() = $optname]">
                     <!-- Exists in pub file, use that -->
-                    <xsl:value-of select="$publication/html/css/@*[name() = $optname]"/>
+                    <xsl:value-of select="$publication/html/css/options/@*[name() = $optname]"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Use default from theme def -->
@@ -2349,17 +2357,10 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 <xsl:variable name="html-theme-options">
     <xsl:text>{</xsl:text>
         <xsl:text>&quot;options&quot;:{</xsl:text>
-        <xsl:for-each select="$html-theme/option">
-            <xsl:variable name="option-val">
-                <xsl:call-template name="get-theme-option">
-                    <xsl:with-param name="optname">
-                        <xsl:value-of select="@name"/>
-                    </xsl:with-param>
-                </xsl:call-template>
-            </xsl:variable>
+        <xsl:for-each select="$publication/html/css/options/@*">
             <xsl:if test="position() > 1"><xsl:text>, </xsl:text></xsl:if>
-            <xsl:value-of select="concat('&quot;', @name, '&quot;:')"/>
-            <xsl:value-of select="concat('&quot;', $option-val, '&quot;')"/>
+            <xsl:value-of select="concat('&quot;', name(.), '&quot;:')"/>
+            <xsl:value-of select="concat('&quot;', ., '&quot;')"/>
         </xsl:for-each>
         <xsl:text>}</xsl:text>
         <xsl:text>,&quot;variables&quot;:{</xsl:text>
@@ -2378,27 +2379,6 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <xsl:text>}</xsl:text>
     <xsl:text>}</xsl:text>
 </xsl:variable>
-
-<!-- Inject classes into the root div of a book. Only for used for  -->
-<!-- legacy styles - handles old css@colors                         -->
-<xsl:template name="html-theme-html-hook">
-    <!-- check for use of old css color sheets -->
-    <xsl:if test="$html-theme-name != '' and contains($html-theme-name, '-legacy')">
-        <xsl:attribute name="data-legacy-colorscheme">
-            <xsl:choose>
-                <xsl:when test="not($debug.colors = '')">
-                    <xsl:value-of select="$debug.colors"/>
-                </xsl:when>
-                <xsl:when test="$publication/html/css/@colors">
-                    <xsl:value-of select="$publication/html/css/@colors"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>default</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:attribute>
-    </xsl:if>
-</xsl:template>
 
 <!--                              -->
 <!-- HTML Analytics Configuration -->
