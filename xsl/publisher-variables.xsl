@@ -2385,9 +2385,9 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <!-- Must be an option in the theme -->
         <xsl:when test="$html-theme/option[@name = $optname]">
             <xsl:choose>
-                <xsl:when test="$publication/html/css/@*[name() = $optname]">
+                <xsl:when test="$publication/html/css/options/@*[name() = $optname]">
                     <!-- Exists in pub file, use that -->
-                    <xsl:value-of select="$publication/html/css/@*[name() = $optname]"/>
+                    <xsl:value-of select="$publication/html/css/options/@*[name() = $optname]"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Use default from theme def -->
