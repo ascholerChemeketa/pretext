@@ -7783,7 +7783,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
                 <figure xml:id="figure-simple-js-script">
                     <caption>A simple embedded script example</caption>
 
-                    <interactive aspect="6:1" xml:id="interactive-simple-js-script" platform="javascript" source="code/roesler/kinematics.js">
+                    <interactive aspect="6:1" xml:id="interactive-simple-js-script" platform="javascript">
                         <slate aspect="6:1" xml:id="simple-js-script" surface="canvas"/>
                         <script>
                             const canvas = document.getElementById("simple-js-script");
