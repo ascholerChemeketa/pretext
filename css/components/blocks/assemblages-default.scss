@@ -1,0 +1,122 @@
+/* Style *-like environments:
+definition-like,
+theorem-like,
+example-like,
+project-like,
+remark-like,
+computation-like,
+goal-like, and
+assemblage-like.
+*/
+
+$pad: 0.4em;
+
+.ptx-content {
+
+  // apply L to all *-like environments
+  :is(
+  .theorem-like,
+  .definition-like,
+  .example-like,
+  .project-like,
+  .remark-like,
+  .openproblem-like,
+  .computation-like,
+  .commentary
+  ):not(.knowl__content) {
+    padding-left: $pad;
+    border-left: 2px solid var(--groupborder);
+    
+    &::after {
+      content:'';
+      border-bottom: 2px solid var(--groupborder);
+      display: block;
+      margin-right: auto;
+      margin-left: -$pad;
+      padding-top: $pad;
+      width: 1.5em;
+    }
+  }
+  
+  // projects get a dotted L
+  .project-like:not(.knowl__content) {
+    border-left: 2px dotted var(--projectborder);
+
+    &::after {
+      border-bottom: 2px dotted var(--projectborder);
+    }
+  }
+  
+  // commentary gets a thicker L
+  .commentary:not(.knowl__content) {
+    border-left: 3px solid var(--commentaryboder);
+    padding-left: 1.5 * $pad;
+
+    &::after {
+      content:'';
+      border-bottom: 3px solid var(--commentaryboder);
+      padding-left: 1.5 * $pad;
+      margin-left: -1.5 * $pad;
+    }
+  }
+
+  // rounded box w/block title
+  .assemblage-like {
+    border: solid 2px var(--assembborder);
+    background-color: var(--assembbody);
+    border-radius: 12px;
+    padding: 10px;
+
+    & > .heading {
+      display: block;
+      margin-bottom: 1em;
+    }
+  }
+  
+  // box with title inset on top
+  .goal-like {
+    border: solid 3px var(--goalborder);
+    padding: 2 * $pad;
+    margin-top: 1.5em;
+    
+    & > .heading {
+      margin-top: -1.75em;
+      background-color: var(--mainbackground);
+      display: table;
+      padding: $pad (2 * $pad);
+      margin-left: 5px;
+      font-style: italic;
+      font-size: 120%;
+
+      .codenumber {
+        display:none;
+      }
+    }
+  }
+  
+  
+  // wide sidebar
+  .solutions {
+    font-size: .9rem;
+    padding-left: 1em;
+    border-left: 1em solid var(--solutionborder);
+  }
+
+  // ???? Not sure these are needed - can't find good example
+  // .example-like > .solution-like,
+  // .exercise-like > .solution-like {
+  //   margin-top: 1.0em;
+  //   padding-left: 0.7em;
+  // }
+  // .example-like > .solution-like > .heading,
+  // .exercise-like > .solution-like > .heading {
+  //   font-size: 100%;
+  //   font-weight: 700;
+  //   margin-right: 0.25em;
+  //   display: inline;
+  // }
+  // .example-like > .solution-like > .heading + .para,
+  // .exercise-like > .solution-like > .heading + .para {
+  //   display: inline;
+  // }
+}

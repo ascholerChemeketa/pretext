@@ -1,0 +1,116 @@
+// Implements a dark theme single color palette using a --primary-color
+
+@use "sass:meta";
+@use "sass:color";
+@use "sass:map";
+@use "colors/color-helpers" as colorHelpers;
+@use "colors/color-vars.scss" as color-vars;
+
+$primary-color: #6285ca !default;
+$background-color: #23241f !default;
+
+// Grab all color variables, override some for palette
+$colors: map.merge(
+  color-vars.$colors,
+  (
+  "primary-color": $primary-color,
+  "background-color": $background-color,
+
+  // Color of entire webpage
+  "mainbackground": var(--background-color),
+  // Background of content area
+  "page-color": var(--mainbackground),
+  // Background of area outside content
+  "page-gutter-color": var(--mainbackground),
+  "page-border-color": var(--background-color-white-25),
+
+  // ------------------------------------------------------------------------------
+  // Banner/nav related
+
+  "documenttitle": var(--primary-color),
+  "bannerbackground": $background-color,
+  "navbarbackground": var(--background-color-gray-10),
+  "footerbackground": var(--background-color-black-10),
+
+  // ------------------------------------------------------------------------------
+  // TOC related
+
+  "tocborder": #555,
+  "toc-text": var(--bodyfontcolor),
+  // highlight styles are used for hover/active states
+  "highlighttoc": var(--primary-color-gray-5),
+  "highlighttoctext": white,
+  "highlighttocborder": var(--highlighttoc),
+
+  "parttoc": var(--background-color-gray-10),
+  "parttoctext": var(--primary-color-white-40),
+  "parttocactive": var(--primary-color-black-25),
+  "parttoctextactive": white,
+  "chaptertoc": var(--parttoc),
+  "chaptertoctext": var(--parttoctext),
+  "chaptertocactive": var(--parttocactive),
+  "chaptertoctextactive": var(--parttoctextactive),
+  "sectiontoc": var(--mainbackground),
+  "sectiontoctext": var(--toc-text),
+  "sectiontocactive": var(--parttocactive),
+  "sectiontoctextactive": var(--parttoctextactive), 
+
+  // ==============================================================================
+  // Content
+  // ==============================================================================
+
+  // ------------------------------------------------------------------------------
+  // Text & titles
+
+  "bodyfontcolor": #f2f2f2,
+  "bodytitle": var(--primary-color-white-20),
+  "byline-color": var(--background-color-white-50),
+  
+  "ptx-image-bg": white,
+
+  "activated-content-bg": rgba(255, 237, 185, 20%),
+
+  // ------------------------------------------------------------------------------
+  // Links & knowls
+
+  "linkColor": var(--primary-color-white-10),
+  "linkActive": var(--primary-color-white-40),
+  "linkBackground": var(--background-color-gray-30),
+  "altLinkColor": var(--linkColor),
+  "altLinkActive": var(--linkActive),
+  "altLinkBackground": var(--background-color-gray-30),
+  "knowlLinkColor": var(--documenttitle),
+  "knowlbackground": var(--background-color-black-10),
+  "knowlborder": var(--background-color-white-20),
+  "knowlNested1Background": var(--background-color-gray-10),
+  "knowlNested2Background": var(--background-color-black-10),
+  "knowlNested3Background": var(--background-color-gray-10),
+  "knowlNested4Background": var(--background-color-black-10),
+
+  // ------------------------------------------------------------------------------
+  // Groupings (assemblages, etc...)
+
+  // ------------------------------------------------------------------------------
+  // Buttons & Widgets
+  "buttonbackground": var(--background-color-gray-20),
+  "buttonborder": var(--background-color-white-25),
+  "buttonhover": var(--primary-color),
+  "buttonforeground": var(--bodyfontcolor),
+  "code-inline": var(--background-color-gray-20),
+  )
+);
+
+
+// Compute color blends and add them as variables
+$blends: colorHelpers.get-blends('background-color');
+$colors: map.merge(
+  $colors,
+  $blends
+);
+
+// Compute color blends and add them as variables
+$blends: colorHelpers.get-blends('primary-color');
+$colors: map.merge(
+  $colors,
+  $blends
+);

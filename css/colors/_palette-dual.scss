@@ -1,0 +1,54 @@
+// Implements a palette with two main colors, --primary-color and --secondary-color
+
+@use "sass:meta";
+@use "sass:color";
+@use "sass:map";
+@use "colors/color-helpers" as colorHelpers;
+@use "colors/color-vars" as color-vars;
+
+$primary-color: #2a5ea4 !default;
+$secondary-color: #932c1c !default;
+
+// Start with values from color-vars
+$colors: map.merge(
+  color-vars.$colors, ()
+);
+
+// Compute color blends and add them as variables
+$blends: colorHelpers.get-blends('primary-color');
+$colors: map.merge(
+  $colors,
+  $blends
+);
+$blends: colorHelpers.get-blends('secondary-color');
+$colors: map.merge(
+  $colors,
+  $blends
+);
+
+// Override some colors
+$colors: map.merge(
+  $colors,
+  (
+    "primary-color": $primary-color,
+    "secondary-color": $secondary-color,
+
+    "parttoc": "var(--primary-color)",
+    "parttocactive": "var(--secondary-color)",
+    "highlighttoc": "var(--secondary-color-white-10)",
+    "chaptertoc": "var(--parttoc)",
+    "documenttitle": "var(--primary-color)",
+    "tocborder": "var(--primary-color-gray-50)",
+    
+    "bodytitle": "var(--primary-color-black-5)",
+    
+    "activated-content-bg": color.scale($secondary-color, $lightness: 90%),
+    
+    "goalborder": var(--secondary-color-white-20),
+    "altLinkColor": var(--secondary-color-black-10),
+    "altLinkActive": var(--secondary-color),
+    "altLinkBackground": var(--secondary-color-white-95),
+
+    //"buttonhover": "var(--secondary-color-white-80)",
+  )
+);
