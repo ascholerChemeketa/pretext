@@ -97,7 +97,14 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <!-- specify the style of the html by giving names to      -->
         <!-- override defaults.  Ex: to use "style_oscarlevin.css" -->
         <!-- put <css style="oscarlevin"/>                         -->
-        <css style="default" colors="blue_red" toc="default" banner="default" navbar="default" shell="default"/>
+        <css theme="default-modern">
+            <!-- Some themes can be customized with variables      -->
+            <!-- and/or options. Options require a theme rebuild   -->
+            <!-- to apply while variables can be applied to a      -->
+            <!-- prebuilt theme.                                   -->
+            <variables primary-color="#2a5ea4" primary-color-dark="#829ab1" secondary-color="#a11c1c"/>
+            <!-- <options provide-dark-mode="no"/> -->
+        </css>
         <!-- Magic IDs identify HTML pages to analytics services   -->
         <!-- Presence implies relevant Javascript will be added    -->
         <!-- StatCounter requires both values to be set            -->
