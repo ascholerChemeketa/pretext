@@ -3845,6 +3845,9 @@ def html(
     # build or copy theme
     build_or_copy_theme(xml, pub_file, stringparams, tmp_dir)
 
+    # build or copy theme
+    build_or_copy_theme(xml, pub_file, stringparams, tmp_dir)
+
     # Write output into temporary directory
     log.info("converting {} to HTML in {}".format(xml, tmp_dir))
     xsltproc(extraction_xslt, xml, None, tmp_dir, stringparams)
