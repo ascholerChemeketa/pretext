@@ -3,7 +3,10 @@
  *******************************************************************************/
 
 .ptx-masthead {
+  position: relative;
   background: var(--bannerbackground);
+  min-height: inherit;
+  position: relative;
 
   .ptx-banner {
     border-top: 1px solid transparent;
@@ -107,7 +110,7 @@
     }
 
     .logo-link {
-      max-height: 1.5em;
+      display: none;
     }
 
     .byline {
