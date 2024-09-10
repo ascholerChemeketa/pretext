@@ -107,6 +107,7 @@ function getTargets(options) {
     { out: 'theme-wide-legacy', in: path.join(cssRoot, 'targets/html/legacy/wide/theme-wide.scss'), autobuild: true },
     // Modern web targets
     { out: 'theme-default-modern', in: path.join(cssRoot, 'targets/html/default-modern/theme-default-modern.scss'), autobuild: true },
+    { out: 'theme-centered-wide', in: path.join(cssRoot, 'targets/html/centered-wide/theme-centered-wide.scss'), autobuild: true },
     // -------------------------------------------------------------------------
     // Other modules - these are individually and conditionally loaded on pretext pages
     { out: 'modules/pretext_search', in: path.join(cssRoot, 'targets/modules/pretext_search.scss'), autobuild: true },
