@@ -2314,6 +2314,13 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <variable name="secondary-color" check-contrast="#fff"/>
         <variable name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
+    <theme name="centered-wide">
+        <option name="provide-dark-mode" default="yes"/>
+        <option name="palette" default="dual"/>
+        <variable name="primary-color" check-contrast="#fff"/>
+        <variable name="secondary-color" check-contrast="#fff"/>
+        <variable name="primary-color-dark" check-contrast="#23241f"/>
+    </theme>
     <theme name="custom">
         <option name="entry-point" default="custom-theme.scss"/>
     </theme>

@@ -1,0 +1,296 @@
+@use '../default-modern/shell_default-modern';
+
+
+:root {
+  --content-margin: 48px;
+  --content-width: 750px;
+  --content-width-wide: 1050px;
+  --page-width: 1100px;
+  --xl-margin: calc(
+    (var(--content-width) - var(--content-width-wide)) / 2 - var(--content-margin)
+  );
+
+  --content-font-size: 1.2rem;
+}
+
+@mixin page-block {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  border-left: 1px solid var(--page-border-color);
+  border-right: 1px solid var(--page-border-color);
+}
+
+
+.ptx-masthead {
+  @include page-block;
+
+  .ptx-banner {
+    justify-content: center;
+    padding: 8px 0;
+  }
+  
+  .title-container {
+    flex: unset;
+  }
+}
+
+
+.ptx-page {
+  @include page-block;
+
+  min-height: 100vh;
+  background: var(--mainbackground);
+  border-top: 1px solid transparent; // prevent border collapse
+  margin-top: -1px; //hide top border
+}
+
+.ptx-main {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding-bottom: 2em;
+  border: 0;
+  overflow: visible;  // mostly for x, but not setting y forces -x to be "auto"
+}
+
+.ptx-sidebar.hidden + .ptx-main {
+  margin: 0 auto;
+}
+
+.ptx-content {
+  max-width: var(--content-width);
+  font-size: var(--content-font-size);
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.ptx-content-footer {
+  margin: 2em auto 0;
+  padding-bottom: 2em;
+  justify-content: space-evenly;
+}
+
+.ptx-page-footer {
+  @include page-block;
+
+  justify-content: center;
+  gap: 90px;
+  border-bottom: 0;
+}
+
+.ptx-navbar {
+  @include page-block;
+
+  //get rid of borders on outside controls in navbar
+  //first
+  .toc-toggle {
+    border-left: 0;
+  }
+  //last is either this
+  &:has(.nav-runestone-controls) {
+    .nav-runestone-controls button:last-of-type {
+      border-right: 0;
+    }
+  }
+  //or this
+  &:not(:has(.nav-runestone-controls)) {
+    .treebuttons .button:last-of-type {
+      border-right: 0;
+    }
+  }
+}
+
+
+.ptx-sidebar {
+  display: none;
+  z-index: 1000;
+  height: 0;
+
+  .ptx-toc {
+    width: 360px;
+    background-color: var(--mainbackground);
+  }
+}
+
+
+// --------------------------------------------------------------------------
+// Widening
+
+$rs-wide-elements: ".ac_section, .codelens, .parsons_section, .hparsons_section, .datafile";
+
+.ptx-content {  // right now needed to match specificity in pretext_add_on
+  /* components that should be wide */
+  .runestone:is(#{$rs-wide-elements}),
+  .contains-wide
+  {
+    width: var(--content-width-wide);
+    max-width: unset;
+    margin-left: var(--xl-margin);
+    max-width: unset;
+    border-width: 1px;
+    border-radius: 3px;
+  }
+
+  /* unless nested in other runestone's */
+  .runestone {
+    .runestone:is(#{$rs-wide-elements}),
+    .contains-wide {
+      width: 100%;
+      margin-left: auto;
+    }
+  }
+
+  /* limit width of content inside ac except for actual activecode */
+  .runestone.ac_section
+    > div
+    > div
+    > *:not(.ac_code_div):not(.ac_output):not(.codelens):not(.ac_actions) {
+    max-width: calc(var(--content-width) - 2 * var(--content-margin));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* limit width of content inside contains-wide */
+  .runestone.contains-wide .tab-content {
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+
+    /* but widen item that needs it */
+    .runestone:is(#{$rs-wide-elements}) {
+      width: calc(var(--content-width-wide) - 20px);
+      margin-left: calc(var(--xl-margin) + 8px);
+    }
+  }
+
+  /* limit width of content inside parsons except for actual parsons */
+  .runestone.parsons_section > .parsons {
+    width: 100%;
+    padding-right: 0;
+    
+    .sortable-code-container {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 10px auto;
+    }
+
+    .sortable-code {
+      margin: 0;
+    }
+
+    .runestone_caption_text {
+      max-width: unset;
+    }
+    
+    & > div > *:not(.sortable-code-container) {
+      max-width: calc(var(--content-width) - 2 * var(--content-margin));
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+// --------------------------------------------------------------------------
+// whole bunch of breakpoints to relatively gracefully handle lots of different sizes without js
+
+@media screen and (width <= 1100px) {
+  /* tune to match --page-width */
+  :root {
+    --page-width: 100%;
+  }
+}
+
+@media screen and (width <= 1100px) {
+  :root {
+    --content-width-wide: 1000px;
+  }
+}
+
+@media screen and (width <= 1050px) {
+  :root {
+    --content-width-wide: 950px;
+  }
+}
+
+@media screen and (width <= 1000px) {
+  :root {
+    --content-width-wide: 900px;
+  }
+}
+
+@media screen and (width <= 950px) {
+  :root {
+    --content-width-wide: 850px;
+  }
+}
+
+@media screen and (width <= 943px) {
+  /* Override rule that adds scrollbars to program listings when not needed */
+  .ptx-content .figure-like {
+    overflow-x: inherit;
+  }
+}
+
+@media screen and (width <= 900px) {
+  :root {
+    --content-width-wide: 800px;
+  }
+}
+
+$grouping-elements: ".theorem-like, .definition-like, .example-like, .project-like, .remark-like, .openproblem-like, .openproblems-like, .computation-like";
+
+@media screen and (width <= 850px) {
+  /* match to --content-width - should be that + 100 */
+  :root {
+    --content-width: 100%;
+    --content-font-size: 1rem;
+    --content-width-wide: calc(100% + 2 * var(--content-margin));
+    --xl-margin: calc(-1 * var(--content-margin));
+  }
+
+  /* nested sizing */
+  article:is(
+    #{$grouping-elements}
+  )
+  > .ptx-runestone-container
+  > .runestone:is(
+    #{$rs-wide-elements}
+  ),
+  article:is(
+    #{$grouping-elements}
+  )
+  > .ptx-runestone-container
+  > .runestone.contains-wide {
+    width: calc(var(--content-width-wide) + 10px);
+  }
+
+  // TODO - double check rest of file
+  .ptx-content
+    .runestone:is(#{$rs-wide-elements}) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-radius: 0;
+  }
+
+  .ptx-content .code-inline {
+    white-space: pre-wrap;
+  }
+
+  .ptx-runestone-container .cd_section,
+  .ptx-content .ptx-runestone-container .parsons .sortable-code {
+    overflow-x: auto;
+  }
+  
+  .ptx-content .ptx-runestone-container .parsons .sortable-code:first-of-type {
+    padding: 0 25px;
+  }
+}
+
+@media screen and (width <= 663px) {
+  :root {
+    --content-margin: 28px; // based on value set in shell_default
+  }
+}
