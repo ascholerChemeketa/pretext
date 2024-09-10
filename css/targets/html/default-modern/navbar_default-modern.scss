@@ -10,12 +10,15 @@
 @use 'components/buttons/buttons-default' as buttons;
 
 .ptx-navbar {
+  position: sticky;
+  top: 0;
+  height: 36px;
   background: var(--navbarbackground);
   border: 0;
   border-top: 1px solid var(--page-border-color);
   border-bottom: 1px solid var(--page-border-color);
   margin: 0;
-  z-index: 100;
+  z-index: 500;
   overflow: visible;
   display: flex;
 
@@ -92,6 +95,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 1100;
     background: var(--buttonborder);
   
     .nav-runestone-controls {

@@ -23,126 +23,69 @@
 */
 
 @use 'components/buttons/buttons-default' as buttons;
+@use 'banner_default-modern';
+@use 'navbar_default-modern';
+@use 'toc_default-modern';
 
-.pretext .ptx-masthead {
-  position: relative;
-  background: var(--bannerbackground, #fafafa);
-  min-height: inherit;
-  position: relative;
-}
+$body-max-width: 600px;
+$sidebar-width: 240px;
+$nav-height: 36px;
+$body-side-margin: 48px;
 
-.pretext .ptx-navbar {
-  position: sticky;
-  top: 0;
-  height: 36px;
-}
-
-.pretext .ptx-page {
+.ptx-page {
   position: relative;
   min-height: 100vh;
 }
-.ptx-content {
-  min-height: 60vh;
-}
 
-.pretext .ptx-sidebar {
+.ptx-sidebar {
   position: sticky;
-  top: 36px;
+  top: $nav-height;
   left: 0;
   float: left;
-  width: 240px;
+  width: $sidebar-width;
+
+  &.visible {
+    display: block;
+  }
 }
 
-.pretext .ptx-toc {
-    position: sticky;
-    top: 50px;
-    box-sizing: border-box;
-    overflow-y: scroll;
-    height: calc(100vh - 38px);  //height of 
-}
-
-.pretext .ptx-page > .ptx-main {
+.ptx-main {
   display: block;
   position: relative;
   overflow-y: hidden;
-  margin: 0 0 0 240px;
-  padding: 1px 0 0 0;
+  margin: 0 0 0 $sidebar-width;
+  padding: 0;
   background: var(--mainbackground, white);
-}
-.pretext .ptx-page .ptx-sidebar.hidden + .ptx-main {
-  margin-left: 0;
-}
-.pretext .ptx-page > .ptx-main.notoc {
-  margin-left: 0;
   transition-property: margin-left;
   transition-duration: 0.3s;
 }
-@media screen and (max-width: 800px) {
-  .pretext .ptx-page > .ptx-main {
-    margin-left: 0;
-    left: auto;
-  }
-  .pretext .ptx-page-footer {
-    /* Make space for navbar fixed to bottom of screen */
-    margin-bottom: 38px;
-  }
+
+.ptx-sidebar.hidden + .ptx-main {
+  margin-left: 0;
 }
 
-.pretext .ptx-page > .ptx-main .ptx-content {
-  max-width: 600px;
-  margin: 32px;
-}
-@media screen and (max-width: 663px) {
-  .pretext .ptx-page > .ptx-main .ptx-content {
-    /* Decrease the margins */
-    margin: 28px;
-  }
+.ptx-content {
+  max-width: $body-max-width;
+  margin: 32px $body-side-margin;
+  min-height: 60vh;
 }
 
-
-/* text in lists was big */
-.ptx-content.serif .para .para,
-.ptx-content[data-font="RS"] .para .para {
-  font-size: 100%;
-}
-
-.ptx-content[data-font="RS"] .code-inline {
-  background: #f6f6f6;
-  border: 1px solid #eee;
-  padding: 0.01em 0.15em 0.03em 0.15em;
-  margin-left: 0.15em;
-  margin-right: 0.15em;
-  border-radius: 0;
-}
-
-.pretext .ptx-content-footer {
-  margin-top: 2em;
+.ptx-content-footer {
   display: flex;
   justify-content: space-around;
-  max-width: 600px;
-  margin-left: 32px;
-  margin-bottom: 30px;
+  max-width: $body-max-width;
+  margin: 2em $body-side-margin;
+
+  .button {
+    @include buttons.ptx-button;
+    .icon {
+      margin: 0 -7px; // current icons have lots of whitespace
+    }
+  }
+
 }
 
-.pretext .ptx-content-footer .button {
-  @include buttons.ptx-button;
-}
-
-.pretext .ptx-content-footer .button .icon {
-  margin: 0 -7px; /* icons have lots of whitespace */
-}
-
-
-
-.pretext .ptx-sidebar.visible {
-  display: block;
-}
-
-
-.pretext .ptx-page-footer .feedback-link {
-  @include buttons.ptx-button;
-}
-.pretext .ptx-page-footer {
+.ptx-page-footer {
   background: var(--footerbackground);
   padding-top: 0;
   border-top: 2px solid var(--page-border-color);
@@ -151,44 +94,54 @@
   flex-direction: row;
   justify-content: space-around;
   position: relative;
-}
-
-.pretext .ptx-page-footer > a {
+  
+  & > a {
   margin: 1em 0;
   color: var(--bodyfontcolor)
-}
-.pretext .ptx-page-footer > a > .logo:first-child {
+  }
+
+  & > a > .logo:first-child {
     height: 3em;
     width: unset;
     margin: 0;
+  }
+
+  .feedback-link {
+    @include buttons.ptx-button;
+  }
 }
 
 
 
 @media screen and (max-width: 800px) {
-  .pretext .ptx-navbar {
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    z-index: 1100;
-   }
-  .pretext .ptx-sidebar {
+  .ptx-main {
+    margin-left: 0;
+    left: auto;
+  }
+  .ptx-page-footer {
+    // Make space for navbar fixed to bottom of screen
+    margin-bottom: $nav-height;
+  }
+  .ptx-sidebar {
     display: none;
     position: fixed;
-    top: 10px;
+    top: 0;
     z-index: 1000;
-    background: var(--mainbackground, #fff);
+    background: var(--mainbackground);
+    bottom: $nav-height;
   }
-  .pretext .ptx-content-footer {
+  .ptx-content-footer {
     display: none;
   }
-/*
-  .pretext .ptx-content-footer {
-    margin-bottom: 60px;
-  }
-*/
-  .pretext .ptx-toc {
-    height: calc(100vh - 50px);
+}
+
+
+
+@media screen and (max-width: $body-max-width + 2 * $body-side-margin) {
+  .ptx-page > .ptx-main .ptx-content {
+    // Decrease the side margins once out of room
+    margin-left: 28px;
+    margin-right: 28px;
   }
 }
 

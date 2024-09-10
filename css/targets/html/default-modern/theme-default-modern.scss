@@ -1,32 +1,36 @@
 // Default pretext theme. The dual color palette version is "prerolled".
 // Other palettes (single, muted) are available via rebuilding the css.
 
-@use "sass:map";
-
-// Imports in this file should be relative to css root
-@use 'components/pretext';
-@use 'components/pretext_add_on';
-@use 'shell_default-modern';
-@use 'banner_default-modern';
-@use 'navbar_default-modern';
-@use 'toc_default-modern';
-@use 'components/knowls';
-
-// "style" components 
-@use 'components/blocks/assemblages-default';
-@use 'components/blocks/asides-default';
-@use 'components/blocks/proofs';
-
-// fonts and colors
-// $body-font: 'Open Sans' !default;
-// $heading-font: 'Roboto' !default;
-@use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
-
+// Variables used by theme. CSSBuilder overrides these by prepending
+// different definitions for these variables to this file before the theme
+// is compiled.
 $palette: 'dual' !default;
 $primary-color: #2a5ea4 !default;
 $secondary-color: #a11c1c !default;
 $primary-color-dark: #829ab1 !default;
 $background-color-dark: #23241f !default;
+
+@use "sass:map";
+
+// Imports in this file can be either relative to this file or 
+// relative to css/ directory
+// Basic components: 
+@use 'components/pretext';
+@use 'components/pretext_add_on';
+@use 'shell_default-modern';
+
+// "style" components 
+@use 'components/knowls';
+@use 'components/blocks/assemblages-default';
+@use 'components/blocks/asides-default';
+@use 'components/blocks/proofs';
+
+@use 'heading-tweaks' with ($palette: $palette);
+
+// fonts and colors
+// $body-font: 'Open Sans' !default;
+// $heading-font: 'Roboto' !default;
+@use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
 
 @use "colors/color-helpers" as colorHelpers;
 @use 'colors/palette-single' as palette-single with (
@@ -45,46 +49,9 @@ $background-color-dark: #23241f !default;
 );
 
 // Sample of how to override a color in a palette
-// palette-dual.$colors: map.merge(palette-single.$colors, (
+// palette-dual.$colors: map.merge(palette-dual.$colors, (
 //     "bodytitle": var(--primary-color-white-50),
 // ));
-
-.hide-type .codenumber::after {
-    content: " -";
-}
-
-.ptx-content section > .heading.hide-type {
-    padding-bottom: 3px;
-    margin-bottom: 0.5em;
-}
-
-@if $palette != 'dual' {
-    .ptx-content section > .heading.hide-type {
-        @if $palette == 'muted' {
-            border-bottom: 2px solid #eee;
-        } @else {
-            // dark or single
-            border-bottom: 2px solid var(--primary-color);
-            .ptx-content section > h2.heading.hide-type {
-                border-bottom-width: 10px;
-            }
-            .ptx-content section > h3.heading.hide-type {
-                border-bottom-width: 5px;
-            }
-        }
-    }
-} @else {
-    .ptx-content section > .heading.hide-type {
-        border-bottom: 2px solid #eee;
-    }
-    .ptx-content section > h2.heading.hide-type {
-        border-bottom-width: 4px;
-    }
-    .ptx-content section > h3.heading.hide-type {
-        border-bottom-width: 3px;
-    }
-}
-
 
 :root {
     color-scheme: light;
@@ -103,12 +70,4 @@ $background-color-dark: #23241f !default;
     color-scheme: dark;
 
     @include colorHelpers.scss-to-css(palette-dark.$colors);
-
-    .ptx-content .autopermalink {
-        opacity: 0; // permalinks are extra-distracting when in dark mode
-    }
-
-    .ptx-content section > .heading.hide-type {
-        border-bottom-color: var(--primary-color-black-30);
-    }
 }
