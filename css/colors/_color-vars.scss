@@ -20,12 +20,11 @@
 // Page structures
 
 $colors: (
-  // Color of entire webpage
-  "mainbackground": white,
+  // Background of page (gutters if any)
+  "page-color": white,
   // Background of content area
-  "page-color": var(--mainbackground),
-  // Background of area outside content
-  "page-gutter-color": var(--mainbackground),
+  "mainbackground": var(--page-color),
+  // Border around content area - also possibly used for internal borders
   "page-border-color": #ccc,
 
   // ------------------------------------------------------------------------------
@@ -142,7 +141,7 @@ $colors: (
   "buttonforeground": #333333,
   "code-inline": #ededed,
 
-  "dropdownbackground": var(--page-color),
+  "dropdownbackground": var(--mainbackground),
   "dropdownborder": var(--tocborder),
   "dropdowntext": var(--toc-text),
   "dropdownhover": var(--parttocactive),

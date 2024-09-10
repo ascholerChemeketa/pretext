@@ -16,12 +16,11 @@ $colors: map.merge(
   "primary-color": $primary-color,
   "background-color": $background-color,
 
-  // Color of entire webpage
-  "mainbackground": var(--background-color),
+  // Background of page (gutters if any)
+  "page-color": var(--background-color),
   // Background of content area
-  "page-color": var(--mainbackground),
-  // Background of area outside content
-  "page-gutter-color": var(--mainbackground),
+  "mainbackground": var(--page-color),
+  // Border around content area - also possibly used for internal borders
   "page-border-color": var(--background-color-white-25),
 
   // ------------------------------------------------------------------------------
