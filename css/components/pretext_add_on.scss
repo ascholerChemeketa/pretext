@@ -1590,11 +1590,15 @@ a.mjx-svg-href  {
 .ptx-content pre.code-block {
     margin-top: 0;
     padding-left: 15px;
-    border-left: 1px solid #aaa;
     font-size: 93%;
     overflow: auto;
 }
-.ptx-content pre.program:before,
+// L borders only for things that Prism won't color
+.ptx-content pre.program:not([class*='language-']),
+.ptx-content pre.code-block {
+    border-left: 1px solid #aaa;
+}
+.ptx-content pre.program:not([class*='language-']):before,
 .ptx-content pre.code-block:before {
     content:' ';
     font-size: 50%;
