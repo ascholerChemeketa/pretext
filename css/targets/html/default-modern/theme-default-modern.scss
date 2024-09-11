@@ -21,9 +21,7 @@ $background-color-dark: #23241f !default;
 
 // "style" components 
 @use 'components/knowls';
-@use 'components/blocks/assemblages-default';
-@use 'components/blocks/asides-default';
-@use 'components/blocks/proofs';
+@use 'components/blocks/default-blocks';
 
 @use 'heading-tweaks' with ($palette: $palette);
 

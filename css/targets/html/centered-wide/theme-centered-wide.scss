@@ -13,9 +13,7 @@ $background-color-dark: #23241f !default;
 @use 'components/pretext';
 @use 'components/pretext_add_on';
 @use 'components/knowls';
-@use 'components/blocks/assemblages-default';
-@use 'components/blocks/asides-default';
-@use 'components/blocks/proofs';
+@use 'components/blocks/default-blocks';
 
 // wide specific
 @use 'structural';
