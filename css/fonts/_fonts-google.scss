@@ -3,6 +3,7 @@
 // Fonts to use
 $body: 'Open Sans' !default;
 $heading: 'PT Serif' !default;
+$monospace: 'Inconsolata' !default;
 
 
 @import url("https://fonts.googleapis.com/css?family=#{$body}:wdth,wght@75..100,300..800&amp;display=swap");
@@ -13,6 +14,11 @@ $heading: 'PT Serif' !default;
 @import url("https://fonts.googleapis.com/css?family=#{$heading}:wdth,wght@75..100,300..800&amp;display=swap");
 :root {
   --font-headings: #{$heading + ', Times New Roman, Times, serif'};
+}
+
+@import url("https://fonts.googleapis.com/css?family=#{$monospace}:wdth,wght@75..100,300..800&amp;display=swap");
+:root {
+  --font-monospace: #{$monospace + ', Consolas, Monaco, monospace;'};
 }
 
 

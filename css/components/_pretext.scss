@@ -95,8 +95,6 @@ body.pretext > a.assistive:focus {
 /* so that we can position things (like .autopermalink) absolutely wrt these items */
 .ptx-content section,
 .ptx-content article,
-.ptx-content figure,
-.ptx-content figcaption,
 .ptx-content .exercisegroup,
 .ptx-content .discussion-like,
 .ptx-content .para {
@@ -563,10 +561,6 @@ article > * {
     font-weight: 600;
     font-style: normal;
     font-size: 96%;
-}
-
-.ptx-content figure {
-    margin-bottom: 0;
 }
 
 .ptx-content .heading {

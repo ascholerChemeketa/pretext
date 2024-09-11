@@ -2,6 +2,8 @@
 @use 'toc-basics';
 @use 'summary-links';
 @use 'tables';
+@use 'media';
+@use 'figures';
 @use 'prism';
 
 /* In need of refactoring -- merge with pretext.scss */
@@ -67,61 +69,6 @@
     margin-right: 0;
 }
 
-.ptx-content figcaption {
-    font-weight: normal;
-}
-
-.ptx-content figcaption {
-    margin-top: 0.6em;
-    margin-left: auto;
-    margin-right: auto;
-/*  Commenting this out because the initial letter of some captions were cut off
-    text-indent: -30px;
-*/
-}
-
-.ptx-content figure.table-like figcaption:first-child {
-    font-style: oblique;
-    margin-top: 0;
-}
-.ptx-content figure.table-like figcaption:first-child .type,
-.ptx-content figure.table-like figcaption:first-child .codenumber {
-    font-style: normal;
-}
-
-.ptx-content section figcaption .codenumber,
-.ptx-content section figcaption .type {
-    font-weight: 700;
-    font-size: inherit;
-}
-
-.ptx-content figcaption .codenumber:after {
-    content: "\2002";
-}
-.ptx-content figcaption .type:last-of-type::after {
-   /* so, not followed by a span.codenumber */
-   /* not sure where this is used */
-    content: "\2002";
-}
-
-.ptx-content figcaption code.code-inline {
-    white-space: pre;
-}
-
-.ptx-content figure > figcaption:first-child {
-    margin-top: 1.5em;
-}
-
-.ptx-content figcaption + .named-list-content {
-    margin-top: 0.6em;
-}
-.ptx-content figcaption + .named-list-content > .introduction > .para:first-child {
-    margin-top: 0;
-}
-.ptx-content figcaption + table,
-.ptx-content figcaption + .tabular-box {
-    margin-top: 0.5em;
-}
 
 .ptx-content .definition-like .para > .emphasis {
     font-weight: 700;
@@ -130,20 +77,21 @@
     font-weight: bold;
 }
 
-.unprocessed {
-    padding: 8px;
-    background-color: rgb(255,230,230)
-}
+// Appears to be unused
+// .unprocessed {
+//     padding: 8px;
+//     background-color: rgb(255,230,230)
+// }
 
-.unprocessed .unprocessed {
-    margin: 8px;
-    background-color: rgb(255,200,255)
-}
+// .unprocessed .unprocessed {
+//     margin: 8px;
+//     background-color: rgb(255,200,255)
+// }
 
-.unprocessed .unprocessed .unprocessed {
-    margin: 8px;
-    background-color: rgb(205,205,255)
-}
+// .unprocessed .unprocessed .unprocessed {
+//     margin: 8px;
+//     background-color: rgb(205,205,255)
+// }
 
 .ptx-content section.introduction + section {
     margin-top: 2em;
@@ -220,10 +168,6 @@
     margin: 0.75em 0 0 0;
 }
 
-
-.ptx-content figcaption {
-    font-family: var(--font-headings);
-}
 
 .ptx-content .sidebyside > .para {   /* what about sbspanel? */
     width: 32%;
@@ -310,69 +254,10 @@
     display: inline;
 }
 
-/* next disabled accidentally or on purpose? */
-.apretext-content figure.figure-like {
-    overflow: auto;
-}
-.ptx-content figure.figure-like {
-    margin-left: 0;
-    margin-right: 0;
-}
-.ptx-content figure.table-like {
-    margin-left: 30px;
-    margin-right: 30px;
-}
-.ptx-content figure.table-like.list {
-    margin-right: 0;
-}
-
-/* why was this ever added ?
-.ptx-content figure.figure-like figcaption {
-    overflow: hidden;
-}
-*/
-
 .ptx-content a > tt {
     font-size: 110%;
 }
 
-.ptx-content section .videolink a:link {
-    background-size: 0;
-}
-.ptx-content .playvideo {
-    cursor: pointer;
-}
-
-.ptx-content .videobig {
-    padding-right: 0.3em;
-    padding-left: 0.3em;
-    font-size: 85%;
-/*    background: #ffff66;
-*/
-    background-color: rgba(255,255,100,0.9);
-    display: inline-block;
-    position: relative;
-    top: 100px;
-    cursor: zoom-in;
-}
-.ptx-content .videobig.nofigure {
-    /* not actually used */
-}
-.ptx-content .knowl .videobig {
-    display: none;
-}
-
-.ptx-content .videosmall {
-    padding-right: 0.3em;
-    padding-left: 0.3em;
-    font-size: 80%;
-    background-color: rgba(255,255,100,0.9);
-    display: inline-block;
-    position: absolute;
-    left: -250px;
-    z-index: 1001;
-    cursor: zoom-out;
-}
 
 
 .ptx-content .exercise-like ol li table {
@@ -515,10 +400,6 @@
     margin-top: 2.0em;
 */
 }
-.ptx-content .figure-like > .autopermalink {
-    margin-top: 1.4em;
-}
-
 .ptx-content .subsubsection > .autopermalink {
     margin-top: 0;
 }
@@ -801,8 +682,7 @@
 
 /* needed for dl, but probably won't cause harm elsewhere */
 .ptx-content section,
-.ptx-content article,
-.ptx-content figure {
+.ptx-content article {
     clear: both;
 }
 
@@ -983,9 +863,6 @@ a.mjx-svg-href  {
     /*horizontally when they don't fit on the screen*/
     overflow-x: auto;
     overflow-y: hidden;
-  }
-  .ptx-content .figure-like {
-    overflow-x: auto;
   }
 
   .ptx-content #MathJax_ZoomFrame {
@@ -1388,73 +1265,7 @@ a.mjx-svg-href  {
     margin-right: 1.5em;
 }
 
-
-/* these were taken from the local add-on.css.
- * need to check if the are needed.
- */
-
-.ptx-content article > figure:first-child {
-    margin-top: 0;
-}
-
-.ptx-content figure + figure,
-.ptx-content figure + .sidebyside,
-.ptx-content .sidebyside + .sidebyside,
-.ptx-content article + figure,
-.ptx-content .sidebyside + figure {
-    padding-top: 1.0em;
-}
-
-
-.ptx-content img {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* is .cs for commutative diagrams? */
-.ptx-content img.cs {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.ptx-content img:not(.cs) {
-    max-width: 650px;
-}
-
 .ptx-content .tabular-box.natural-width table {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.ptx-content figure img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.ptx-content figure img + img {
-    margin-top: 30px;
-}
-
-.ptx-content div.center img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.ptx-content div.center + div.center > img {
-    margin-top: 60px;
-}
-
-.ptx-content div.center > img + img {
-    margin-top: 60px;
-}
-
-.ptx-content figure table {
     margin-left: auto;
     margin-right: auto;
 }
@@ -1467,95 +1278,24 @@ a.mjx-svg-href  {
     text-align: center;
 }
 
-
-.ptx-content figure.wrap img {
-    width: 250px;
-}
-.ptx-content figure.wrap {
-    float: right;
-    margin-right: 0;
-    margin-left: 30px;
-}
-.ptx-content figure img.wrap {
-    float: right;
-    margin: 0;
-}
-
-.ptx-content figure figcaption.wrap {
-    margin: 10px;
-    font-size: 100%;
-    text-align: center;
-}
-
-.ptx-content figure, .ptx-content .image-box {
-    margin-top: 0.5em;
-}
-.ptx-content figure .image-box {
-    margin-top: 0;
-}
 .ptx-content .sidebyside figure {
     margin-top: 0;
 }
-.ptx-content .image-box img,  /* See sample article Graphics section */
-.ptx-content img.contained,  /* See sample article Graphics section */
+
 .ptx-content .sbspanel img {
-   /* previously these were hard-coded in the HTML */
     width: 100%;
     height: auto;
     background: var(--ptx-image-bg);
 }
 
-/* these seem to be obsolete because an img has to be in a .image-box .
-   Check on that.
-.ptx-content .sbspanel > img:not(.draw_on_me):not(.mag_popup),
-.ptx-content figure > img:not(.draw_on_me):not(.mag_popup),
-.ptx-content figure > div > img:not(.draw_on_me):not(.mag_popup),
-*/
-.ptx-content .image-box > img:not(.draw_on_me):not(.mag_popup) {
-    cursor: zoom-in;
-}
-.ptx-content img.mag_popup {
-    border: 1px solid #666;
-    box-shadow: 4px 6px 4px #999;
-    cursor: zoom-out;
-    max-width: 600px;
-}
-.ptx-content .mag_popup_container {
-    width:100%;
-    position:absolute;
-    z-index:1001;
-    overflow-x: visible;
-}
 
-.ptx-content .image-box,
-.ptx-content .audio-box,
-.ptx-content .video-box,
-.ptx-content .asymptote-box {
-    position: relative;
-}
-.ptx-content .image-box .asymptote-box iframe.asymptote,
-.ptx-content iframe.asymptote,
-.ptx-content .video-box .video,
-.ptx-content .video-box .video-poster {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-}
-.ptx-content section > .audio-box,
-.ptx-content section > .video-box,
-.ptx-content section > .image-box {
-    margin-top: 0.75em;
-}
-
-.ptx-content .audio {
-    width: 100%;
-}
-
-.caption .heading {
-    font-weight: bold;
-}
-
-.caption .counter {
-    font-weight: bold;
-}
+// ????
+// .caption .heading {
+//     font-weight: bold;
+// }
+// .caption .counter {
+//     font-weight: bold;
+// }
 
 .ptx-content div.quote {
     padding-left: 40px;
@@ -1826,23 +1566,8 @@ a.mjx-svg-href  {
     font-size: 12px;
 }
 
-/* turn off the green parentheses Alex does not like */
-.ptx-content div.CodeMirror span.CodeMirror-matchingbracket {color: #090;}
-
-.ptx-content .image-archive {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 0;  /* was auto */
-    margin-top: 0.75em;
-    padding-bottom: 0.25em;
-    text-align: center;
-}
-.ptx-content .image-archive > a {
-    display: inline-block;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    font-family: monospace;
-}
+// /* turn off the green parentheses Alex does not like */
+// .ptx-content div.CodeMirror span.CodeMirror-matchingbracket {color: #090;}
 
 .ptx-content iframe {
     margin: 0;
@@ -2532,4 +2257,15 @@ article.exercise-like > .heading + div.ptx-runestone-container > div.runestone {
 .APEXlogo .E {
     position: relative;
    top: 0.33em;
+}
+
+//---------------
+// testing....
+.ptx-content .para:first-child,
+.ptx-content .autopermalink:first-child + .para {
+  margin: 0;
+}
+
+.ptx-content .para {
+  margin: 1em 0;
 }
