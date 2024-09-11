@@ -11,7 +11,7 @@ assemblage-like.
 
 $pad: 0.4em;
 
-.ptx-content {
+//.ptx-content {  // TODO - remove if safe
 
   // apply L to all *-like environments
   :is(
@@ -119,4 +119,4 @@ $pad: 0.4em;
   // .exercise-like > .solution-like > .heading + .para {
   //   display: inline;
   // }
-}
+//}  //.ptx-content
