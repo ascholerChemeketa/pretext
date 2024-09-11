@@ -2033,7 +2033,7 @@ body.standalone .ptx-content .worksheet > *:last-child {
     top: -0.8em;
     font-size: 80%;
     font-style: italic;
-    background: white;
+    background: var(--mainbackground);
 }
 
 body.standalone .ptx-content .onepage + .onepage {
