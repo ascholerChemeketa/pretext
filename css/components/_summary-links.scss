@@ -1,4 +1,6 @@
-.ptx-content .summary-links {
+
+/* Start of division toc links */
+.summary-links {
   font-family: var(--font-headings);
   display: block;
 
@@ -11,11 +13,6 @@
     border-radius: 3px;
     position: relative;
     display: block;
-
-    &:hover, &:focus-visible {
-      color: var(--mainbackground);
-      background: var(--linkColor);
-    }
 
     .title{
       font-style: normal;
@@ -36,8 +33,17 @@
       height: 0;
       border-top: 0.4em solid transparent;
       border-bottom: 0.4em solid transparent;
-      border-left: 0.4em solid #c9c9c9;
+      border-left: 0.4em solid var(--linkColor);
     }
+
+    &:hover {
+      color: var(--mainbackground);
+      background: var(--linkColor);
+
+      &::after {
+        border-left: 0.4em solid var(--mainbackground);
+      } 
+    } 
   }
 
   ul {
@@ -52,7 +58,7 @@
 
 @media screen and (width <= 600px) {
   // center at med/small sizes
-  .ptx-content .summary-links ul {
+  .summary-links ul {
     margin-left: calc((100vw - 100%) / 2);
     margin-right: calc((100vw - 100%) / 2);
     padding: 0;
@@ -60,7 +66,7 @@
 }
 
 @media screen and (width <= 480px) {
-  .ptx-content .summary-links a {
+  .summary-links a {
     font-size: 1em;
     line-height: 1.25em;
   }
