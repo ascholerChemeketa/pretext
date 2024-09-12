@@ -35,6 +35,13 @@ img {
   }
 }
 
+// download links after an image
+.image-archive {
+  margin: 0.75em auto 0;
+  font-family: var(--font-monospace);
+}
+
+// TODO - refactor mag_popup JS and CSS
 // was .ptx-content .image-box > img:not(.draw_on_me):not(.mag_popup)
 .image-box > img:not(.mag_popup) {
   cursor: zoom-in;
@@ -54,12 +61,6 @@ img.mag_popup {
   overflow-x: visible;
 }
 
-// download links after an image
-.image-archive {
-  margin: 0.75em auto 0;
-  font-family: var(--font-monospace);
-}
-
 // ---------------------------------------------
 // other
 .audio {
@@ -70,7 +71,7 @@ img.mag_popup {
     cursor: pointer;
 }
 
-//These appear to be connected to obsolete js
+// These appear to be connected to obsolete js
 // .videobig {
 //     padding-right: 0.3em;
 //     padding-left: 0.3em;
