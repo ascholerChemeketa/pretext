@@ -32,10 +32,6 @@
     cursor: not-allowed;
   }
 
-  & .icon {
-    --font-size: 1.5em;
-  }
-
   &.open {
     background-color: var(--buttonhover);
   }

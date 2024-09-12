@@ -7,13 +7,14 @@
   --toc-indent-second: calc(1.7rem + var(--codenumber-pad-left) + var(--codenumber-pad-right));
   --toc-indent-third: calc(2.2rem + var(--codenumber-pad-left) + var(--codenumber-pad-right));
 
-  width: 241px;
+  width: 240px;
   margin: 0;
   font-size: 14.72px;
   overflow-y: auto;
   overflow-x: hidden;
   height: calc(100vh - 36px);  // 36px for height of the navbar
-
+  border-right: 1px solid var(--page-border-color);
+  margin-top: -2px; // hide top border of first toc item
   
   &::after {
     // Apply logo as a mask so background-color can change it. It is a separate document
@@ -26,6 +27,7 @@
     height: 13em;
     margin: 1em 2em;
     background-color: var(--page-border-color);
+    border-right: 1px solid var(--page-border-color);
   }
 
   & > .toc-item-list:first-child > .toc-item:last-child {
