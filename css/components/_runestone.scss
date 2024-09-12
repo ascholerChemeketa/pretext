@@ -1,0 +1,49 @@
+
+.ptx-runestone-container {
+  overflow-x: auto;
+}
+
+$wide-rs-elements: ".parsons_section, .ac_section, .codelens";
+
+.ptx-runestone-container:has(#{$wide-rs-elements}) {
+  width: 1000px;
+  min-width: 100%;
+
+  // assumes there is a sidebar
+  max-width: calc(100vw - 350px); 
+}
+
+.ptx-page:has(.ptx-sidebar.hidden) .ptx-runestone-container:has(#{$wide-rs-elements}) {
+  // can grow a bit when sidebar is hidden
+  max-width: calc(100vw - 116px); 
+} 
+
+// hyper specific to override Runestone margin
+.ptx-content .ptx-runestone-container .runestone {
+  margin: unset;
+}
+
+// hyper specific to override Runestone
+.ptx-content .ptx-runestone-container .ac_question { 
+  max-width: 600px;
+  margin: 0 auto 10px;
+}
+
+.runestone:is(.clickablearea_section, .ac_section, .parsons_section) .runestone_caption {
+  // caption is always just something like "ActiveCode" in PTX
+  display: none;
+}
+
+
+/* to undo Runestone's draganddrop.css */
+.ptx-content .ptx-runestone-container .rsdraggable {
+  font-size: 100%;
+}
+
+// Unsure if still needed
+/* hack for runestone */
+/* to undo Runestone's presentermode.css */
+.ptx-content .bottom {
+    position: unset;
+}
+

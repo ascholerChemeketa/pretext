@@ -9045,17 +9045,6 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
             <xsl:variable name="layout" select="exsl:node-set($rtf-layout)" />
             <!-- div is constraint/positioning for contained program/console -->
             <div class="code-box">
-                <xsl:attribute name="style">
-                    <xsl:text>width: </xsl:text>
-                    <xsl:value-of select="$layout/width"/>
-                    <xsl:text>%;</xsl:text>
-                    <xsl:text> margin-left: </xsl:text>
-                    <xsl:value-of select="$layout/left-margin"/>
-                    <xsl:text>%;</xsl:text>
-                    <xsl:text> margin-right: </xsl:text>
-                    <xsl:value-of select="$layout/right-margin"/>
-                    <xsl:text>%;</xsl:text>
-                </xsl:attribute>
                 <xsl:apply-templates select="." mode="code-inclusion"/>
             </div>
         </xsl:otherwise>

@@ -4,7 +4,9 @@
 @use 'tables';
 @use 'media';
 @use 'figures';
+@use 'runestone';
 @use 'prism';
+
 
 /* In need of refactoring -- merge with pretext.scss */
 .ptx-content section .para.credit + .para.credit {
@@ -99,50 +101,6 @@
 
 .ptx-content {
     margin: 0;
-}
-
-.ptx-content .runestone.parsons_section {
-    display: inline-block;
-    max-width: unset;
-}
-
-.ptx-content .runestone.ac_section {
-    width: 60em;
-    max-width: unset;
-}
-.ptx-content .runestone.ac_section .ac_section {
-    max-width: unset;
-}
-.ptx-content .runestone.ac_section > div {
-    max-width: unset;
-}
-
-.ptx-content .runestone > .parsons {
-    width: 60em;
-    max-width: unset;
-}
-
-.ptx-content .runestone .parsons {
-    margin: 0;
-}
-.ptx-content .runestone.parsons_section > .parsons {
-    width: max-content;
-    padding-right: 1em;
-}
-.ptx-content .runestone .parsons .sortable-code-container {
-    text-align: unset;
-}
-.ptx-content .runestone .parsons .parsons-text,
-.ptx-content .runestone .parsons .parsons-controls {
-    margin-left: 0;
-    margin-right: 0;
-}
-.ptx-content .runestone .parsons .sortable-code + .sortable-code {
-    margin-right: 0;
-}
-
-.ptx-content .runestone .parsons .runestone_caption_text {
-    max-width: 660px;
 }
 
 .ptx-content section section + section {
@@ -996,9 +954,6 @@ a.mjx-svg-href  {
 //     // background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
 //     // background-attachment: local, local, scroll, scroll;
 // }
-// .ptx-content .runestone .code-box {
-//     background-image: none;
-// }
 // .ptx-content .knowl-output .MJXc-display {
 //     background-image: linear-gradient(to right, var(--knowlbackground), var(--knowlbackground)), linear-gradient(to right, var(--knowlbackground), var(--knowlbackground)), linear-gradient(to right, rgba(0,0,0,.25), var(--knowlbackground)), linear-gradient(to left, rgba(0,0,0,.25), var(--knowlbackground));
 // }
@@ -1006,7 +961,6 @@ a.mjx-svg-href  {
 // .ptx-content .knowl-output.original .MJXc-display {
 //     background: inherit;
 // }
-
 // .ptx-content .assemblage-like .MJXc-display {
 // /*
 //     background-image: none;
@@ -1014,8 +968,6 @@ a.mjx-svg-href  {
 // */
 //     background-image: linear-gradient(to right, var(--assembbody), var(--assembbody)), linear-gradient(to right, var(--assembbody), var(--assembbody)), linear-gradient(to right, rgba(0,0,0,.25), var(--assembbody)), linear-gradient(to left, rgba(0,0,0,.25), var(--assembbody));
 // }
-
-
 // .ptx-content .knowl-output .knowl-output .MJXc-display {
 //     background-image: none;
 //     background-image: linear-gradient(to right, #fffff5, #fffff5), linear-gradient(to right, #fffff5, #fffff5), linear-gradient(to right, rgba(0,0,0,.25), rgba(255,255,243,0)), linear-gradient(to left, rgba(0,0,0,.25), rgba(255,255,243,0));
@@ -1311,6 +1263,20 @@ a.mjx-svg-href  {
     background: none;
     border: none;
 }
+
+.program {
+  width: fit-content;
+  min-width: 100%;
+
+  // assumes there is a sidebar
+  max-width: calc(100vw - 350px); 
+}
+
+.ptx-page:has(.ptx-sidebar.hidden) .program{
+  // can grow a bit when sidebar is hidden
+  max-width: calc(100vw - 116px); 
+} 
+
 
 /* These next are for Prism */
 .ptx-content pre.program,
@@ -2152,26 +2118,6 @@ label.incorrect .feedback {
     right: -35px;
 }
 
-article.project-like > .heading + div.ptx-runestone-container > div.runestone,
-article.exercise-like > .heading + div.ptx-runestone-container > div.runestone {
-    margin-top: 0.5em;
-}
-
-/* hack for runestone */
-/*
-.ptx-content .exercise-wrapper form button.btn-success {
-    background-color: #5cb85c;
-}
-*/
-/* to undo Runestone's presentermode.css */
-.ptx-content .bottom {
-    position: unset;
-}
-
-/* to undo Runestone's draganddrop.css */
-.ptx-content .rsdraggable {
-    font-size: 100%;
-}
 
 .ptx-content .exercise-wrapper form button:hover {
     cursor: pointer;
