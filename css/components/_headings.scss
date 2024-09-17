@@ -1,0 +1,92 @@
+// headings for standard page elements - sections/articles/etc...
+// more specialized headings (exercises) should be defined in the specific component
+
+.heading {
+  line-height: 1.1;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+section > .heading {
+  font-size: 1.75em;
+  color: var(--bodytitle);
+  line-height: 1.25em;
+  margin-top: 1em;
+  margin-bottom: 0.35em;
+}
+
+section section > .heading {
+  font-size: 1.5em;
+}
+
+section section section > .heading {
+  font-size: 1.40em;
+  margin-top: 0.75em;
+}
+
+@mixin inline-head {
+  display: inline;
+  line-height: initial;
+
+  &:after {
+    content: "\2009";
+  }
+
+  & + .para {
+    display: inline;
+  }
+}
+
+article > .heading {
+  font-size: 1.125em;
+  @include inline-head;
+
+  & + .introduction {
+    display: inline;
+  }
+  & + .introduction > .para:first-child {
+    display: inline;
+  }
+}
+
+.paragraphs > .heading {
+  font-size: 1.125em;
+  @include inline-head;
+}
+
+
+@media screen and (max-width: 480px) {
+  section > .heading {
+      font-size: 1.5em;
+      line-height: 1.33em;
+      margin-top: 1em;
+  }
+  section section > .heading {
+      font-size: 1.3em;
+      line-height: 1.15em;
+  }
+  section section section > .heading {
+      font-size: 1.15em;
+      line-height: 1em;
+  }
+}
+
+
+.heading.hide-type > .type {
+  display: none;
+}
+
+// a > .heading { 
+//   display: inline;
+// }
+// These seem like a bad idea... fortunately, they don't seem to be necessary
+// h1, h2, h3, h4, h5, h6 {
+//   margin: 0;
+//   font-size: unset;
+// }
+// .pretext h1, .pretext h2, .pretext h3, .pretext h4, .pretext h5, .pretext h6 {
+//   margin: 0;
+//   font-size: unset;
+// }

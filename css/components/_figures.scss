@@ -1,3 +1,12 @@
+figure {
+  clear: both;
+  position: relative;
+
+  // override browser margins
+  margin-left: 0;
+  margin-right: 0;
+}
+
 figcaption {
   font-family: var(--font-headings);
   font-weight: normal;
@@ -20,38 +29,6 @@ figcaption {
   .type:last-of-type::after {
     content: "\2002";
   }
-
-  // Can't find use of .wrap
-  // .wrap {
-  //   margin: 10px;
-  //   font-size: 100%;
-  //   text-align: center;
-  // }
-}
-
-
-
-figure {
-  clear: both;
-  position: relative;
-
-  // override browser margins
-  margin-left: 0;
-  margin-right: 0;
-
-  // no sign of wrap class
-  // &.wrap img {
-  //   width: 250px;
-  // }
-  // &.wrap {
-  //   float: right;
-  //   margin-right: 0;
-  //   margin-left: 30px;
-  // }
-  // & img.wrap {
-  //   float: right;
-  //   margin: 0;
-  // }
 }
 
 // tables are inset
@@ -64,16 +41,6 @@ figure.table-like {
     margin-right: 0;
   }
 }
-
-// Permalinks break these and have for years... currently useless
-// figure.table-like figcaption:first-child {
-//   font-style: oblique;
-//   margin-top: 0;
-// }
-// figure.table-like figcaption:first-child .type,
-// figure.table-like figcaption:first-child .codenumber {
-//   font-style: normal;
-// }
 
 @media (max-width <= 943px){
   .figure-like {

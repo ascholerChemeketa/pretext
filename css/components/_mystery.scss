@@ -1,0 +1,485 @@
+// Chunks of code that seem like one off fixes for books that may not exist
+// This file is not included anywhere else
+.APEXlogo {
+  white-space: nowrap;
+}
+.APEXlogo .A {
+  margin-right: -0.07em;
+}
+.APEXlogo .P {
+  margin-right: -0.33em;
+  position: relative;
+  top: -0.30em;
+}
+.APEXlogo .E {
+  position: relative;
+ top: 0.33em;
+}
+
+
+#aboelkins-ACS .ptx-main .ptx-content > section:first-of-type > section:first-of-type > .project-like:first-of-type li {
+  font-size: 300%
+}
+
+.toolBPanel {
+    overflow: hidden !important;
+}
+.toolBPanel:hover {
+    overflow: auto !important;
+}
+
+.unprocessed {
+    padding: 8px;
+    background-color: rgb(255,230,230)
+}
+
+.unprocessed .unprocessed {
+    margin: 8px;
+    background-color: rgb(255,200,255)
+}
+
+.unprocessed .unprocessed .unprocessed {
+    margin: 8px;
+    background-color: rgb(205,205,255)
+}
+
+
+.ptx-navbar .preferences_menu_holder .active  > li {
+  color: #ddd;
+}
+.ptx-navbar .preferences_menu_holder > ol > li:focus {
+  background: #eef;
+  border: 2px solid #909;
+  padding: 2px 24px 2px 8px;
+}
+.ptx-navbar .preferences_menu_holder > ol > li > ol > li:focus {
+  background: #eef;
+  border: 2px solid #909;
+  padding: 4px 4px 2px 4px;
+}
+
+.ptx-navbar .preferences_menu_holder .active .selected {
+  background: #eef;
+  color: #111;
+}
+.ptx-navbar .button.user-preferences-button {
+  overflow: visible;
+  display: none;
+}
+.preferences_menu_holder {
+  z-index: 30;
+  background: #fee;
+  color: #222;
+  position: absolute;
+  left: -11em;
+  top: 4em;
+}
+.preferences_menu_holder ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.preferences_menu_holder > ol {
+  width: 12.5em;
+}
+.preferences_menu_holder > ol > li {
+  padding: 4px 26px 4px 10px;
+}
+.preferences_menu_holder ol li ol {
+  z-index: 40;
+  position: absolute;
+  left: 13em;
+  top: -2em;
+  background: #fee;
+}
+.preferences_menu_holder ol li ol li {
+  padding: 6px 6px 4px 6px;
+  display: flex;
+  align-items: center;
+}
+.preferences_menu_holder ol.fonts:not(.hidden) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.preferences_menu_holder ol.fonts li:nth-child(8n+1),
+.preferences_menu_holder ol.fonts li:nth-child(8n+2),
+.preferences_menu_holder ol.fonts li:nth-child(8n+3),
+.preferences_menu_holder ol.fonts li:nth-child(8n+4) {
+    background-color: #eff;
+}
+.preferences_menu_holder ol.fonts li:nth-child(4n+2) {
+ width: 4em;
+ justify-content: center;
+ text-align: center;
+ align-items: center;
+}
+.preferences_menu_holder ol.fonts li:nth-child(4n+1) {
+  padding-left: 14px;
+}
+
+.preferences_menu_holder .wrap_to_submenu {
+  float: right;
+  line-height: 0.95em;
+  margin-right: -7px;
+}
+.preferences_menu_holder .to_submenu {
+  position: absolute;
+}
+.preferences_menu_holder .avatars li {
+  font-size: 200%;
+  text-align: center;
+}
+.preferences_menu_holder .fontfamily .name {
+  margin-right: 2em;
+}
+.preferences_menu_holder .fontfamily .sample {
+  margin-left: auto;
+}
+.preferences_menu_holder .fonts .byunits {
+  font-size: 80%;
+  margin-bottom: -0.3em;
+}
+#choose_topic {
+  background: #eef;
+}
+.ffcheck,
+.atmospherecheck,
+.avatarcheck,
+.rulercheck,
+.motioncheck {
+  width: 1em;
+  margin-left: 0.2em;
+  margin-right: 0.7em;
+  font-size: 11pt;
+}
+
+.preferences_menu_holder .moveQ {
+  padding-top: 0.5em;
+  border-top: 0.3em solid #eef;
+}
+.preferences_menu_holder .moveQ,
+.preferences_menu_holder .moveQ ~ li {
+  background: #efe;
+}
+
+
+
+// No sign of continuation class
+.para.continuation {
+  margin-top: 0;
+}
+pre + .para.continuation,
+pre + form,
+div + form {
+  margin-top: 1em;
+}
+ul + .para.continuation,
+ol + .para.continuation,
+dl + .para.continuation {
+  margin-top: 0.75em;
+}
+
+
+// theoretically in colophon, but do not match actual html
+section .para.credit + .para.credit {
+  margin-top: 0.25em;
+}
+section .para.credit > .title {
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+
+// No sign of contributors class
+.frontmatter .contributors, .book .contributors {
+  text-align: center;
+  font-style: normal;
+}
+
+// exercise-stage??
+article .exercise-stage {
+  font-family: var(--font-headings);
+  font-weight: 700;
+  color: inherit;
+  font-size: 100%;
+  margin-top: 0.4em;
+}
+
+
+// .status ???
+.discussion-like.status > .heading {
+  display: none;
+}
+.discussion-like.status > .heading + .para,
+.discussion-like.status > .para {
+  font-style: italic;
+  display: block;
+  padding-left: 1em;
+}
+
+
+
+
+// Currently only for Solution to example
+.posterior .heading {
+  font-weight: normal;
+  font-size: 1.125em;
+  line-height: 1.125em;
+  margin-top: 0;
+}
+
+
+// schema doesn't allow for title in paragraph?
+ .paragraphs .para .title {
+  font-family: var(--font-headings);
+  font-size: 1.125em;
+  font-weight: 700;
+}
+
+
+
+// ---------------------------------------------------
+// bug chunk of styles for older style knowls
+
+
+// This entire section causes issues with non-white backgounds. Can't identify actual problem it solves
+// /* show wide equation overflow even when no scroll bars,
+// from Jiří Lebl */
+// .MJXc-display, .knowl-output .knowl-output .knowl-output .knowl-output .MJXc-display ,
+// pre.prettyprint,
+// pre.plainprint,
+// pre.console,
+// .code-box {
+
+//     // background-image: linear-gradient(to right, white, white), linear-gradient(to right, white, white), linear-gradient(to right, rgba(0,0,0,.25), rgba(255,255,255,0)), linear-gradient(to left, rgba(0,0,0,.25), rgba(255,255,255,0));
+//     // background-position: left center, right center, left center, right center;
+//     // background-repeat: no-repeat;
+//     // background-color: inherit;
+//     // background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+//     // background-attachment: local, local, scroll, scroll;
+// }
+// .knowl-output .MJXc-display {
+//     background-image: linear-gradient(to right, var(--knowlbackground), var(--knowlbackground)), linear-gradient(to right, var(--knowlbackground), var(--knowlbackground)), linear-gradient(to right, rgba(0,0,0,.25), var(--knowlbackground)), linear-gradient(to left, rgba(0,0,0,.25), var(--knowlbackground));
+// }
+// /* this should have a variable name, maybe? */
+// .knowl-output.original .MJXc-display {
+//     background: inherit;
+// }
+// .assemblage-like .MJXc-display {
+// /*
+//     background-image: none;
+//     background-image: linear-gradient(to right, #f4f4fe, #f4f4fe), linear-gradient(to right, #f4f4fe, #f4f4fe), linear-gradient(to right, rgba(0,0,0,.25), rgba(242,242,254,0)), linear-gradient(to left, rgba(0,0,0,.25), rgba(242,242,254,0));
+// */
+//     background-image: linear-gradient(to right, var(--assembbody), var(--assembbody)), linear-gradient(to right, var(--assembbody), var(--assembbody)), linear-gradient(to right, rgba(0,0,0,.25), var(--assembbody)), linear-gradient(to left, rgba(0,0,0,.25), var(--assembbody));
+// }
+// .knowl-output .knowl-output .MJXc-display {
+//     background-image: none;
+//     background-image: linear-gradient(to right, #fffff5, #fffff5), linear-gradient(to right, #fffff5, #fffff5), linear-gradient(to right, rgba(0,0,0,.25), rgba(255,255,243,0)), linear-gradient(to left, rgba(0,0,0,.25), rgba(255,255,243,0));
+// }
+// .knowl-output .knowl-output .knowl-output .MJXc-display {
+//     background-image: none;
+//     background-image: linear-gradient(to right, #fff5fe, #fff5fe), linear-gradient(to right, #fff5fe, #fff5fe), linear-gradient(to right, rgba(0,0,0,.25), rgba(255,243,254,0)), linear-gradient(to left, rgba(0,0,0,.25), rgba(255,243,254,0));
+// }
+
+
+
+/* not sure where this was being used, but it made short knowls
+ * look bad, like the hint here:
+ * SAFurtherReading.html
+*/
+.knowl-output .knowl-content > *:last-child:not(.incontext) {
+  margin-bottom: 0.5em;
+}
+.knowl-output .knowl .knowl-content > .solution-like,
+.knowl-output .knowl .knowl-content > .solution-like:not(.incontext) {
+  margin-bottom: 0.15em;
+}
+.knowl-output .knowl .knowl-content > .solution-like.hint {
+  border-left: 1px solid #0f0;
+  padding-left: 0.35em;
+  background: #efe;
+}
+.knowl-output .knowl .knowl-content > .solution-like.answer {
+  border-left: 2px solid #00f;
+  padding-left: 0.35em;
+  background: #eef;
+}
+.knowl-output .knowl .knowl-content > .solution-like.solution {
+  border-left: 3px solid #c0c;
+  padding-left: 0.5em;
+  background: #fef;
+}
+
+.knowl-content > article:first-child,
+.knowl-content > .solution-like:first-child {
+/* padding, not margin, to get colored background (and not be absorbed) */
+  padding-top: 0.25em;
+}
+
+
+.exercisegroup .exercisegroup-exercises.cols1 .knowl-output {
+  display: block;
+}
+
+.standalone.worksheet article > .knowl-output.original {
+    margin: 0;
+}
+
+.cols2 .knowl-output, .cols3 .knowl-output, .cols4 .knowl-output, .cols5 .knowl-output, .cols5 .knowl-output {
+    width: 100%;
+}
+
+.standalone.worksheet .knowl-content {
+    padding: 0;
+}
+
+// ---------------------------------------------------
+
+// Obsoluete mathjax styling?
+
+
+/* maybe the remainder of this case is subsumed by the above,
+   and also does not apply to MJ3 */
+   .mjx-chtml.MJXc-display {
+    /*Allow users on smaller screens to scroll equations*/
+    /*horizontally when they don't fit on the screen*/
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  #MathJax_ZoomFrame {
+    position: static;
+    background: white;
+  }
+  #MathJax_Zoom {
+    background-color: inherit;
+    border: 0;
+    padding: 0;
+    position: absolute;
+    overflow-x: auto;
+    overflow-y: visible;
+    left: 10% !important;
+    max-height: none !important;
+  }
+
+/*  http://sites.wcsu.edu/mbxml/OER_Linear_Alg/glossary.html
+   to fix the extra margin on top of the next term when
+   the previous definition ends in display math
+   May need to make less specific
+*/
+dd .displaymath:last-child .MJXc-display {
+  margin-bottom: 0;
+}
+
+/* Example 4.8 of sample article (compare main page of sample book (4^{th} edition)`*/
+a .heading .mjx-chtml {
+    z-index: 1;
+    background: #fff;
+}
+
+/* solution to Example 4.2.12 in http://spot.pcc.edu/math/orcca-draft/orcca/section-radical-expressions-and-rational-exponents.html
+*/
+.solution ol li > .para:first-child, .solution ol li > .displaymath:first-child {
+  vertical-align: top;
+  display: inline-block;
+  margin-top: 0;
+}
+.solution ol li > .displaymath:first-child .MJXc-display {
+  margin-top: 0;
+}
+
+
+/* to stop things being blue when rendering MathJax with SVG */
+a.mjx-svg-href  {
+  fill: inherit;
+  stroke: inherit;
+}
+
+
+
+// Old UI for sage cell?
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-draggable.ui-resizable {
+  left: 0 !important;
+  top: 0 !important;
+}
+
+
+// no sign of posterior /* Currently only for Solution to example */
+.posterior .heading {
+  font-weight: normal;
+  font-size: 1.125em;
+  line-height: 1.125em;
+  margin-top: 0;
+}
+
+
+
+
+// Can't find use of .wrap
+figcaption .wrap {
+  margin: 10px;
+  font-size: 100%;
+  text-align: center;
+}
+no sign of wrap class
+&.wrap img {
+  width: 250px;
+}
+figure.wrap {
+  float: right;
+  margin-right: 0;
+  margin-left: 30px;
+}
+figure img.wrap {
+  float: right;
+  margin: 0;
+}
+
+// Permalinks break these and have for years... currently useless
+figure.table-like figcaption:first-child {
+  font-style: oblique;
+  margin-top: 0;
+}
+figure.table-like figcaption:first-child .type,
+figure.table-like figcaption:first-child .codenumber {
+  font-style: normal;
+}
+
+
+// autoterm??
+.autoterm [knowl], .autoterm [knowl]:after {
+  font-weight: inherit;
+  color: inherit;
+  padding: 0;
+  margin-bottom: inherit;
+  border-bottom: inherit;
+  border-bottom-color: inherit;
+}
+.autoterm [knowl]:hover {
+  background: #ffddff;
+  border-top: 2px dotted purple;
+  border-bottom: 1px dotted red;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+
+// floatnav??
+.floatnav {
+  margin-top: 8px;
+  margin-left: 50px;
+}
+
+.floatnav a {
+  padding-left: 3px;
+/*
+*  omitted, because we put a space in the source
+  padding-right: 3px;
+*/
+  margin-right: -1px;
+  color: inherit;
+}
+
+.floatnav a:hover {
+    background: #eeaaff;
+}

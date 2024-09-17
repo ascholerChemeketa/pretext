@@ -1,0 +1,21 @@
+
+
+// Body links. .ptx-content to avoid hitting navbar, toc, etc...
+.ptx-content {
+  a.internal {
+    color: var(--linkColor);
+  }
+  a.external {
+    color: var(--altLinkColor);
+  }
+  a.internal:hover, a.internal:hover *,
+  a.internal:focus, a.internal:focus * {
+    color: var(--linkActive);
+    background-color: var(--linkBackground);
+  }
+  a.external:hover, a.external:hover *,
+  a.external:focus, a.external:focus * {
+    color: var(--altLinkActive);
+    background-color: var(--altLinkBackground);
+  }
+}
