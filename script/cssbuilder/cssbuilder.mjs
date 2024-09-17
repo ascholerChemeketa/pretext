@@ -5,7 +5,7 @@ import commandLineUsage from 'command-line-usage';
 import path from 'path';
 
 // Path to pretext/css relative to the pretext/script/cssbuilder directory
-const cssRoot = '../../css/';
+const cssRoot = path.join(import.meta.dirname, '../../css/');
 
 function getOptions() {
   const optionDefinitions = [
