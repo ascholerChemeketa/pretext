@@ -1,0 +1,24 @@
+// TODO - refactor
+
+.displaymath mjx-container[jax="CHTML"][display="true"] {
+  margin: 1rem 0 0 0;  // font size for display math throws off em units
+}
+
+
+
+// ?
+[data-knowl] > mjx-mrow .TEX-I {
+  font-family: MJXZERO !important;
+  font-style: normal !important;
+}
+
+/* remove this when MathJax fixes the bug that was setting the width to 0 */
+/* as in  $x=0$.  becomes  $x=0\text{.}$ */
+.knowl mjx-mtext > mjx-utext,
+mjx-mtext > mjx-utext {
+    width: revert !important;
+}
+mjx-msup mjx-utext,
+mjx-msub mjx-utext {
+    display: inline;
+}

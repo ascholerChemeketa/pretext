@@ -1,8 +1,3 @@
-
-.ptx-runestone-container {
-  overflow-x: auto;
-}
-
 $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
 
 .ptx-runestone-container:has(#{$wide-rs-elements}) {
@@ -23,8 +18,12 @@ $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
   margin: unset;
 }
 
-// hyper specific to override Runestone
-.ptx-content .ptx-runestone-container .ac_question { 
+// avoid label splitting into multiple lines
+.multiplechoice_section label > .para {
+  display: inline;
+}
+
+.ac_question { 
   max-width: 600px;
   margin: 0 auto 10px;
 }

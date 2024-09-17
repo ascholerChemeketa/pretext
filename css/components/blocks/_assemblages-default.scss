@@ -23,7 +23,7 @@ $pad: 0.4em;
   .openproblem-like,
   .computation-like,
   .commentary
-  ):not(.knowl__content) {
+  ):not(.knowl__content, .born-hidden-knowl) {
     padding-left: $pad;
     border-left: 2px solid var(--groupborder);
     
@@ -93,7 +93,27 @@ $pad: 0.4em;
       }
     }
   }
-  
+
+
+  .discussion-like {
+    & > .heading {
+      ::after {
+        content: "\2009";
+      }
+
+      & + .para {
+        display: inline;
+      }
+
+      .space, .codenumber, .period { 
+        display: none;
+      }
+
+      .type::after {
+        content: ". ";
+      }
+    }
+  }
   
   // wide sidebar
   .solutions {
