@@ -3,9 +3,11 @@ import { sassPlugin } from 'esbuild-sass-plugin';
 import commandLineArgs from 'command-line-args';
 import commandLineUsage from 'command-line-usage';
 import path from 'path';
+import * as url from 'url';
 
 // Path to pretext/css relative to the pretext/script/cssbuilder directory
-const cssRoot = path.join(import.meta.dirname, '../../css/');
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const cssRoot = path.join(__dirname, '../../css/');
 
 function getOptions() {
   const optionDefinitions = [
