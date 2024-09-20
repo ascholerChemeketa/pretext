@@ -1,6 +1,12 @@
 // headings for standard page elements - sections/articles/etc...
 // more specialized headings (exercises) should be defined in the specific component
 
+// reset size/margin for headings
+.heading:is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: unset;
+}
+
 .heading {
   line-height: 1.1;
   font-family: var(--font-headings);
@@ -13,17 +19,23 @@ section > .heading {
   font-size: 1.75em;
   color: var(--bodytitle);
   line-height: 1.25em;
-  margin-top: 1em;
-  margin-bottom: 0.35em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+
+  // pull in any following items that default to a larger top margin
+  & + * {
+    margin-top: 0.5em;
+  }
 }
 
 section section > .heading {
   font-size: 1.5em;
+  margin-top: 1.25em;
 }
 
 section section section > .heading {
   font-size: 1.40em;
-  margin-top: 0.75em;
+  margin-top: 1.125em;
 }
 
 @mixin inline-head {
@@ -40,7 +52,7 @@ section section section > .heading {
 }
 
 article > .heading {
-  font-size: 1.125em;
+  font-size: 1.25em;
   @include inline-head;
 
   & + .introduction {
@@ -48,6 +60,11 @@ article > .heading {
   }
   & + .introduction > .para:first-child {
     display: inline;
+  }
+
+  // pull in any following items that default to a larger top margin
+  & + * {
+    margin-top: 0.35em;
   }
 }
 
@@ -77,16 +94,3 @@ article > .heading {
 .heading.hide-type > .type {
   display: none;
 }
-
-// a > .heading { 
-//   display: inline;
-// }
-// These seem like a bad idea... fortunately, they don't seem to be necessary
-// h1, h2, h3, h4, h5, h6 {
-//   margin: 0;
-//   font-size: unset;
-// }
-// .pretext h1, .pretext h2, .pretext h3, .pretext h4, .pretext h5, .pretext h6 {
-//   margin: 0;
-//   font-size: unset;
-// }

@@ -2332,6 +2332,7 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- Get an option (attr) from pub file css/theme. Available options    -->
 <!-- are constrained by html-theme-option-list above.                   -->
+<!--TODO - double check why not key/map here. check local-name() vs name() -->
 <xsl:template name="get-theme-option">
     <xsl:param name="optname"/>
     <xsl:choose>

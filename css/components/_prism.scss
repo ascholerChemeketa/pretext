@@ -155,6 +155,7 @@ pre[class*="language-"] {
   // Line highlighting
   .line-highlight {
     position: absolute;
+    margin-top: 4px;    // tune to match padding of containing pre
     left: 0;
     right: 0;
     padding: inherit 0;

@@ -63,38 +63,33 @@
   .summary-links {
     margin-top: 4em;
   }
-}
 
-.colophon {
-  .copyright {
-    margin-top: 2.5em;
+  .abstract {
+    margin: 4em 2em;
   }
 
-  .license {
-    margin-top: 2.5em;
-  }
-}
-
-
-// contributor may appear elsewhere in book
-.contributor {
-  margin-top: 1.5ex;
-
-  &:first-child {
-    margin-top: 0em;
+  .abstract > .title {
+    font-size: 1.125em;
+    font-weight: 600;
+    line-height: 1.125em;
+    display: inline;
   }
 
-  & + .para {
-    margin-top: 3ex;
+  .abstract > .title::after {
+    content: ".\2009\2009\2009";
+  }
+  
+  .abstract > .title + .para {
+    display: inline;
   }
 
-  .contributor-name {
-    font-variant: small-caps;
-  }
-
-  .contributor-info {
-    font-size: 88%;
-    font-style: italic;
-    margin-left: 3ex;
+  .colophon {
+    .copyright {
+      margin-top: 2.5em;
+    }
+  
+    .license {
+      margin-top: 2.5em;
+    }
   }
 }

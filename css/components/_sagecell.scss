@@ -1,7 +1,7 @@
 // TODO - refactor
 
 .sagecell_sessionOutput pre {
-  font-family: 'Inconsolata', monospace;
+  font-family: var(--font-monospace);
 }
 
 .sagecell {
@@ -56,4 +56,22 @@
 
 .sagecell .sagecell_editor {
   margin-bottom: 8px;
+}
+
+.sageanswer {
+  font-family: monospace;
+  white-space: pre;
+  margin-left: 3em;
+  margin-bottom: 2em;
+}
+
+.sageanswer .key {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 1em;
+}
+
+.sageanswer .output {
+  display: inline-block;
+  vertical-align: top;
 }

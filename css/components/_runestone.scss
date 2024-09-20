@@ -16,6 +16,8 @@ $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
 // hyper specific to override Runestone margin
 .ptx-content .ptx-runestone-container .runestone {
   margin: unset;
+  border-radius: 0;
+  border-width: 1px;
 }
 
 // avoid label splitting into multiple lines

@@ -6,7 +6,7 @@
 
     tr {
       td {
-        padding-top: 2px 5px;
+        padding: 2px 5px;
         font-size: 90%;
 
         img {
@@ -309,4 +309,9 @@
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.tabular-box.natural-width table {
+    margin-left: auto;
+    margin-right: auto;
 }
