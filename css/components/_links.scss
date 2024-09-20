@@ -1,12 +1,30 @@
 
+// Reset for all links
+a {
+  color: var(--linkColor);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+
+a[href^="mailto:"] {
+  white-space: pre;
+}
+
 
 // Body links. .ptx-content to avoid hitting navbar, toc, etc...
 .ptx-content {
   a.internal {
     color: var(--linkColor);
+    font-weight: bold;
   }
   a.external {
     color: var(--altLinkColor);
+    font-weight: bold;
   }
   a.internal:hover, a.internal:hover *,
   a.internal:focus, a.internal:focus * {

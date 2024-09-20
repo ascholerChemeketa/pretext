@@ -1,4 +1,3 @@
-
 /* dl is used for glossaries and descriptions lists.
    Glossaries are simple:  bold word by itself on a line.
         Definition indented on the next line.
@@ -15,7 +14,7 @@
    a top margin on the dt.  Instead we have an ::after on the dd .
  */
 
- dl:is(.description-list, .glossary) {
+dl:is(.description-list, .glossary) {
   margin-top: 1em;
   margin-left: 0;
   margin-bottom: 0;
@@ -48,7 +47,9 @@ dl.glossary {
 }
 
 dl.description-list {
-  dt, dd {
+
+  dt,
+  dd {
     margin-top: 1em;
 
     &:first-of-type {
@@ -63,12 +64,12 @@ dl.description-list {
     width: 18ex;
     margin-right: 1ex;
   }
-  
+
   dd {
     margin-left: 22ex;
   }
 
-  .narrow  {
+  .narrow {
     dt {
       margin-top: 0;
       width: unset;
@@ -99,13 +100,6 @@ dl.description-list {
   }
 }
 
-// dl dd .para {
-//   margin-top: 1em;
-// }
-// dl dt > .para:first-child, dl dd > .para:first-child {
-//   margin-top: 0;
-// }
-
 dl.description-list dt:first-of-type {
   clear: none;
 }
@@ -116,14 +110,17 @@ dl.description-list dt:first-of-type {
 
 /* where do we have nested dl? */
 dl.description-list dl dt {
-    width: 8ex;
+  width: 8ex;
 }
+
 dl.description-list dd dd {
-    margin-left: 18ex;
+  margin-left: 18ex;
 }
+
 dl.description-list dl dd {
-    margin-left: 12ex;
+  margin-left: 12ex;
 }
+
 
 @media screen and (max-width: 480px) {
   dl.description-list dt {
@@ -131,6 +128,7 @@ dl.description-list dl dd {
     margin-left: 0;
     text-align: left;
   }
+
   dl.description-list dd,
   dl.description-list.narrow dd {
     margin-top: 0.5em;

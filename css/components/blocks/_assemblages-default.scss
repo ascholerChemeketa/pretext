@@ -9,7 +9,7 @@ goal-like, and
 assemblage-like.
 */
 
-$pad: 0.4em;
+$pad: 10px;
 
 //.ptx-content {  // TODO - remove if safe
 
@@ -64,7 +64,7 @@ $pad: 0.4em;
   .assemblage-like {
     border: solid 2px var(--assembborder);
     background-color: var(--assembbody);
-    border-radius: 12px;
+    // border-radius: 12px;
     padding: 10px;
 
     & > .heading {
@@ -86,7 +86,7 @@ $pad: 0.4em;
       padding: $pad (2 * $pad);
       margin-left: 5px;
       font-style: italic;
-      font-size: 120%;
+      font-size: 1.25em;
 
       .codenumber {
         display:none;
@@ -115,11 +115,18 @@ $pad: 0.4em;
     }
   }
   
-  // wide sidebar
-  .solutions {
-    font-size: .9rem;
+  // wide sidebar on an entire section of solutions
+  section.solutions:not(:is(:first-child)) {
+    // font-size: .9rem;
     padding-left: 1em;
     border-left: 1em solid var(--solutionborder);
+  }
+
+
+  .theorem-like {
+    & > .heading {
+      font-weight: 700;
+    }
   }
 
   // ???? Not sure these are needed - can't find good example

@@ -1,22 +1,21 @@
-.code-inline,
-.code-block,
-.console,
-.program {
-  font-family: var(--font-monospace);
-}
+@use 'helpers/expandable';
 
-.code-block,
-.console,
-.program {
-  margin-top: 0;
-  padding-left: 15px;
-  padding-right: 15px;
+@mixin code-text {
+  font-family: var(--font-monospace);
   font-size: 93%;
-  overflow-x: auto;
   line-height: 1.2;
 }
 
+.console,
+.program {
+  border: 1px solid var(--page-border-color);
+  padding: 5px 15px;
+  @include code-text();
+  @include expandable.expandable(350px, 116px);
+}
+
 .code-inline {
+  font-family: var(--font-monospace);
   white-space: pre;
   color: var(--bodyfontcolor);
   background: var(--code-inline);
@@ -25,26 +24,18 @@
   border-radius: 0.2em;
 }
 
-// Uncontained programs are allowed to escape normal width
-.program {
-  width: fit-content;
-  min-width: 100%;
 
-  // assumes there is a sidebar
-  max-width: calc(100vw - 350px); 
+.prompt.unselectable {
+  user-select: none;
 }
 
-.ptx-page:has(.ptx-sidebar.hidden) .program{
-  // can grow a bit when sidebar is hidden
-  max-width: calc(100vw - 116px); 
-} 
-
-// Upside down L borders only for things that Prism won't color
-.program:not([class*='language-']),
+// code blocks are preformatted text that is not a program - they just get upside down L borders
 .code-block {
   border-left: 1px solid #aaa;
+  padding: 0 15px 5px;
+  @include code-text();
 }
-.program:not([class*='language-'])::before,
+
 .code-block::before {
   content:' ';
   font-size: 50%;
@@ -56,39 +47,4 @@
 }
 
 
-/* next is for the old code formatting js */
-pre.prettyprint,
-pre.plainprint {
-  margin-top: 0;
-  padding-left: 15px;
-  border-left: 1px solid #aaa;
-  font-size: 93%;
-  overflow: auto;
-/* preveiously turned off the border and padding from pretty.css */
-}
-
-pre.prettyprint:before,
-pre.plainprint:before {
-  content:'';
-  font-size: 50%;
-  border-top: 1px solid #aaa;
-  display: block;
-  margin-right: auto;
-  margin-left: -15px;
-  width: 2.5em;
-}
-
-.kbdkey {
-    background: #f1f1f1;
-    color: #333;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    padding: 1px 2px 0 2px;
-    vertical-align: 0.1em;
-    font-size: 110%;
-    line-height: 1;
-    box-shadow: 2px 2px grey;
-    display: inline-block;
-    margin-right: 3px;
-}
 

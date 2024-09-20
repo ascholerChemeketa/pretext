@@ -1,411 +1,58 @@
-/*******************************************************************************
- * pretext.scss handles structure which (should be) common to all styles
- *******************************************************************************
- *
- * Authors: David Farmer, Rob Beezer
- *
- *******************************************************************************
- */
+// Entry point for common web styling
 
+@use 'body';
+@use 'lists';
+@use 'toc-basics';
+@use 'summary-links';
+@use 'front-matter';
+@use 'index';
+@use 'footnotes';
+@use 'tables';
+@use 'media';
+@use 'headings';
+@use 'figures';
+@use 'poem';
+@use 'codelike';
+@use 'prism';
+@use 'runestone';
+@use 'calculators';
+@use 'math';
+@use 'webwork';
+@use 'printing';
+@use 'links';
+@use 'worksheet';
+@use 'sagecell';
+@use 'permalinks';
+@use 'google-search';
+@use 'sidebyside';
+@use 'decorative';
+@use 'misc-content';
+@use 'solutions';
+@use 'cols';
+@use 'exercises';
+
+// all styling assumes border-box layout measurement
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-body.pretext {
-    color: var(--bodyfontcolor);
-    font-family: var(--font-body);
-}
-
-body.pretext,
-body.standalone {
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    background: var(--page-color, white);
-}
-
-a {
-    color: var(--linkColor);
-    text-decoration: none;
-}
-
-a:hover,
-a:focus {
-    text-decoration: none;
-}
-
-body.pretext > a.assistive {
-    padding:6px;
-    position: absolute;
-    top:-40px;
-    left: 0px;
-    color:white;
-    border-right:1px solid white;
-    border-bottom:1px solid white;
-    border-bottom-right-radius:8px;
-    background:transparent;
-    z-index: 10000;
-}
-
-body.pretext > a.assistive:focus {
-    top:0px;
-    background:#BF1722;
-    outline:0;
-    transition: top .1s ease-in, background .5s linear;
-}
-
-
-/* Runestone nav for Runestone-wide features */
-.pretext #brand-navbar,
-.pretext .brand-navbar {
-  left: 0;
-  position: fixed;
-  right: 0;
-  z-index: 1030;
-  height: 50px;
-  border-width: 0 0 1px;
-  top: 0;
-  margin-bottom: 0;
-}
-.pretext #brand-navbar > .container::before,
-.pretext .brand-navbar > .container::before,
-.pretext #brand-navbar > .container::after,
-.pretext .brand-navbar > .container::after {
-  display: none;
-}
-.pretext #brand-navbar + .ptx-masthead,
-.pretext .brand-navbar + .ptx-masthead {
-  margin-top: 50px;
-}
-.pretext #brand-navbar .navbar-collapse.collapse,
-.pretext .brand-navbar .navbar-collapse.collapse {
-  overflow: hidden !important;
-}
-.pretext #brand-navbar ~ .ptx-navbar,
-.pretext .brand-navbar ~ .ptx-navbar {
-  top: 50px;
-}
-@media screen and (max-width: 800px) {
-  .pretext #brand-navbar ~ .ptx-navbar,
-  .pretext .brand-navbar ~ .ptx-navbar {
-    top: auto;
-  }
-}
-
-
-/* we use .para as a wrapper around some "compound" p, so the
-   first p in .para is block-like because of the .pare */
-.para > p:first-child,
-.para > .para:first-child {
-    display: inline;
-}
-
-/* CSS defult values:
-https://www.w3schools.com/cssref/css_default_values.asp
-*/
-
-// /* the default margin for pre is "1em 0", so we over-ride
-// so that we can set our own later */
-// pre {
-//     margin: 0;
-//     padding: 0;
-//     border: none;
-// }
-// /* these are to over-ride "pre" styling in code.less */
-// pre {
-//     border-radius: 0;
-// }
-/* .para and other block-level elements should have space at the top, and not the bottom */
-
-textarea {
-    padding: 0;
-}
-
-// section > * {
-//     margin-top: 0.75em;
+// // base line spacing
+// // used to happen in .para, but that lead to inconsistent spacing for items not in .paras
+// test without... seems better
+// .ptx-content {
+//   line-height: 1.35;
 // }
 
-/* spacing around and after .para, and around and after article */
-.para {
-    margin-top: 1.25em;
-    margin-bottom: 0;
-    line-height: 1.35;
+// minimal spacing around items in a section or article
+// VERY unspecific selectors - just about anything will override them
+section > * {
+  margin-top: 1.5em;
+}
+article > * {
+  margin-top: 1em;
 }
 
-
-.aside-like > .para:first-child,
-td > .para:first-child,
-.solution-like > .para:first-child {
-    margin-top: 0;
-}
-/* for assemblages without a title */
-.assemblage-like > .para:first-of-type {
-    margin-top: 0;
-}
-.assemblage-like > .heading + .para {
-    margin-top: 0.25em;
-}
-.assemblage-like + .para {
-    margin-top: 1.75em;
-}
-
-.para.intertext {
-    margin-top: -0.25em;
-    text-indent: 0;
-}
-
-.para + table {
-    margin-top: 1em;
-}
-
-table tr td .para + .para {
-    margin-top: 1em;
-}
-
-table + .para {
-    margin-top: 1.5em;
-}
-
-.para + figure.figure-like > table {
-    margin-top: 1em;
-}
-
-/* 1.25 = ol top + li top ?  looked too big with 0.75 below */
-.exercise-like .para + ol {
-    margin-top: 0.5em;
-}
-
-.para + pre.prettyprint,
-.para + pre.plainprint {
-    margin-top: 1.25em;
-}
-.para + .code-box {
-    margin-top: 1.25em;
-}
-.code-box > .console {
-    margin-left: 1.5em;
-}
-
-.exercisegroup {
-    padding-top: 1.25em;
-    margin-bottom: 1.0em;
-}
-section .exercisegroup > .heading {
-    font-size: 1.10em;
-    line-height: 1.05em;
-    margin-top: 0.75em;
-    display: inline;
-}
-section .exercisegroup > .heading + .introduction {
-    display: inline;
-}
-section .exercisegroup > .heading + .introduction > .para:first-child {
-    display: inline;
-}
-
-.exercisegroup article.exercise-like .heading {
-    margin: 0;
-}
-article.exercise-like .task > .heading + .heading {
-    font-weight: 600;  /* should be slightly less bold, but some browsers make it bold */
-}
-article.exercise-like .task > .heading + .heading + .para,
-article.exercise-like .task > .heading + .heading + div {
-    display: block;
-    margin-top: 0;
-}
-.exercisegroup .conclusion .heading {
-    margin-top: 0.5em;
-}
-.exercisegroup article + article {
-    margin-top: 1em;
-}
-
-/* http://spot.pcc.edu/math/APEXCalculus/sec_interp_deriv.html */
-.exercisegroup > article,
-.exercisegroup-exercises > article {
-    margin-left: 2em;
-}
-.exercisegroup .cols2 > article {
-    margin-left: 1.25em;
-}
-.exercisegroup > .introduction,
-.exercisegroup > .conclusion {
-    margin-left: 0;
-}
-.exercisegroup > .introduction {
-    margin-top: 1.25em;
-    margin-top: 0;
-}
-.exercisegroup > .introduction > .para:first-child::before {
-    content: '\25a0\2009';
-   /* font-size: 70%; */
-    color: #06a;
-    position: relative;
-    top: -1px;
-    right: 1px;
-}
-.exercisegroup > .heading + .introduction > .para:first-child::before {
-    content: '\2003';
-}
-
-.exercisegroup > .introduction > .para:first-child {
-    margin-top: 0;
-}
-
-
-/* this > may be too restrictive.  The purpose is to not put a
-   top margin on an article at the top of a knowl */
-section > article, section > section.paragraphs, .paragraphs > article {
-    margin-top: 1.25em;
-}
-section article + article,
-section .introduction + article,
-section .para + article,
-section .posterior + article {
-    margin-top: 1.75em;
-}
-section article > .introduction + article {
-    margin-top: 1em;
-}
-
-section article > .discussion-like {
-    margin-top: 1em;
-}
-section article > .discussion-like .para {
-    margin-top: 1em;
-}
-
-article + .posterior {
-    margin-top: 0.5em;
-}
-section .para + .tabular-box {
-    margin-top: 0.75em;
-}
-section .tabular-box + .tabular-box {
-    margin-top: 1.0em;
-}
-section .proof,
-section .hiddenproof {
-    margin-top: 0.75em;
-}
-
-section > pre, .para + pre {
-    margin-top: 1.25em;
-}
-
-ol .para + .para, ul .para + .para {
-    margin-top: 1em;
-}
-
-/* see Ex 29 https://yoshiwarabooks.org/linear-functions.html
-and ex 2.91 in
-https://yoshiwarabooks.org/mfg/MathModels.html */
-.introduction + .sidebyside,
-.para + .sidebyside,
-ol + .sidebyside,
-ul + .sidebyside {
-    margin-top: 1em;
-}
-
-
-
-section .heading + .para,
-section .title + .para, /* list items have bare .title, not in a .heading */
-section .heading + .introduction > .para:first-child,
-section .blob > .para:first-child {
-    margin-top: 0.25em;
-}
-
-
-
-.para.logical > .para:first-child {
-    display: inline;
-}
-
-
-
-.paragraphs + .paragraphs {
-    margin-top: 3em;
-}
-
-.abstract {
-    margin: 4em 2em;
-}
-.abstract > .title {
-    font-size: 1.125em;
-    font-weight: 600;
-    line-height: 1.125em;
-    display: inline;
-}
-.abstract > .title::after {
-    content: ".\2009\2009\2009";
-}
-.abstract > .title + .para {
-    display: inline;
-}
-
-
-/*
- * Contents of articles
- */
-
-/* when a list is the only thing in an environment with a border,
-   there is too much space to the left */
-article > .heading + ol,
-article > .heading + ul {
-    padding-left: 1.5em;
-}
-article.theorem-like .para,
-article.theorem-like li {
-    font-style: italic;
-}
-article.theorem-like .emphasis {
-    font-weight: 700;
-}
-
-article.theorem-like li  .title {
-    font-weight: 600;
-    font-style: normal;
-    font-size: 96%;
-}
-
-
-.conclusion {
-    margin-top: 1em;
-}
-.conclusion > .para:first-child {
-    margin-top: 0.5em;
-}
-
-.exercise-like > ol:first-child,
-.exercise-like > ul:first-child {
-    margin-top: 0;
-}
-
-.heading + ol, .heading + ul {
-    margin-top: 0.45em;
-}
-
-article .para:first-child {
-    margin-top: 0;
-}
-
-
-a[href^="mailto:"] {
-    white-space: pre;
-}
-
-.hidden {
-  display: none;
-}
-
-
-// Icon font settings
-.material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
+// tighten up spacing slightly for adjacent paragraphs in a section
+.para + .para {
+  margin-top: 1em;
 }

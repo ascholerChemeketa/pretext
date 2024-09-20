@@ -217,17 +217,6 @@ article .exercise-stage {
 }
 
 
-
-
-// Currently only for Solution to example
-.posterior .heading {
-  font-weight: normal;
-  font-size: 1.125em;
-  line-height: 1.125em;
-  margin-top: 0;
-}
-
-
 // schema doesn't allow for title in paragraph?
  .paragraphs .para .title {
   font-family: var(--font-headings);
@@ -314,6 +303,12 @@ article .exercise-stage {
 /* padding, not margin, to get colored background (and not be absorbed) */
   padding-top: 0.25em;
 }
+
+
+.hidden-knowl-wrapper [data-knowl]::after, .hidden-knowl-wrapper [data-knowl]:hover::after, .hidden-knowl-wrapper .active[data-knowl]::after {
+  right: 7px;
+}
+
 
 
 .exercisegroup .exercisegroup-exercises.cols1 .knowl-output {
@@ -403,6 +398,8 @@ a.mjx-svg-href  {
 }
 
 
+
+
 // no sign of posterior /* Currently only for Solution to example */
 .posterior .heading {
   font-weight: normal;
@@ -410,6 +407,20 @@ a.mjx-svg-href  {
   line-height: 1.125em;
   margin-top: 0;
 }
+/* if hints and solutions are in .posterior, then
+ * some of the above styling does not apply */
+article.exercise-like + .posterior {
+    margin-top: -0.75em;
+}
+// Currently only for Solution to example
+.posterior .heading {
+  font-weight: normal;
+  font-size: 1.125em;
+  line-height: 1.125em;
+  margin-top: 0;
+}
+
+
 
 
 
@@ -483,3 +494,383 @@ figure.table-like figcaption:first-child .codenumber {
 .floatnav a:hover {
     background: #eeaaff;
 }
+
+
+
+// tt ??
+a > tt {
+  font-size: 110%;
+}
+
+
+
+
+
+/* next is for the old code formatting js */
+pre.prettyprint,
+pre.plainprint {
+  margin-top: 0;
+  padding-left: 15px;
+  border-left: 1px solid #aaa;
+  font-size: 93%;
+  overflow: auto;
+/* preveiously turned off the border and padding from pretty.css */
+}
+
+pre.prettyprint:before,
+pre.plainprint:before {
+  content:'';
+  font-size: 50%;
+  border-top: 1px solid #aaa;
+  display: block;
+  margin-right: auto;
+  margin-left: -15px;
+  width: 2.5em;
+}
+
+
+
+/* math directly adajacent to words is wrapped to avoid bad line breaks */
+.mathword {
+  white-space: nowrap;
+}
+
+
+
+/* Born-hidden example with a very long title */
+/* http://physics.thomasmore.edu/ConnectedPhysics/sss-netforce.html */
+a .heading {
+  white-space: normal;
+}
+
+
+
+.minipage  + .minipage {
+  display: inline-block;
+}
+
+
+// Early attempt at merging Runestone???
+/* Runestone nav for Runestone-wide features */
+.pretext #brand-navbar,
+.pretext .brand-navbar {
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 1030;
+  height: 50px;
+  border-width: 0 0 1px;
+  top: 0;
+  margin-bottom: 0;
+}
+.pretext #brand-navbar > .container::before,
+.pretext .brand-navbar > .container::before,
+.pretext #brand-navbar > .container::after,
+.pretext .brand-navbar > .container::after {
+  display: none;
+}
+.pretext #brand-navbar + .ptx-masthead,
+.pretext .brand-navbar + .ptx-masthead {
+  margin-top: 50px;
+}
+.pretext #brand-navbar .navbar-collapse.collapse,
+.pretext .brand-navbar .navbar-collapse.collapse {
+  overflow: hidden !important;
+}
+.pretext #brand-navbar ~ .ptx-navbar,
+.pretext .brand-navbar ~ .ptx-navbar {
+  top: 50px;
+}
+@media screen and (max-width: 800px) {
+  .pretext #brand-navbar ~ .ptx-navbar,
+  .pretext .brand-navbar ~ .ptx-navbar {
+    top: auto;
+  }
+}
+
+
+
+
+// does not match any current output from xsl
+hr.ptx-pagebreak {
+  width: 30em;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2.0em;
+  margin-top: 0;
+  height: 4em;
+  border: 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+hr.ptx-pagebreak:after {
+  content: "page";
+  display: inline-block;
+  position: relative;
+  top: 4.0em;
+  font-size: 80%;
+  padding: 0 0.25em;
+  background: white;
+}
+
+
+
+// consecutive headings? need sample
+.exercise-like .task > .heading + .heading {
+  font-weight: 600;  /* should be slightly less bold, but some browsers make it bold */
+}
+.exercise-like .task > .heading + .heading + .para,
+.exercise-like .task > .heading + .heading + div {
+  display: block;
+  margin-top: 0;
+}
+
+
+
+
+// ---------------------------------------------------
+// spacing rules - these were in pretext/pretext_add_on
+// attempting to forgo them with simpler spacing rules
+
+// table + article {
+//     margin-top: 1em;
+// }
+
+
+// .image-box + table,
+// .image-box + .sidebyside > .sbsrow:first-child > .sbspanel > table:first-child {
+//     margin-top: 1.5em;
+// }
+
+
+// section.introduction + section {
+//     margin-top: 2em;
+// }
+
+
+// section section + section {
+//     margin-top: 3em;
+// }
+
+
+// .solution > ol li + li {
+//     margin-top: 0.5em;
+// }
+
+
+// section > ol:last-child,
+// section > ul:last-child {
+//     margin-bottom: 1.5em;
+// }
+
+// .objectives {
+//     margin-bottom: 1.25em;
+// }
+
+
+// li > .heading + ol,
+// li > .heading + ul {
+//   margin-top: 0.25em;
+// }
+
+
+// li > .heading + ol > li:nth-child(1),
+// li > .heading + ul > li:nth-child(1) {
+//   margin-top: 0;
+// }
+
+// li > .heading + ol.cols2 > li:nth-child(2),
+// li > .heading + ul.cols2 > li:nth-child(2) {
+//   margin-top: 0;
+// }
+
+// /* http://spot.pcc.edu/math/APEXCalculus/sec_prod_quot_rules.html
+//  * solution to Example 2.4.14
+//  */
+// .solution ol li {
+//     margin-top: 1em;
+//     padding-left: 0.5em;
+// }
+
+// /*
+// nested tasks. see
+// https://pretextbook.org/examples/sample-article/html/interesting-corollary.html#aBc
+// */
+
+// article.example-like > .heading + .introduction {
+//     display: inline;
+// }
+// article.example-like > .heading + .introduction > .para:first-child {
+//     display: inline;
+// }
+// article.example-like > .exercise-like > .para {
+//     margin-top: 1.25em;
+// }
+
+/* end of nested tasks */
+
+// /*
+//    See 10.1.8c in http://faculty.valpo.edu/calculus3ibl/ch10_01_gradient.html
+// and condider having this replace line 3338 of the general code (which uses .heading + p)
+// */
+// .example-like > .exercise-like > .para:first-of-type {
+//     display: inline;
+// }
+// .example-like > .exercise-like > .aside-like {
+//     margin-top: -3em;
+// }
+// .example-like > .exercise-like > .aside-like.front {
+//     margin-top: 0;
+// }
+
+// don't appear to work due to permalinks. But not needed
+// /* we use .para as a wrapper around some "compound" p, so the
+//    first p in .para is block-like because of the .pare */
+// .para > p:first-child,
+// .para > .para:first-child {
+//     display: inline;
+// }
+
+
+
+// .paragraphs + .paragraphs {
+//   margin-top: 3em;
+// }
+
+
+// /* spacing around and after .para, and around and after article */
+
+// .aside-like > .para:first-child,
+// td > .para:first-child,
+// .solution-like > .para:first-child {
+//     margin-top: 0;
+// }
+// /* for assemblages without a title */
+// .assemblage-like > .para:first-of-type {
+//     margin-top: 0;
+// }
+// .assemblage-like > .heading + .para {
+//     margin-top: 0.25em;
+// }
+// .assemblage-like + .para {
+//     margin-top: 1.75em;
+// }
+
+
+// .para + table {
+//     margin-top: 1em;
+// }
+
+// table tr td .para + .para {
+//     margin-top: 1em;
+// }
+
+// table + .para {
+//     margin-top: 1.5em;
+// }
+
+// .para + figure.figure-like > table {
+//     margin-top: 1em;
+// }
+
+// .para + pre.prettyprint,
+// .para + pre.plainprint {
+//     margin-top: 1.25em;
+// }
+// .para + .code-box {
+//     margin-top: 1.25em;
+// }
+
+// /* 1.25 = ol top + li top ?  looked too big with 0.75 below */
+// .exercise-like .para + ol {
+//   margin-top: 0.5em;
+// }
+
+
+// /* this > may be too restrictive.  The purpose is to not put a
+//    top margin on an article at the top of a knowl */
+// section > article, section > section.paragraphs, .paragraphs > article {
+//     margin-top: 1.25em;
+// }
+// section article + article,
+// section .introduction + article,
+// section .para + article,
+// section .posterior + article {
+//     margin-top: 1.75em;
+// }
+// section article > .introduction + article {
+//     margin-top: 1em;
+// }
+
+// section article > .discussion-like {
+//     margin-top: 1em;
+// }
+// section article > .discussion-like .para {
+//     margin-top: 1em;
+// }
+
+// article + .posterior {
+//     margin-top: 0.5em;
+// }
+// section .para + .tabular-box {
+//     margin-top: 0.75em;
+// }
+// section .tabular-box + .tabular-box {
+//     margin-top: 1.0em;
+// }
+// section .proof,
+// section .hiddenproof {
+//     margin-top: 0.75em;
+// }
+
+// section > pre, .para + pre {
+//     margin-top: 1.25em;
+// }
+
+// ol .para + .para, ul .para + .para {
+//     margin-top: 1em;
+// }
+
+// /* see Ex 29 https://yoshiwarabooks.org/linear-functions.html
+// and ex 2.91 in
+// https://yoshiwarabooks.org/mfg/MathModels.html */
+// .introduction + .sidebyside,
+// .para + .sidebyside,
+// ol + .sidebyside,
+// ul + .sidebyside {
+//     margin-top: 1em;
+// }
+
+
+
+// section .heading + .para,
+// section .title + .para, /* list items have bare .title, not in a .heading */
+// section .heading + .introduction > .para:first-child,
+// section .blob > .para:first-child {
+//     margin-top: 0.25em;
+// }
+
+// /*
+//  * Contents of articles
+//  */
+
+// .conclusion {
+//     margin-top: 1em;
+// }
+// .conclusion > .para:first-child {
+//     margin-top: 0.5em;
+// }
+
+// .exercise-like > ol:first-child,
+// .exercise-like > ul:first-child {
+//     margin-top: 0;
+// }
+
+// .heading + ol, .heading + ul {
+//     margin-top: 0.45em;
+// }
+
+// article .para:first-child {
+//     margin-top: 0;
+// }
