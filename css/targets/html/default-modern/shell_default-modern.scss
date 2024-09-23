@@ -22,7 +22,7 @@
       div.ptx-page-footer
 */
 
-@use 'components/buttons/buttons-default' as buttons;
+@use 'components/helpers/buttons-default' as buttons;
 @use 'banner_default-modern';
 @use 'navbar_default-modern';
 @use 'toc_default-modern';
@@ -64,7 +64,8 @@ $body-side-margin: 48px;
   margin-left: 0;
 }
 
-.ptx-content {
+// ptx-main ensures iframe pages don't get these margins
+.ptx-main > .ptx-content {
   max-width: $body-max-width;
   margin: 32px $body-side-margin;
   min-height: 60vh;

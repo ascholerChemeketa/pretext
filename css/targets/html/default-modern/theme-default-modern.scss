@@ -20,7 +20,7 @@ $background-color-dark: #23241f !default;
 @use 'shell_default-modern';
 
 // "style" components 
-@use 'components/blocks/default-blocks';
+@use 'components/content-chunks/content-chunks-default';
 
 @use 'heading-tweaks' with ($palette: $palette);
 

@@ -34,13 +34,17 @@ Shared files that are (or are expected to be) used across many **targets**.
 
 Some of these files are in need of refactoring and modularization.
 
-If there are multiple variants of a particular component, consider creating a subdirectory to contain them.
+See README.md in subfolders of `components/` for tips on organization of subcomponents.
 
 ### dist
 
 Built CSS ready for inclusion by pretext.
 
 Files in the directory **should not be modified by hand**. The CSS build script in `script/cssbuilder` will produce these files from the items in the `targets` directory.
+
+### fonts
+
+Mechanisms for selection of fonts by a theme
 
 ### targets
 

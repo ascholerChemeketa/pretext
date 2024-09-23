@@ -1,4 +1,4 @@
-@use 'cols';
+@use '../helpers/cols';
 
 // generate multi column rules for exercises
 @include cols.allow-cols('.exercise-like');

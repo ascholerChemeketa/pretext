@@ -1,6 +1,5 @@
 
 // columns are arranged in row-major order to match print output in LaTeX
-
 :is(.cols2, .cols3, .cols4, .cols5, .cols6) {
   display: flex;
   flex-wrap: wrap;
@@ -19,6 +18,4 @@
     }
   }
 }
-
-@include allow-cols('li');
 

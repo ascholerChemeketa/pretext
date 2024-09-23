@@ -1,4 +1,4 @@
-@use 'helpers/expandable';
+@use '../helpers/expandable';
 
 @mixin code-text {
   font-family: var(--font-monospace);
