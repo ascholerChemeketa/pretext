@@ -351,7 +351,7 @@ console.log("this is e", e);
                 this_permalink_container.setAttribute('data-description', this_permalink_description);
     //         this_permalink_container.innerHTML = '<span href="' + this_permalink_url + '">' + permalink_word + '</span>';
                 this_permalink_container.innerHTML = '<a href="' + this_permalink_url + '" title="Copy permalink for ' + this_permalink_description + '">' + permalink_word + '</a>';
-                this_item.insertAdjacentElement("afterbegin", this_permalink_container)
+                this_item.insertAdjacentElement("beforeend", this_permalink_container)
             } else {
 /*
                 console.log("      no permalink, because no id", this_item)

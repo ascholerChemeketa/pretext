@@ -12,12 +12,12 @@ article,
 .autopermalink {
   position: absolute;
   display: inline-block;
-  top: 3px;
-  left: -1.9em;
+  top: 0.5ex;
+  left: -2em;
   font-size: 85%;
   opacity: var(--permalink-opacity, 0.05);
   transition: opacity 0.2s;
-  margin-top: 0.1em;
+  margin-top: 0 !important;
 }
 
 li > .para > .autopermalink {
