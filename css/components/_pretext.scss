@@ -1,35 +1,31 @@
 // Entry point for common web styling
 
 @use 'body';
-@use 'lists';
-@use 'toc-basics';
-@use 'summary-links';
-@use 'front-matter';
-@use 'index';
 @use 'footnotes';
-@use 'tables';
 @use 'media';
-@use 'headings';
 @use 'figures';
 @use 'poem';
-@use 'codelike';
 @use 'prism';
-@use 'runestone';
-@use 'calculators';
 @use 'math';
-@use 'webwork';
 @use 'printing';
-@use 'links';
 @use 'worksheet';
-@use 'sagecell';
 @use 'permalinks';
 @use 'google-search';
 @use 'sidebyside';
-@use 'decorative';
 @use 'misc-content';
-@use 'solutions';
-@use 'cols';
-@use 'exercises';
+@use 'book-parts/front-matter';
+@use 'book-parts/toc-basics';
+@use 'book-parts/summary-links';
+@use 'book-parts/index';
+@use 'book-parts/solutions';
+@use 'elements/lists';
+@use 'elements/headings';
+@use 'elements/links';
+@use 'elements/tables';
+@use 'calculators';
+@use 'interactives/runestone';
+@use 'interactives/webwork';
+@use 'interactives/sagecell';
 
 // all styling assumes border-box layout measurement
 * {
@@ -45,14 +41,21 @@
 
 // minimal spacing around items in a section or article
 // VERY unspecific selectors - just about anything will override them
-section > * {
+section > *:not(:first-child) {
   margin-top: 1.5em;
 }
-article > * {
+article > *:not(:first-child) {
+  margin-top: 1em;
+}
+.knowl__content > *:not(:first-child) {
   margin-top: 1em;
 }
 
 // tighten up spacing slightly for adjacent paragraphs in a section
-.para + .para {
+section > .para + .para {
+  margin-top: 1em;
+}
+
+.para:not(:first-child) {
   margin-top: 1em;
 }

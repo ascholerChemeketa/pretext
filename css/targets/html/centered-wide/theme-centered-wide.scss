@@ -12,7 +12,7 @@ $background-color-dark: #23241f !default;
 // relative to css/ directory
 @use 'components/pretext';
 @use 'components/pretext_add_on';
-@use 'components/blocks/default-blocks';
+@use 'components/content-chunks/content-chunks-default';
 
 // wide specific
 @use 'structural';

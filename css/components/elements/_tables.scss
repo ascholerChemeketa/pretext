@@ -1,5 +1,5 @@
+// limit these rules to just content area
 .ptx-content {
-  
   table {
     border-spacing: 0;
     border-collapse: collapse;
@@ -314,4 +314,8 @@
 .tabular-box.natural-width table {
     margin-left: auto;
     margin-right: auto;
+}
+
+.tabular-box {
+  margin-top: 0.5em;  //minimum space above to separate from figcaption
 }

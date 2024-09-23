@@ -2,7 +2,7 @@
 
 @use "list-styles";
 @use "description-lists";
-@use 'cols';
+@use '../helpers/cols';
 
 // generate multi column rules for lists
 @include cols.allow-cols('.exercise-like');
@@ -12,7 +12,7 @@
   ol,
   ul {
     // margin-top: 0.75em;
-    // margin-bottom: 0;
+    margin-bottom: 0;
 
     ol,
     ul {

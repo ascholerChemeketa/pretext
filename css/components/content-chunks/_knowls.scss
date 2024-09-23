@@ -25,7 +25,7 @@ summary.knowl__link {
 }
 
 .knowl__content {
-  margin: 0.2em;
+  margin: 0.75em 0;  //at least this much space above/below
   border: 6px solid var(--knowlborder);
   border-radius: 0.4em;
   padding: 0.8em;
@@ -37,29 +37,6 @@ summary.knowl__link {
     text-align: right;
   }
 }
-
-
-/* No Greg's L in knowls, to save space */
-.ptx-content .knowl__content > article:is(.theorem-like, .definition-like, .example-like, .project-like, .objectives, .outcomes, .remark-like, .proof)::after {
-  content: '' !important;
-  border-bottom: none;
-  margin: 0;
-  padding: 0;
-  width: 0;
-}
-
-.ptx-content .knowl__content > article:is(.theorem-like, .definition-like, .example-like, .project-like, .objectives, .outcomes, .remark-like) {
-  padding-left: 0;
-  margin-left: 0;
-  border-left: none;
-}
-
-.ptx-content .knowl__content > article:is(.proof) {
-  padding-right: 0;
-  margin-right: 0;
-  border-right: none;
-}
-
 
 /* nested knowl alt colors */
 .knowl__content .knowl__content {

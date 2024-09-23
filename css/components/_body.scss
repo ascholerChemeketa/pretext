@@ -1,5 +1,10 @@
 // Body level styling
 
+// hits regular pages and generated iframe pages
+body {
+  margin: 0;
+}
+
 body.pretext {
   color: var(--bodyfontcolor);
   font-family: var(--font-body);
