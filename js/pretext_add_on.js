@@ -1000,17 +1000,17 @@ function setDarkMode(isDark) {
         return;
 
     if (isDark) {
-        document.documentElement.classList.add("dark-mode");
-    } else {
-        document.documentElement.classList.remove("dark-mode");
-    }
+      document.documentElement.classList.add("dark-mode");
 
-    // Apply to local iframes that want dark mode
-    const iframes = document.querySelectorAll("iframe[data-dark-mode-enabled]");
-    for (const iframe of iframes) {
-        iframe.contentWindow.document.documentElement.classList.add("dark-mode");
-    }
-    
+      // Apply to local iframes that want dark mode
+      const iframes = document.querySelectorAll("iframe[data-dark-mode-enabled]");
+      for (const iframe of iframes) {
+          iframe.contentWindow.document.documentElement.classList.add("dark-mode");
+      }
+  } else {
+      document.documentElement.classList.remove("dark-mode");
+  }
+
     const modeButton = document.getElementById("light-dark-button");
     if (modeButton) {
         modeButton.querySelector('.icon').innerText = isDark ? "light_mode" : "dark_mode";
