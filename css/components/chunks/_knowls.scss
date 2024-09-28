@@ -2,6 +2,8 @@
   main knowls styles
 */
 
+$border-radius: 8px !default;
+
 .knowl__link {
   cursor: pointer;
   margin-left: 0.1em;
@@ -27,7 +29,7 @@ summary.knowl__link {
 .knowl__content {
   margin: 0.75em 0;  //at least this much space above/below
   border: 6px solid var(--knowlborder);
-  border-radius: 0.4em;
+  border-radius: $border-radius;
   padding: 0.8em;
   background-color: var(--knowlbackground);
 

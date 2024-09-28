@@ -10,7 +10,6 @@
     .project-like,
     .remark-like,
     .openproblem-like,
-    .openproblems-like,
     .computation-like
   ) {
   padding-left: 10px;
@@ -24,7 +23,6 @@
     .project-like,
     .remark-like,
     .openproblem-like,
-    .openproblems-like,
     .computation-like
   )
   > .ptx-runestone-container
@@ -37,7 +35,6 @@
     .project-like,
     .remark-like,
     .openproblem-like,
-    .openproblems-like,
     .computation-like
   )
   > pre.program, */
@@ -49,7 +46,6 @@
     .project-like,
     .remark-like,
     .openproblem-like,
-    .openproblems-like,
     .computation-like
   )
   > .ptx-runestone-container
@@ -62,8 +58,7 @@
   .project-like,
   .remark-like,
   .openproblem-like,
-  .openproblems-like,
-  .computation-like
+    .computation-like
 ) .contains-wide {
   margin-left: calc(var(--xl-margin) - 10px);
 }
@@ -146,7 +141,6 @@
     .project-like,
     .remark-like,
     .openproblem-like,
-    .openproblems-like,
     .computation-like
   )::after {
   margin-left: -10px;

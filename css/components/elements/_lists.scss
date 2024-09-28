@@ -5,7 +5,7 @@
 @use '../helpers/cols';
 
 // generate multi column rules for lists
-@include cols.allow-cols('.exercise-like');
+@include cols.allow-cols('li');
 
 // use .ptx-content to avoid styling lists in toc/header/etc...
 .ptx-content {

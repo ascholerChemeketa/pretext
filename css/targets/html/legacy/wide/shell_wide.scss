@@ -5,16 +5,14 @@
   --content-width: 750px;
   --content-width-wide: 1050px;
   --page-width: 1100px;
-  --xl-margin: calc(
-    (var(--content-width) - var(--content-width-wide)) / 2 -
-      var(--content-margin)
-  );
+  --xl-margin: calc((var(--content-width) - var(--content-width-wide)) / 2 - var(--content-margin));
 
   --content-font-size: 1.2rem;
 }
 
 html {
-  font-size: 16px !important; /* temp override runestone injection */
+  font-size: 16px !important;
+  /* temp override runestone injection */
 }
 
 :root {
@@ -42,7 +40,7 @@ body.pretext {
   max-width: var(--page-width);
   margin: 0 auto;
   background: var(--page-color);
-  
+
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -88,8 +86,7 @@ body.pretext {
 }
 
 /* components that should be wide */
-.ptx-content
-  .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section),
+.ptx-content .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section),
 /* .ptx-content pre.program, */
 .ptx-content .runestone.datafile,
 .ptx-content .contains-wide {
@@ -102,9 +99,7 @@ body.pretext {
 }
 
 /* unless nested in other runestone's */
-.ptx-content
-  .runestone
-  .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section),
+.ptx-content .runestone .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section),
 /* .ptx-content .runestone pre.program, */
 .ptx-content .runestone .runestone.datafile {
   width: 100%;
@@ -117,23 +112,14 @@ body.pretext {
 }
 
 .pretext .ptx-page > .ptx-main .ptx-content pre,
-.pretext
-  .ptx-page
-  > .ptx-main
-  .ptx-content
-  .ptx-runestone-container
-  :is(.ac_code_div),
+.pretext .ptx-page > .ptx-main .ptx-content .ptx-runestone-container :is(.ac_code_div),
 .ptx-runestone-container .parsons .sortable-code-container,
 .ptx-runestone-container .hparsons_section .hparsons-input {
   font-size: 1rem;
 }
 
 /* limit width of content inside ac except for actual activecode */
-.ptx-content
-  .runestone.ac_section
-  > div
-  > div
-  > *:not(.ac_code_div):not(.ac_output):not(.codelens):not(.ac_actions) {
+.ptx-content .runestone.ac_section > div > div > *:not(.ac_code_div):not(.ac_output):not(.codelens):not(.ac_actions) {
   max-width: calc(var(--content-width) - 2 * var(--content-margin));
   margin-left: auto;
   margin-right: auto;
@@ -148,11 +134,10 @@ body.pretext {
 }
 
 /* but widen item that needs it */
-.ptx-content .runestone.contains-wide .tab-content
-  .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section) {
-    width: calc(var(--content-width-wide) - 20px);
-    margin-left: calc(var(--xl-margin) + 8px);
-  }
+.ptx-content .runestone.contains-wide .tab-content .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section) {
+  width: calc(var(--content-width-wide) - 20px);
+  margin-left: calc(var(--xl-margin) + 8px);
+}
 
 
 /* limit width of content inside parsons except for actual parsons */
@@ -161,11 +146,7 @@ body.pretext {
   padding-right: 0;
 }
 
-.ptx-content
-  .runestone.parsons_section
-  > .parsons
-  > div
-  > *:not(.sortable-code-container) {
+.ptx-content .runestone.parsons_section > .parsons > div > *:not(.sortable-code-container) {
   max-width: calc(var(--content-width) - 2 * var(--content-margin));
   margin-left: auto;
   margin-right: auto;
@@ -192,7 +173,8 @@ body.pretext {
 }
 
 .ptx-content .runestone .parsons .lines code .token {
-  background: none; /*fix prism overlap */
+  background: none;
+  /*fix prism overlap */
 }
 
 .ptx-runestone-container .runestone.parsons_section {
@@ -201,6 +183,7 @@ body.pretext {
 
 /* whole bunch of rules to relatively gracefully handle lots of different sizes without js */
 @media screen and (max-width: 1100px) {
+
   /* tune to match --page-width */
   :root {
     --page-width: 100%;
@@ -238,6 +221,7 @@ body.pretext {
 }
 
 @media screen and (max-width: 943px) {
+
   /* Override rule that adds scrollbars to program listings when not needed */
   .ptx-content .figure-like {
     overflow-x: inherit;
@@ -245,6 +229,7 @@ body.pretext {
 }
 
 @media screen and (max-width: 850px) {
+
   /* match to --content-width - should be that + 100 */
   :root {
     --content-width: 100%;
@@ -253,24 +238,16 @@ body.pretext {
   }
 
   /* nested sizing */
-  .ptx-content
-    article:is(
-      .theorem-like,
-      .definition-like,
-      .example-like,
-      .project-like,
-      .remark-like,
-      .openproblem-like,
-      .openproblems-like,
-      .computation-like
-    )
-    > .ptx-runestone-container
-    > .runestone:is(
-      .ac_section,
-      .codelens,
-      .parsons_section,
-      .hparsons_section
-    ),
+  .ptx-content article:is(.theorem-like,
+    .definition-like,
+    .example-like,
+    .project-like,
+    .remark-like,
+    .openproblem-like,
+    .computation-like) > .ptx-runestone-container > .runestone:is(.ac_section,
+    .codelens,
+    .parsons_section,
+    .hparsons_section),
   /* .ptx-content
     article:is(
       .theorem-like,
@@ -279,42 +256,28 @@ body.pretext {
       .project-like,
       .remark-like,
       .openproblem-like,
-      .openproblems-like,
-      .computation-like
+    .computation-like
     )
     > .ptx-runestone-container
     > pre.program, */
-  .ptx-content
-    article:is(
-      .theorem-like,
-      .definition-like,
-      .example-like,
-      .project-like,
-      .remark-like,
-      .openproblem-like,
-      .openproblems-like,
-      .computation-like
-    )
-    > .ptx-runestone-container
-    > .runestone.datafile,
-  .ptx-content
-  article:is(
-    .theorem-like,
+  .ptx-content article:is(.theorem-like,
     .definition-like,
     .example-like,
     .project-like,
     .remark-like,
     .openproblem-like,
-    .openproblems-like,
-    .computation-like
-  )
-  > .ptx-runestone-container
-  > .runestone.contains-wide {
+    .computation-like) > .ptx-runestone-container > .runestone.datafile,
+  .ptx-content article:is(.theorem-like,
+    .definition-like,
+    .example-like,
+    .project-like,
+    .remark-like,
+    .openproblem-like,
+    .computation-like) > .ptx-runestone-container > .runestone.contains-wide {
     width: calc(var(--content-width-wide) + 10px);
   }
 
-  .ptx-content
-    .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section, .contains-wide) {
+  .ptx-content .runestone:is(.ac_section, .codelens, .parsons_section, .hparsons_section, .contains-wide) {
     border-left: 0;
     border-right: 0;
     border-top: 1px solid #aaa;
@@ -330,11 +293,11 @@ body.pretext {
   .ptx-content .ptx-runestone-container .parsons .sortable-code {
     overflow-x: auto;
   }
-  
+
   .ptx-content .ptx-runestone-container .parsons .sortable-code:first-of-type {
     padding: 0 25px;
   }
-  
+
   .searchresultsplaceholder {
     width: 80vw;
     left: 10vw;
@@ -345,6 +308,7 @@ body.pretext {
 
 @media screen and (max-width: 663px) {
   :root {
-    --content-margin: 28px; /* based on shell_default */
+    --content-margin: 28px;
+    /* based on shell_default */
   }
 }

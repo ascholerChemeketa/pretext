@@ -1,0 +1,114 @@
+// One stop include for heading-box dominant content blocks
+@use 'asides-floating';
+@use 'codelike';
+@use 'exercises';
+@use 'knowls' with ($border-radius: 2px);
+
+@use './helpers/box-mixin' with ($border-radius: 2px);
+@use './helpers/heading-box-mixin' with (
+  $border-radius: 2px,
+  $heading-color: var(--groupheadcolor),
+  $heading-background: var(--groupborder)
+);
+@use './helpers/sidebar-mixin' with ($border-width: 4px);
+@use './helpers/C-box-mixin' with ($border-radius: 2px);
+
+// specific theorem colors
+.theorem-like {
+  @include heading-box-mixin.heading-box(
+    $background-color: var(--theorembody),
+    $border-color: var(--theoremborder),
+    $heading-background: var(--theoremborder),
+  );
+}
+
+.assemblage-like {
+  @include heading-box-mixin.heading-box(
+    $background-color: var(--assembbody),
+    $border-color: var(--assembborder),
+    $heading-background: var(--assembborder),
+  );
+}
+
+.project-like {
+  & > .heading {
+    font-style: italic;
+  }
+
+  @include heading-box-mixin.heading-box(
+    $background-color: var(--projectbody),
+    $border-color: var(--projectborder),
+    $heading-background: var(--projectborder)
+  );
+}
+
+.project-like.investigation {
+  & > .heading {
+    font-style: italic;
+  }
+  @include heading-box-mixin.heading-box(
+    $background-color: var(--investigatebody),
+    $border-color: var(--investigateborder),
+    $heading-background: var(--investigateborder)
+  );
+}
+
+
+.proof {
+  @include sidebar-mixin.sidebar(
+    $border-color: var(--proofborder),
+    $background-color: var(--proofbody),
+    $padding: 10px,
+  );
+}
+
+
+.remark-like {
+  @include sidebar-mixin.sidebar(
+    $border-color: var(--remarkborder),
+    $background-color: var(--remarkbody),
+    $padding: 10px,
+    $border-width: 6px
+  );
+}
+
+.goal-like {
+  @include heading-box-mixin.heading-box(
+    $background-color: var(--goalbody),
+    $border-color: var(--goalborder),
+    $heading-background: var(--goalborder)
+  );
+}
+
+
+// undo inline headings created elsewhere... refactor
+.example-like,
+.proof,
+.computation-like,
+.remark-like,
+.assemblage-like,
+.computation-like,
+.theorem-like:not(.theorem),
+.definition-like {
+  & > .heading {
+    display: block;
+  }
+  & > .heading + * {
+    margin-top: 0.75em;
+    display: block !important;
+  }
+}
+
+.example-like {
+  @include C-box-mixin.C-box(
+    $border-color: var(--exampleborder),
+    $heading-background: var(--exampleborder)
+  );
+}
+
+.computation-like {
+  @include C-box-mixin.C-box(
+    $border-color: var(--computationborder),
+    $heading-background: var(--computationborder)
+  );
+}

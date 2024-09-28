@@ -29,6 +29,11 @@ figcaption {
   .type:last-of-type::after {
     content: "\2002";
   }
+
+  // make sure first para comes right after title
+  .para:first-of-type {
+    display: inline;
+  }
 }
 
 // tables are inset
