@@ -1,0 +1,33 @@
+// These values can be set on @use to avoid repeating values in each @import
+$pad: 10px !default;
+
+// Generate styles for an L shaped border 
+@mixin L-border($border-width: 2px,
+  $style: solid,
+  $head-color: var(--groupheadcolor),
+  $border-color: var(--groupborder),
+  $padding: $pad,
+  $L-side: left) 
+{
+  //determine side opposite L
+  $alt-side: if($L-side ==left, right, left);
+
+  &:not(.knowl__content, .born-hidden-knowl) {
+    padding-#{$L-side}: $padding;
+    border-#{$L-side}: $border-width $style $border-color;
+
+    & > .heading {
+      color: $head-color;
+    }
+
+    &::after {
+      content: '';
+      border-bottom: $border-width $style $border-color;
+      display: block;
+      margin-#{$alt-side}: auto;
+      margin-#{$L-side}: -$padding;
+      padding-top: $padding;
+      width: 1.5em;
+    }
+  }
+}

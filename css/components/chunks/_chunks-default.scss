@@ -1,0 +1,78 @@
+// One stop include for default style content blocks
+@use 'asides-floating';
+@use 'codelike';
+@use 'exercises';
+@use 'discussion-inline';
+@use 'knowls';
+@use './helpers/L-mixin';
+@use './helpers/box-mixin';
+@use './helpers/heading-box-mixin';
+@use './helpers/sidebar-mixin';
+
+// rounded box
+.assemblage-like {
+  @include box-mixin.box($border-color: var(--assembborder), $background-color: var(--assembbody), $round-corners: true);
+}
+
+// box with title inset on top
+.goal-like {
+  @include heading-box-mixin.heading-box(
+    $background-color: var(--goalbody),
+    $border-color: var(--goalborder),
+    $heading-color: var(--goalheadcolor)
+  );
+}
+
+// L-border
+.theorem-like,
+.definition-like,
+.example-like,
+.project-like,
+.remark-like,
+.openproblem-like,
+.computation-like,
+.commentary {
+  @include L-mixin.L-border;
+}
+
+// projects get a dotted L
+.project-like:not(.knowl__content, .born-hidden-knowl) {
+  @include L-mixin.L-border($style: dotted);
+}
+
+// commentary gets a thicker L
+.commentary:not(.knowl__content, .born-hidden-knowl) {
+  @include L-mixin.L-border(3px, $padding: 15px);
+}
+
+/* proof gets a backwards facing L */
+.proof {
+  @include L-mixin.L-border(1px, $head-color: var(--proofheadcolor), $border-color: var(--proofborder), $L-side: right);
+}
+
+/* No decorations/borders in knowls, to save space */
+.knowl__content {
+  .theorem-like,
+  .definition-like,
+  .example-like,
+  .project-like,
+  .remark-like,
+  .openproblem-like,
+  .computation-like,
+  .project-like,
+  .commentary {
+    padding-left: 0;
+    margin-left: 0;
+    border-left: none;
+
+    &::after {
+      border-bottom: none;
+      display: none;
+    }
+  }
+}
+
+// wide sidebar on an entire section of solutions
+section.solutions:not(:is(:first-child)) {
+  @include sidebar-mixin.sidebar($border-color: var(--solutionborder));
+}

@@ -1,0 +1,23 @@
+
+
+.discussion-like {
+  & > .heading {
+    ::after {
+      content: "\2009";
+    }
+
+    & + .para {
+      display: inline;
+    }
+
+    .space,
+    .codenumber,
+    .period {
+      display: none;
+    }
+
+    .type::after {
+      content: ". ";
+    }
+  }
+}

@@ -1,0 +1,24 @@
+// These values can be set on @use to avoid repeating values in each @import
+$pad: 0px !default;   //all sides
+$padside: 10px !default;   //on side with border
+$border-color: var(--groupborder) !default;
+$background-color: var(--mainbackground) !default;
+$side: left !default;
+$border-width: 2px !default;
+
+// Generate styles for a sidebar down left or right of content
+@mixin sidebar($border-width: $border-width,
+  $style: solid,
+  $border-color: $border-color,
+  $background-color: $background-color,
+  $padding: $pad,
+  $padside: $padside,
+  $side: $side) 
+{
+  &:not(.knowl__content, .born-hidden-knowl) {
+    padding: $padding;
+    padding-#{$side}: $padside;
+    border-#{$side}: $border-width $style $border-color;
+    background-color: $background-color;
+  }
+}

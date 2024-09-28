@@ -30,7 +30,7 @@ $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
   margin: 0 auto 10px;
 }
 
-.runestone:is(.clickablearea_section, .ac_section, .parsons_section) .runestone_caption {
+.runestone .runestone_caption {
   // caption is always just something like "ActiveCode" in PTX
   display: none;
 }
@@ -48,3 +48,26 @@ $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
     position: unset;
 }
 
+// override Runestone's pre formatting with these extra specific rules
+.ptx-runestone-container .runestone code,
+.ptx-runestone-container .runestone pre {
+  font-size: .93rem;
+  line-height: 1.2;
+  font-family: var(--font-monospace);
+}
+
+// override Runestone's pre formatting with these extra specific rules
+.ptx-runestone-container code[class*="language-"],
+.ptx-runestone-container pre[class*="language-"] {
+  color: black;
+  background: #fdfdfd;
+}
+
+:root.dark-mode {
+  // Darker styling to match Runesone's code mirror theme
+  .ptx-runestone-container code[class*="language-"],
+  .ptx-runestone-container pre[class*="language-"] {
+    color: white;
+    background: hsl(0, 0%, 8%);
+  }
+}

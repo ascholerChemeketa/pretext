@@ -1,6 +1,8 @@
 // headings for standard page elements - sections/articles/etc...
 // more specialized headings (exercises) should be defined in the specific component
 
+$inline-section-headings: true !default;
+
 // reset size/margin for headings
 .heading:is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
@@ -53,7 +55,10 @@ section section section > .heading {
 
 article > .heading {
   font-size: 1.25em;
-  @include inline-head;
+  
+  @if $inline-section-headings {
+    @include inline-head;
+  }
 
   & + .introduction {
     display: inline;
