@@ -95,9 +95,13 @@ $colors: (
 
   "groupbody": var(--mainbackground),
   "groupborder": var(--knowlborder),
+  "groupheadcolor": var(--bodyfontcolor),
 
   "assembbody": var(--knowlbackground),
   "assembborder": var(--groupborder),
+
+  "proofbody": var(--groupbody),
+  "proofborder": #666,
 
   "definitionbody": var(--groupbody),
   "definitionborder": var(--groupborder),

@@ -8,7 +8,6 @@
 
 $primary-color: #2a5ea4 !default;
 
-$primary-color: rgb(30, 105, 3);
 // Start with values from color-vars
 $colors: map.merge(
   color-vars.$colors, ()

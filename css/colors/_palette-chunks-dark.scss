@@ -1,0 +1,51 @@
+
+$colors: (
+  // ------------------------------------------------------------------------------
+  // Groupings (assemblages, etc...)
+
+  "groupbody": hsl(201, 22%, 95%),
+  "groupborder": hsl(201, 82%, 15%),
+  "groupheadcolor": white,
+
+  "assembbody": hsl(120, 7%, 90%),
+  "assembborder": hsl(120, 7%, 26%),
+
+  "proofbody": hsl(147, 12%, 96%),
+  "proofborder": hsl(147, 82%, 11%),
+
+  "definitionbody": var(--groupbody),
+  "definitionborder": var(--groupborder),
+
+  "theorembody": hsl(147, 15%, 90%),
+  "theoremborder": hsl(147, 82%, 15%),
+
+  "examplebody": var(--groupbody),
+  "exampleborder": var(--groupborder),
+
+  "projectbody": var(--groupbody),
+  "projectborder": var(--groupborder),
+
+  "investigatebody": var(--groupbody),
+  "investigateborder": var(--groupborder),
+  
+  "remarkbody": hsl(236, 17%, 90%),
+  "remarkborder": hsl(236, 67%, 17%),
+
+  "computationbody": var(--groupbody),
+  "computationborder": var(--groupborder),
+
+  "commentarybody": var(--groupbody),
+  "commentaryboder": var(--groupborder),
+
+  "solutionbody": var(--groupbody),
+  "solutionborder": var(--groupborder),
+
+  "assidebody": var(--knowlbackground),
+  "assideborder": var(--groupborder),
+
+  "goalbody": hsl(236, 10%, 95%),
+  "goalborder": hsl(236, 67%, 17%),
+  
+  "knowlbackground": hsl(201, 22%, 90%),
+  "knowlborder": hsl(201, 82%, 11%),
+);
