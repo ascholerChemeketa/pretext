@@ -1,0 +1,156 @@
+/*******************************************************************************
+ * shell_X.css controls the overall arrangement of the blocks on the page.
+ *******************************************************************************
+ *
+ * Authors: David Farmer, Rob Beezer
+ *
+ *******************************************************************************
+ */
+
+/* The overall structure is
+  html
+    head
+    body.pretext
+      header.ptx-masthead
+      nav.ptx-navbar
+      div.ptx-page
+        div.sidebar
+          nav.ptx-toc
+        main.ptx-main
+          div.ptx-content
+          div.ptx-content-footer
+      div.ptx-page-footer
+*/
+
+@use 'components/helpers/buttons-default' as buttons;
+@use 'banner_default-modern';
+@use 'navbar_default-modern';
+@use 'toc_default-modern';
+
+$body-max-width: 600px;
+$sidebar-width: 240px;
+$nav-height: 36px;
+$body-side-margin: 48px;
+
+.ptx-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+}
+
+.ptx-sidebar {
+  width: $sidebar-width;
+
+  &.visible {
+    display: block;
+  }
+
+  &:not(.visible) {
+    display: block;
+  }
+}
+
+.ptx-main {
+  display: block;
+  position: relative;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  background: var(--mainbackground, white);
+  transition-property: margin-left;
+  transition-duration: 0.3s;
+  flex-grow: 1;
+}
+
+.ptx-sidebar.hidden + .ptx-main {
+  margin-left: 0;
+}
+
+// ptx-main ensures iframe pages don't get these margins
+.ptx-main > .ptx-content {
+  max-width: $body-max-width;
+  margin: 32px $body-side-margin;
+  min-height: 60vh;
+}
+
+.ptx-content-footer {
+  display: flex;
+  justify-content: space-around;
+  max-width: $body-max-width;
+  margin: 2em $body-side-margin;
+
+  .button {
+    @include buttons.ptx-button;
+    .icon {
+      margin: 0 -7px; // current icons have lots of whitespace
+    }
+  }
+
+}
+
+.ptx-page-footer {
+  background: var(--footerbackground);
+  padding-top: 0;
+  border-top: 2px solid var(--page-border-color);
+  border-bottom: 2px solid var(--page-border-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+  
+  & > a {
+  margin: 1em 0;
+  color: var(--bodyfontcolor)
+  }
+
+  & > a > .logo:first-child {
+    height: 3em;
+    width: unset;
+    margin: 0;
+  }
+
+  .feedback-link {
+    @include buttons.ptx-button;
+  }
+}
+
+
+
+@media screen and (max-width: 800px) {
+  .ptx-main {
+    margin-left: 0;
+    left: auto;
+  }
+  .ptx-page-footer {
+    // Make space for navbar fixed to bottom of screen
+    margin-bottom: $nav-height;
+  }
+  .ptx-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: var(--mainbackground);
+    bottom: $nav-height;
+  }
+  .ptx-content-footer {
+    display: none;
+  }
+}
+
+
+
+@media screen and (max-width: $body-max-width + 2 * $body-side-margin) {
+  .ptx-page > .ptx-main .ptx-content {
+    // Decrease the side margins once out of room
+    margin-left: 28px;
+    margin-right: 28px;
+  }
+}
+
+/*******************************************************************************
+ *
+ * Authors: David Farmer, Rob Beezer
+ *
+ *******************************************************************************
+ */
