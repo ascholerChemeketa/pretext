@@ -2305,21 +2305,27 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
     </xsl:choose>
 </xsl:variable>
 
-<!-- Valid options for each theme -->
+<!-- lookup dict for known theme options -->
 <xsl:variable name="html-theme-option-list">
     <theme name="default-modern">
         <option name="provide-dark-mode" default="yes"/>
-        <option name="palette" default="dual"/>
-        <variable name="primary-color" check-contrast="#fff"/>
-        <variable name="secondary-color" check-contrast="#fff"/>
-        <variable name="primary-color-dark" check-contrast="#23241f"/>
+        <option name="palette" default="default"/>
+        <option name="primary-color" check-contrast="#fff"/>
+        <option name="secondary-color" check-contrast="#fff"/>
+        <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
-    <theme name="centered-wide">
+    <theme name="denver">
         <option name="provide-dark-mode" default="yes"/>
-        <option name="palette" default="dual"/>
-        <variable name="primary-color" check-contrast="#fff"/>
-        <variable name="secondary-color" check-contrast="#fff"/>
-        <variable name="primary-color-dark" check-contrast="#23241f"/>
+        <option name="palette" default="default"/>
+        <option name="color1" check-contrast="#fff"/>
+        <option name="color2" check-contrast="#fff"/>
+        <option name="color3" check-contrast="#fff"/>
+        <option name="color4" check-contrast="#fff"/>
+        <option name="primary-color-dark" check-contrast="#23241f"/>
+    </theme>
+    <theme name="tacoma">
+        <option name="primary-color" check-contrast="#fff"/>
+        <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
     <theme name="custom">
         <option name="entry-point" default="custom-theme.scss"/>
@@ -2371,15 +2377,8 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
             <xsl:value-of select="concat('&quot;', ., '&quot;')"/>
         </xsl:for-each>
         <xsl:text>}</xsl:text>
-        <xsl:text>,&quot;variables&quot;:{</xsl:text>
-        <xsl:for-each select="$publication/html/css/variables/@*">
-            <xsl:if test="position() > 1"><xsl:text>, </xsl:text></xsl:if>
-            <xsl:value-of select="concat('&quot;', name(.), '&quot;:')"/>
-            <xsl:value-of select="concat('&quot;', ., '&quot;')"/>
-        </xsl:for-each>
-        <xsl:text>}</xsl:text>
         <xsl:text>,&quot;contrast-checks&quot;:{</xsl:text>
-        <xsl:for-each select="$html-theme/variable[@check-contrast]">
+        <xsl:for-each select="$html-theme/*[@check-contrast]">
             <xsl:if test="position() > 1"><xsl:text>, </xsl:text></xsl:if>
             <xsl:value-of select="concat('&quot;', @name, '&quot;:')"/>
             <xsl:value-of select="concat('&quot;', @check-contrast, '&quot;')"/>
