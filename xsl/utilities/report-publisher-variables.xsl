@@ -91,12 +91,6 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:text> </xsl:text>
     <xsl:value-of select="$html-theme-name"/>
     <xsl:text>&#xa;</xsl:text>
-    <xsl:text>html-theme-option-list</xsl:text>
-    <xsl:text> </xsl:text>
-    <xsl:variable name="html-theme-opt-temp"><xsl:apply-templates select="exsl:node-set($html-theme-option-list)" mode="serialize"/>
-    </xsl:variable>
-    <xsl:value-of select="$html-theme-opt-temp"/>
-    <xsl:text>&#xa;</xsl:text>
     <xsl:text>html-theme-options</xsl:text>
     <xsl:text> </xsl:text>
     <xsl:value-of select="$html-theme-options"/>
