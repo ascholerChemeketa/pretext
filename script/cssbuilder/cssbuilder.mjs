@@ -100,6 +100,7 @@ function getOutDir(options) {
 
 function getTargets(options) {
   let targets = [
+    // -------------------------------------------------------------------------
     // Web targets - pretext assumes output name will be 'theme-XXX'
     // Legacy targets
     { out: 'theme-default-legacy', in: path.join(cssRoot, 'targets/html/legacy/default/theme-default.scss'), autobuild: true },
@@ -107,13 +108,18 @@ function getTargets(options) {
     { out: 'theme-crc-legacy', in: path.join(cssRoot, 'targets/html/legacy/crc/theme-crc.scss'), autobuild: true },
     { out: 'theme-soundwriting', in: path.join(cssRoot, 'targets/html/legacy/soundwriting/theme-soundwriting.scss'), autobuild: true },
     { out: 'theme-wide-legacy', in: path.join(cssRoot, 'targets/html/legacy/wide/theme-wide.scss'), autobuild: true },
+    // -------------------------------------------------------------------------
     // Modern web targets
     { out: 'theme-default-modern', in: path.join(cssRoot, 'targets/html/default-modern/theme-default-modern.scss'), autobuild: true },
-    { out: 'theme-centered-wide', in: path.join(cssRoot, 'targets/html/centered-wide/theme-centered-wide.scss'), autobuild: true },
-    { out: 'theme-boise', in: path.join(cssRoot, 'targets/html/boise/theme-boise.scss'), autobuild: true },
+    // only default is prebuilt
+    { out: 'theme-centered-wide', in: path.join(cssRoot, 'targets/html/centered-wide/theme-centered-wide.scss')},
+    { out: 'theme-denver', in: path.join(cssRoot, 'targets/html/denver/theme-denver.scss') },
+    { out: 'theme-tacoma', in: path.join(cssRoot, 'targets/html/tacoma/theme-tacoma.scss') },
+    // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // Other modules - these are individually and conditionally loaded on pretext pages
     { out: 'modules/pretext_search', in: path.join(cssRoot, 'targets/modules/pretext_search.scss'), autobuild: true },
+    // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // Non-web targets
     { out: 'reveal', in: path.join(cssRoot, 'targets/revealjs/reveal.scss'), autobuild: true },
@@ -128,6 +134,7 @@ function getTargets(options) {
     } else {
       // Custom theme build
       const configOptions = options['config-options'];
+      // console.log('configOptions', configOptions);
       if (configOptions && configOptions['options'] && configOptions['options']['entry-point']) {
         // Custom theme build with output directory
         targets = [
