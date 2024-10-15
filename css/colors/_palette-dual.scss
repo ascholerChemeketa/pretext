@@ -23,10 +23,6 @@ $schemes: (
     "primary-color": #1a602d,
     "secondary-color": #2a5ea4,
   ),
-  "red-blue": (
-    "primary-color": #932c1c,
-    "secondary-color": #2a5ea4,
-  ),
   "gray-blue": (
     "primary-color": #3e3e3e,
     "secondary-color": #3d71b5,
@@ -55,6 +51,10 @@ $schemes: (
 
 $color-scheme: 'default' !default;
 
+@if not map.has-key($schemes, $color-scheme) {
+  @error "Unknown color scheme #{$color-scheme} for theme. Valid schemes are: #{map.keys($schemes)}";
+}
+
 // if primary-color or secondary-color are not set, use the scheme colors
 $primary-color: null !default;
 $secondary-color: null !default;
@@ -67,8 +67,6 @@ $secondary-color: null !default;
   $scheme-secondary-color: map.get(map.get($schemes, $color-scheme), "secondary-color");
   $secondary-color: $scheme-secondary-color;
 }
-
-@debug "scheme: #{$color-scheme}, primary-color: #{$primary-color}, secondary-color: #{$secondary-color}";
 
 // Start with values from color-vars
 $colors: map.merge(

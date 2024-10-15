@@ -106,6 +106,10 @@ $schemes: (
 
 $color-scheme: 'default' !default;
 
+@if not map.has-key($schemes, $color-scheme) {
+  @error "Unknown color scheme #{$color-scheme} in theme. Valid schemes are: #{map.keys($schemes)}";
+}
+
 // color1 is for basic groupings and knowls
 $color1: null !default;
 
