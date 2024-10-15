@@ -26,7 +26,7 @@ $colors: map.merge(
   (
     "primary-color": $primary-color,
     
-    "linkColor": var(--primary-color-white-10),
+    "linkColor": var(--primary-color),
     "linkActive": var(--primary-color-white-40),
     "linkBackground": var(--background-color-gray-30),
     "altLinkColor": var(--linkColor),
@@ -45,6 +45,10 @@ $colors: map.merge(
     "sectiontoc": "#fafafa",
     "bodytitle": "var(--primary-color-black-20)",
     "buttonhover": "var(--primary-color-white-80)",
-    "assembborder": "var(--primary-color-white-50)" 
+    "assembborder": "var(--primary-color-white-50)",
+    
+    "groupheadcolor": white,
+    "knowlbackground": var(--primary-color-white-95),
+    "knowlborder": var(--primary-color),
   )
 );

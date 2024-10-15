@@ -1,0 +1,217 @@
+// Defines colors for grouping elements based on four colors
+// Intended to be used as a supplement to a palette that handles non-grouping elements
+// See theme-denver.scss for an example
+
+@use 'sass:color';
+@use 'sass:map';
+
+$schemes: (
+  "default": (
+    "color1": hsl(221, 63%, 31%),
+    "color2": hsl(205,54%,44%),
+    "color3": hsl(182,75%,30%),
+    "color4": hsl(341,48%,40%),
+  ),
+  "ice-fire": (
+    "color1": hsl(206, 31%, 52%),
+    "color2": hsl(206, 3%, 7%),
+    "color3": #676d70,
+    "color4": #bd2c49,
+  ),
+  "red-wine": (
+    "color1": #3b2144,
+    "color2": #6e1e51,
+    "color3": #a11a5d,
+    "color4": #5f0913,
+  ),
+  "earth-sea": (
+    "color1": #573d31,
+    "color2": #0f6385,
+    "color3": #358292,
+    "color4": #a77c65,
+  ),
+  "brick": (
+    "color1": #54423b,
+    "color2": #c2391d,
+    "color3": #c25618,
+    "color4": #ab2626,
+  ),
+  "pastels": (
+    "color1": #308bbf,
+    "color2": #f482e6,
+    "color3": #cfe554,
+    "color4": #fea671,
+  ),
+  "blue-gold": (
+    "color1": #175b91,
+    "color2": #40b0bf,
+    "color3": #053363,
+    "color4": #c08d2f,
+  ),
+  "forest": (
+    "color1": #314026,
+    "color2": #526a40,
+    "color3": #739559,
+    "color4": #7a5412,
+  ),
+  "autumn": (
+    "color1": #626454,
+    "color2": #8d5a39,
+    "color3": #cd784d,
+    "color4": #b34900,
+  ),
+  "leaves": (
+    "color1": #095e5e,
+    "color2": #557d6c,
+    "color3": #a38d66,
+    "color4": #c7522a,
+  ),
+  "bold1": (
+    "color1": hsl(221,63%,31%),
+    "color2": hsl(205,54%,44%),
+    "color3": hsl(182,75%,30%),
+    "color4": hsl(341,48%,40%),
+  ),
+  "bold2": (
+    "color1": hsl(221, 61%, 21%),
+    "color2": #51b39a,
+    "color3": #9a51b3,
+    "color4": #b3516a,
+  ),
+  "ocean": (
+    "color1": hsl(193, 52%, 20%),
+    "color2": hsl(192,59%,53%),
+    "color3": hsl(172,60%,39%),
+    "color4": hsl(27,87%,67%),
+  ),
+  "primary1": (
+    "color1": #007f4e,
+    "color2": #4353b0,
+    "color3": #d1a908,
+    "color4": #e12729,
+  ),
+  "primary2": (
+    "color1": #4353b0,
+    "color2": #d1a908,
+    "color3": #007f4e,
+    "color4": #e12729,
+  ),
+  "slate": (
+    "color1": #1e5067,
+    "color2": #159ab7,
+    "color3": #5f7c86,
+    "color4": #141e26,
+  ),
+);
+
+$color-scheme: 'default' !default;
+
+// color1 is for basic groupings and knowls
+$color1: null !default;
+
+// color2 is for examples and things for the reader to do
+$color2: null !default;
+
+// color3 is for statements of fact (definitions/theorems/etc...)
+$color3: null !default;
+
+// color4 is for meta information for the reader (notes/objectives/etc...)
+$color4: null !default;
+
+// if a color is not set, use the scheme colors
+@if $color1 == null {
+  $scheme-color: map.get(map.get($schemes, $color-scheme), "color1");
+  $color1: $scheme-color;
+}
+@if $color2 == null {
+  $scheme-color: map.get(map.get($schemes, $color-scheme), "color2");
+  $color2: $scheme-color;
+}
+@if $color3 == null {
+  $scheme-color: map.get(map.get($schemes, $color-scheme), "color3");
+  $color3: $scheme-color;
+}
+@if $color4 == null {
+  $scheme-color: map.get(map.get($schemes, $color-scheme), "color4");
+  $color4: $scheme-color;
+}
+
+//lighter version of color1 for knowl borders
+$color1-alt: color.scale($color1, $lightness: 25%);
+
+// text color for headings
+$heading-text-color: white !default;
+
+$body-light: 99%;
+$body-light-alt: 93%;
+$body-sat: -20%;
+
+//Make light versions of the 4 colors for backgrounds behind 
+$color1-light: color.adjust(color.change($color1, $lightness: $body-light), $saturation: $body-sat);
+$color2-light: color.adjust(color.change($color2, $lightness: $body-light), $saturation: $body-sat);
+$color3-light: color.adjust(color.change($color3, $lightness: $body-light), $saturation: $body-sat);
+$color4-light: color.adjust(color.change($color4, $lightness: $body-light), $saturation: $body-sat);
+//and an alt of color1 for nested knowls
+$color1-light-alt: color.change($color1, $lightness: $body-light-alt);
+
+$colors: (
+  "color1": $color1,
+
+  // color1
+  "groupbody": $color1-light,
+  "groupborder": $color1-alt,
+  //"groupheadcolor": var(--page-color),
+  "groupheadcolor": $heading-text-color,
+
+  "assembbody": var(--groupbody),
+  "assembborder": var(--groupborder),
+
+  "knowlbackground": $color1-light,
+  "knowlborder": $color1-alt,
+  "knowlNested1Background": $color1-light-alt,
+  "knowlNested2Background": $color1-light,
+  "knowlNested3Background": $color1-light-alt,
+  "knowlNested4Background": $color1-light,
+
+  // color2
+  "projectbody": $color2-light,
+  "projectborder": $color2,
+
+  "investigatebody": var(--projectbody),
+  "investigateborder": var(--projectborder),
+
+  "solutionbody": var(--projectbody),
+  "solutionborder": var(--projectborder),
+
+  "examplebody": var(--projectbody),
+  "exampleborder": var(--projectborder),
+
+  "exercisebody": var(--groupbody),
+  "exerciseborder": var(--projectborder),
+
+  // color3
+  "definitionbody": $color3-light,
+  "definitionborder": $color3,
+
+  "theorembody": var(--definitionbody),
+  "theoremborder": var(--definitionborder),
+
+  "proofbody": var(--definitionbody),
+  "proofborder": var(--definitionborder),
+
+  "computationbody": var(--groupbody),
+  "computationborder": var(--groupborder),
+
+  // color4
+  "goalbody": $color4-light,
+  "goalborder": $color4,
+
+  "assidebody": var(--goalbody),
+  "assideborder": var(--goalborder),
+
+  "commentarybody": var(--goalbody),
+  "commentaryboder": var(--goalborder),
+  
+  "remarkbody": var(--goalbody),
+  "remarkborder": var(--goalborder),
+);
