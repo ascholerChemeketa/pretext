@@ -140,8 +140,6 @@ $color4: null !default;
   $color4: $scheme-color;
 }
 
-//lighter version of color1 for knowl borders
-$color1-alt: color.scale($color1, $lightness: 25%);
 
 // text color for headings
 $heading-text-color: white !default;
@@ -149,6 +147,9 @@ $heading-text-color: white !default;
 $body-light: 99%;
 $body-light-alt: 93%;
 $body-sat: -20%;
+
+//lighter version of color1 for knowl borders
+$color1-alt: color.adjust(color.scale($color1, $lightness: 25%), $saturation: $body-sat);
 
 //Make light versions of the 4 colors for backgrounds behind 
 $color1-light: color.adjust(color.change($color1, $lightness: $body-light), $saturation: $body-sat);
