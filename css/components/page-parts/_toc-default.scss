@@ -1,4 +1,19 @@
+$scrolling: true !default;
+$sidebar-width: 240px !default;
+
 /* -------------------toc-------------------- */
+
+.ptx-sidebar {
+  width: $sidebar-width;
+  &.visible {
+    display: block;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
 .ptx-toc {
   --codenumber-pad-left: 0.3rem;
   --codenumber-pad-right: 0.5rem;
@@ -9,29 +24,45 @@
 
   width: 240px;
   margin: 0;
-  font-size: 14.72px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: calc(100vh - 36px);  // 36px for height of the navbar
-  border-right: 1px solid var(--page-border-color);
-  margin-top: -2px; // hide top border of first toc item
-  
-  &::after {
-    // Apply logo as a mask so background-color can change it. It is a separate document
-    // so no other way to have styles on page affect it.
-    content: "";
-    mask: url("data:image/svg+xml; utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='338 3000 8772 6866'%3E%3Cg style='stroke-width:.025in; stroke:black; fill:none'%3E%3Cpolyline points='472,3590 472,9732 ' style='stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpath style='stroke-width:126;stroke-linecap:butt;' d='M 4724,9448 A 4660 4660 0 0 1 8598 9259 '%3E%3C/path%3E%3Cpath style='stroke-width:174;stroke-linecap:butt;' d='M 4488,9685 A 4228 4228 0 0 0 472 9732 '%3E%3C/path%3E%3Cpath style='stroke-width:126;stroke-linecap:butt;' d='M 4724,3590 A 4241 4241 0 0 1 8598 3496 '%3E%3C/path%3E%3Cpath style='stroke-width:126;stroke-linecap:round;' d='M 850,3496 A 4241 4241 0 0 1 4724 3590 '%3E%3C/path%3E%3Cpath style='stroke-width:126;stroke-linecap:round;' d='M 850,9259 A 4507 4507 0 0 1 4724 9448 '%3E%3C/path%3E%3Cpolyline points='5385,4299 4062,8125 ' style='stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='8598,3496 8598,9259 ' style='stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='850,3496 850,9259 ' style='stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='4960,9685 4488,9685 ' style='stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='3070,4582 1889,6141 3070,7700 ' style='stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='6418,4582 7600,6141 6418,7700 ' style='stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='8976,3590 8976,9732 ' style='stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpath style='stroke-width:174;stroke-linecap:butt;' d='M 4960,9685 A 4228 4228 0 0 1 8976 9732 '%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-    mask-position: center;
-    mask-repeat: no-repeat;
-    display: block;
-    height: 13em;
-    margin: 1em 2em;
-    background-color: var(--page-border-color);
+  font-size: 0.9rem;
+
+  @if $scrolling {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 36px); // 36px for height of the navbar
     border-right: 1px solid var(--page-border-color);
+    margin-top: -1px; // partially hide top border of first toc item
+
+    // need space to disappear behind footer - pretext logo fills that space
+    &::after {
+      // Apply logo as a mask so background-color can change it. It is a separate document
+      // so no other way to have styles on page affect it.
+      content: "";
+      mask: url("data:image/svg+xml; utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='338 3000 8772 6866'%3E%3Cg style='stroke-width:.025in; stroke:black; fill:none'%3E%3Cpolyline points='472,3590 472,9732 ' style='stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpath style='stroke-width:126;stroke-linecap:butt;' d='M 4724,9448 A 4660 4660 0 0 1 8598 9259 '%3E%3C/path%3E%3Cpath style='stroke-width:174;stroke-linecap:butt;' d='M 4488,9685 A 4228 4228 0 0 0 472 9732 '%3E%3C/path%3E%3Cpath style='stroke-width:126;stroke-linecap:butt;' d='M 4724,3590 A 4241 4241 0 0 1 8598 3496 '%3E%3C/path%3E%3Cpath style='stroke-width:126;stroke-linecap:round;' d='M 850,3496 A 4241 4241 0 0 1 4724 3590 '%3E%3C/path%3E%3Cpath style='stroke-width:126;stroke-linecap:round;' d='M 850,9259 A 4507 4507 0 0 1 4724 9448 '%3E%3C/path%3E%3Cpolyline points='5385,4299 4062,8125 ' style='stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='8598,3496 8598,9259 ' style='stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='850,3496 850,9259 ' style='stroke-width:126; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='4960,9685 4488,9685 ' style='stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='3070,4582 1889,6141 3070,7700 ' style='stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='6418,4582 7600,6141 6418,7700 ' style='stroke-width:300; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpolyline points='8976,3590 8976,9732 ' style='stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; '%3E%3C/polyline%3E%3Cpath style='stroke-width:174;stroke-linecap:butt;' d='M 4960,9685 A 4228 4228 0 0 1 8976 9732 '%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      mask-position: center;
+      mask-repeat: no-repeat;
+      display: block;
+      height: 13em;
+      margin: 1em 2em;
+      background-color: var(--page-border-color);
+      border-right: 1px solid var(--page-border-color);
+      border-left: 1px solid var(--page-border-color);
+    }
+
+    // border under the last item before the pretext icon
+    & > .toc-item-list:first-child > .toc-item:last-child {
+      border-bottom: 3px solid var(--tocborder);
+    }
+
   }
 
-  & > .toc-item-list:first-child > .toc-item:last-child {
-    border-bottom: 3px solid var(--tocborder);
+  else {
+    // not scrolling
+    scrollbar-width: none;
+    padding: 10px 0;
+    border-right: 0;
+    scrollbar-gutter: stable;
+    border-right: 2px solid var(--tocborder);
   }
 
   /* -------------------toc-items-------------------- */
@@ -44,14 +75,35 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    
+
     .active {
-      list-style: none;  // clobber runestone css
+      list-style: none; // clobber runestone css
     }
   }
 
+  // Start by assuming any TOC item is a section, change others as appropriate later
   .toc-item {
-    border-top: 1px solid var(--tocborder);
+    color: var(--sectiontoctext);
+    background-color: var(--sectiontoc);
+    border-color: var(--tocborder);
+
+    a {
+      color: inherit;
+    }
+
+    // lowest level active item
+    &.active:not(:has(.toc-item.active)) {
+      color: var(--sectiontoctextactive);
+      background-color: var(--sectiontocactive);
+      border-color: var(--highlighttocborder);
+    }
+
+    // hoving over a toc item
+    & > .toc-title-box > a:is(:hover, :focus) {
+      color: var(--highlighttoctext);
+      background-color: var(--highlighttoc);
+      border-color: var(--highlighttocborder);
+    }
   }
 
   /* -------------------title-box------------------- */
@@ -68,12 +120,6 @@
     font-weight: 500;
   }
 
-  /* Extra border above top level items */
-  & > .toc-item-list > .toc-item {
-    border-top: 2px solid var(--tocborder, #d1d1d1);
-  }
-
-  
   /* at second level, switch fonts */
   .toc-item-list .toc-item-list .toc-title-box > .internal {
     font-weight: normal;
@@ -94,6 +140,52 @@
 
 // --------------------------------------------------------------------------
 // Conditional styling based on depth
+
+/* chapters are not clearly called out in current html
+    assume anything at the top level is a chapter */
+.ptx-toc > .toc-item-list > .toc-item {
+  color: var(--chaptertoctext);
+  background-color: var(--chaptertoc);
+
+  &.active:not(:has(.toc-item.active)) {
+    color: var(--chaptertoctextactive);
+    background-color: var(--chaptertocactive);
+    border-color: var(--highlighttocborder);
+  }
+}
+
+/* top level parts/front/backmatter styled as parts */
+.ptx-toc > .toc-item-list > :is(.toc-frontmatter, .toc-part, .toc-backmatter) {
+  background-color: var(--parttoc);
+  color: var(--parttoctext);
+
+  &.active {
+    background-color: var(--parttocactive);
+    color: var(--parttoctextactive);
+  }
+}
+
+// chapters... refactor html to generate these classes?
+// .ptx-toc.focused .toc-chapter {
+//   background-color: var(--chaptertoc);
+//   color: var(--chaptertoctext);
+
+//   &.active {
+//     background-color: var(--chaptertocactive);
+//     color: var(--chaptertoctextactive);
+//   }
+// }
+
+/* Anything under a chapter, front matter, back matter styled as section */
+.ptx-toc.focused :is(.toc-chapter, .toc-frontmatter, .toc-backmatter) > ul > .toc-item {
+  background-color: var(--sectiontoc);
+  color: var(--sectiontoctext);
+  &.active {
+    background-color: var(--sectiontocactive);
+    color: var(--sectiontoctextactive);
+  }
+}
+
 
 /* second level of numbering */
 /*  anything 1+ levels deeper than a chapter in a book */
@@ -222,9 +314,6 @@ and then clear indent if there is a codenumber */
     }
   }
 
-  .toc-title-box > a:hover {
-    border-right: 1px solid var(--highlighttocborder);
-  }
 
   .toc-expander {
     border: 0;
@@ -243,7 +332,6 @@ and then clear indent if there is a codenumber */
     &:is(:hover) {
       background-color: var(--highlighttoc);
       color: var(--highlighttoctext);
-      border-left: 1px solid var(--highlighttocborder);
 
       .icon {
         fill: var(--highlighttoctext);

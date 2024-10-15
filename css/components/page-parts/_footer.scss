@@ -1,0 +1,56 @@
+
+@use 'components/helpers/buttons-default' as buttons;
+
+.ptx-content-footer {
+  display: flex;
+  justify-content: space-around;
+  max-width: var(--content-width);
+  //condensed margin format does not like vars
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: var(--content-margin);
+  margin-right: var(--content-margin);
+
+  .button {
+    @include buttons.ptx-button;
+    .icon {
+      margin: 0 -7px; // current icons have lots of whitespace
+    }
+  }
+
+}
+
+.ptx-page-footer {
+  background: var(--footerbackground);
+  padding-top: 0;
+  border-top: 2px solid var(--page-border-color);
+  border-bottom: 2px solid var(--page-border-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+  
+  & > a {
+    margin: 1em 0;
+    color: var(--bodyfontcolor);
+  }
+
+  & > a > .logo:first-child {
+    height: 3em;
+    width: unset;
+    margin: 0;
+  }
+
+  .feedback-link {
+    @include buttons.ptx-button;
+  }
+}
+
+
+@media screen and (min-width: 800px) {
+  .ptx-page-footer {
+    // prevent icons from spreading too much
+    gap: 150px;
+    justify-content: center;
+  }
+}

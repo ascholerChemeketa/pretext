@@ -1,0 +1,49 @@
+// if page extends a max
+$page-centered: true !default;
+
+$sidebar-width: 240px !default;
+$scrolling-toc: true !default;
+
+$nav-height: 36px !default;
+
+$content-width: 600px !default;
+$content-side-margin: 48px !default;
+
+@use 'body';
+@use 'banner';
+
+@use 'navbar' with (
+  $nav-height: $nav-height,
+);
+
+@use 'toc-default' with (
+  $scrolling: $scrolling-toc,
+  $sidebar-width: $sidebar-width,
+);
+
+@use 'summary-links';
+@use 'footer';
+
+// set these up as CSS variables so they can be modifies easily at runtime
+:root {
+  --content-width: #{$content-width};
+  --content-margin: #{$content-side-margin};
+}
+
+// Base width/margins
+// ptx-main ensures iframe pages don't get these margins
+.ptx-main > .ptx-content {
+  max-width: $content-width;
+  margin: 32px $content-side-margin 60px;
+}
+
+// Decrease the side margins once out of room
+@media screen and (max-width: $content-width + 2 * $content-side-margin) {
+  .ptx-page > .ptx-main .ptx-content {
+    margin-left: 28px;
+    margin-right: 28px;
+  }
+  :root {
+    --content-margin: 28px;
+  }
+}

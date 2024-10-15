@@ -51,7 +51,7 @@ img.mag_popup {
   border: 1px solid #666;
   box-shadow: 4px 6px 4px #999;
   cursor: zoom-out;
-  max-width: 600px;
+  max-width: var(--content-width);
 }
 
 .mag_popup_container {

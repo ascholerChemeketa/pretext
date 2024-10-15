@@ -1,7 +1,6 @@
 // headings for standard page elements - sections/articles/etc...
 // more specialized headings (exercises) should be defined in the specific component
-
-$inline-section-headings: true !default;
+// complex stylizing (like boxes) should be done by "chunks"
 
 // reset size/margin for headings
 .heading:is(h1, h2, h3, h4, h5, h6) {
@@ -21,7 +20,7 @@ section > .heading {
   font-size: 1.75em;
   color: var(--bodytitle);
   line-height: 1.25em;
-  margin-top: 1.5em;
+  margin-top: 2.5em;
   margin-bottom: 0.5em;
 
   // pull in any following items that default to a larger top margin
@@ -30,55 +29,36 @@ section > .heading {
   }
 }
 
+.ptx-content > section > .heading {
+  //first heading on page
+  margin-top: 0.5em;
+}
+
 section section > .heading {
   font-size: 1.5em;
-  margin-top: 1.25em;
+  margin-top: 2em;
 }
 
 section section section > .heading {
   font-size: 1.40em;
-  margin-top: 1.125em;
+  margin-top: 2em;
 }
 
-@mixin inline-head {
-  display: inline;
-  line-height: initial;
-
-  &:after {
-    content: "\2009";
-  }
-
-  & + .para {
-    display: inline;
-  }
-}
 
 article > .heading {
   font-size: 1.25em;
-  
-  @if $inline-section-headings {
-    @include inline-head;
-  }
-
-  & + .introduction {
-    display: inline;
-  }
-  & + .introduction > .para:first-child {
-    display: inline;
-  }
 
   // pull in any following items that default to a larger top margin
   & + * {
-    margin-top: 0.35em;
+    margin-top: 0.5em;
   }
 }
 
 .paragraphs > .heading {
   font-size: 1.125em;
-  @include inline-head;
 }
 
-
+// smaller headings on phone screens
 @media screen and (max-width: 480px) {
   section > .heading {
       font-size: 1.5em;

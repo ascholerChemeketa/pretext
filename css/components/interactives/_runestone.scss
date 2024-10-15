@@ -26,7 +26,7 @@ $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
 }
 
 .ac_question { 
-  max-width: 600px;
+  max-width: var(--content-width);
   margin: 0 auto 10px;
 }
 

@@ -23,30 +23,18 @@
 */
 
 @use 'components/helpers/buttons-default' as buttons;
-@use 'banner_default-modern';
-@use 'navbar_default-modern';
-@use 'toc_default-modern';
 
 $body-max-width: 600px;
 $sidebar-width: 240px;
 $nav-height: 36px;
 $body-side-margin: 48px;
 
-.ptx-page {
-  position: relative;
-  min-height: 100vh;
-}
-
 .ptx-sidebar {
   position: sticky;
   top: $nav-height;
   left: 0;
   float: left;
-  width: $sidebar-width;
-
-  &.visible {
-    display: block;
-  }
+  border-left: 1px solid var(--tocborder);
 }
 
 .ptx-main {
@@ -64,6 +52,33 @@ $body-side-margin: 48px;
   margin-left: 0;
 }
 
+.ptx-toc {
+  margin-top: -2px; // hide top border of first toc item
+}
+
+.toc-item {
+  border-top: 1px solid var(--tocborder);
+}
+
+.ptx-toc.focused .toc-title-box > a:hover {
+  border-right: 1px solid var(--highlighttocborder);
+}
+
+.ptx-toc.focused .toc-expander:is(:hover) {
+    border-left: 1px solid var(--highlighttocborder);
+}
+
+.toc-part,
+.toc-chapter {
+  border-top: 1px solid var(--tocborder);
+}
+
+/* Extra border above top level items */
+.ptx-toc > .toc-item-list > .toc-item {
+  border-top: 2px solid var(--tocborder, #d1d1d1);
+}
+
+
 // ptx-main ensures iframe pages don't get these margins
 .ptx-main > .ptx-content {
   max-width: $body-max-width;
@@ -71,47 +86,14 @@ $body-side-margin: 48px;
   min-height: 60vh;
 }
 
-.ptx-content-footer {
-  display: flex;
-  justify-content: space-around;
-  max-width: $body-max-width;
-  margin: 2em $body-side-margin;
-
+//ultra specific to force border on navbar buttons
+.pretext .ptx-navbar {
   .button {
-    @include buttons.ptx-button;
-    .icon {
-      margin: 0 -7px; // current icons have lots of whitespace
-    }
-  }
-
-}
-
-.ptx-page-footer {
-  background: var(--footerbackground);
-  padding-top: 0;
-  border-top: 2px solid var(--page-border-color);
-  border-bottom: 2px solid var(--page-border-color);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  position: relative;
-  
-  & > a {
-  margin: 1em 0;
-  color: var(--bodyfontcolor)
-  }
-
-  & > a > .logo:first-child {
-    height: 3em;
-    width: unset;
-    margin: 0;
-  }
-
-  .feedback-link {
-    @include buttons.ptx-button;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    margin-left: -1px;  //prevent double borders on neighbors
   }
 }
-
 
 
 @media screen and (max-width: 800px) {

@@ -2,7 +2,7 @@
 $pad: 10px !default;
 $border-radius: 0px !default;
 
-// Generate styles for a box with inset heading
+// Generate styles for a surrounding box
 @mixin box($border-width: 2px,
   $style: solid,
   $background-color: var(--groupbody),

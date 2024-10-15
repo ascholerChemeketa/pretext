@@ -1,7 +1,15 @@
 // Entry point for common web styling
+// It is assumed these are used by all web stylesheets
+// page-parts/ and chunks/ are not included here as they are more varied
 
-@use 'body';
+@use 'elements/lists';
+@use 'elements/headings';
+@use 'elements/links';
+@use 'elements/tables';
+@use 'calculators';
+@use 'front-matter';
 @use 'footnotes';
+@use 'index';
 @use 'media';
 @use 'figures';
 @use 'poem';
@@ -11,18 +19,7 @@
 @use 'worksheet';
 @use 'permalinks';
 @use 'google-search';
-@use 'sidebyside';
 @use 'misc-content';
-@use 'book-parts/front-matter';
-@use 'book-parts/toc-basics';
-@use 'book-parts/summary-links';
-@use 'book-parts/index';
-@use 'book-parts/solutions';
-@use 'elements/lists';
-@use 'elements/headings';
-@use 'elements/links';
-@use 'elements/tables';
-@use 'calculators';
 @use 'interactives/runestone';
 @use 'interactives/webwork';
 @use 'interactives/sagecell';
@@ -44,7 +41,7 @@
 section > *:not(:first-child) {
   margin-top: 1em;
 }
-article > *:not(:first-child) {
+article > *:not(:first-child):has(.heading) {
   margin-top: 1em;
 }
 .knowl__content > *:not(:first-child) {
@@ -64,7 +61,7 @@ section > .para + .para {
   margin-top: 1em;
 }
 
-// make sure first child of logical paragraphs doesn't get extra space
+// make sure first para child of logical paragraphs doesn't get extra space
 .para.logical > .para:first-child {
   display: inline;
 }

@@ -1,0 +1,100 @@
+// Default pretext theme. The dual color palette version is "prerolled".
+// Other palettes (single, muted) are available via rebuilding the css.
+
+// Variables used by theme. CSSBuilder overrides these by prepending
+// different definitions for these variables to this file before the theme
+// is compiled.
+
+// light colors
+$color-scheme: 'default' !default;
+$color1: null !default;
+$color2: null !default;
+$color3: null !default;
+$color4: null !default;
+
+// dark colors
+$primary-color-dark: #9db9d3 !default;
+$background-color-dark: #23241f !default;
+
+@use "sass:map";
+@use 'sass:color';
+@use "colors/color-helpers" as colorHelpers;
+
+
+// fancy colors for chunks
+@use 'colors/palette-quad-chunks' as palette-chunks with (
+  $color1: $color1,
+  $color2: $color2,
+  $color3: $color3,
+  $color4: $color4,
+);
+
+$primary-color: map.get(palette-chunks.$colors, 'color1');
+
+// Imports in this file can be either relative to this file or 
+// relative to css/ directory
+// Basic components: 
+@use 'components/pretext';
+@use 'components/chunks/chunks-levin';
+
+// Theme specific
+@use './shell';
+// @debug map.get($palette-chunks, 'color1');
+@use 'heading-tweaks' with ($text-color: colorHelpers.text-contrast($primary-color));
+
+
+$heading-font: 'Noto Sans' !default;
+@use 'fonts/fonts-google' with ($heading: $heading-font);
+
+
+@use 'colors/palette-single' as palette-light with (
+  $primary-color: $primary-color
+);
+
+
+$light-colors: map.merge(palette-light.$colors, palette-chunks.$colors);
+
+// extra tweaks
+$light-colors: map.merge($light-colors, ("chaptertoc": var(--mainbackground),
+      "sectiontoc": var(--primary-color-white-96),
+      "parttoc": var(--mainbackground),
+      "tocborder": var(--primary-color-white-90),
+      "parttocactive": var(--primary-color-white-90),
+      "parttoctextactive": var(--parttoctext),
+      "permalink-opacity": 0,
+    ));
+
+
+@use 'colors/palette-dark' as palette-dark with ($primary-color: $primary-color-dark,
+  $background-color: $background-color-dark,
+);
+
+$palette-dark: map.merge(palette-dark.$colors, ("chaptertoc": var(--mainbackground),
+      "sectiontoc": var(--background-color-gray-20),
+      "parttoc": var(--mainbackground),
+    ));
+
+
+
+:root {
+  color-scheme: light;
+
+  &:not(.dark-mode) {
+    // prevent variable leak through to dark
+    @include colorHelpers.scss-to-css($light-colors);
+  }
+}
+
+:root.dark-mode {
+  color-scheme: dark;
+  @include colorHelpers.scss-to-css($palette-dark);
+  
+  //ultra specific to force border on navbar buttons
+  .pretext .ptx-navbar {
+    .button {
+      border-left-width: 1px;
+      border-right-width: 1px;
+      margin-left: -1px; //prevent double borders on neighbors
+    }
+  }
+}
