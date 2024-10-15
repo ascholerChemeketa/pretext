@@ -3550,41 +3550,104 @@ def _runestone_services(params):
 
 # Helper to move a prebuilt css theme into the build directory as theme.css
 def _move_prebuilt_theme(theme_name, theme_opts, tmp_dir):
-        css_src = os.path.join(get_ptx_path(), "css/dist")
-        css_dest = os.path.join(tmp_dir, "_static", "pretext", "css")
+    css_src = os.path.join(get_ptx_path(), "css/dist")
+    css_dest = os.path.join(tmp_dir, "_static", "pretext", "css")
 
-        src = os.path.join(get_ptx_path(), "css/dist/theme-{}.css".format(theme_name))
-        dest = os.path.join(get_ptx_path(), os.path.join(css_dest, "theme.css"))
-        log.debug("Using prebuilt theme: " + theme_name)
+    src = os.path.join(get_ptx_path(), "css/dist/theme-{}.css".format(theme_name))
+    dest = os.path.join(get_ptx_path(), os.path.join(css_dest, "theme.css"))
 
-        # copy src -> dest with modifications
-        with open(src, 'r') as theme_file:
-            filedata = theme_file.read()
+    # ugly to have this here - it exists for more general use in _palette-dual.scss,
+    # but to support prebuild defaul theme we need to look up its colors without relying
+    # on the theme being built
+    color_schemes = {
+      "default": {
+        "primary-color": "#2a5ea4",
+        "secondary-color": "#932c1c",
+      },
+      "blue-red": {
+        "primary-color": "#2a5ea4",
+        "secondary-color": "#932c1c",
+      },
+      "blue-green": {
+        "primary-color": "#2a5ea4",
+        "secondary-color": "#28803f",
+      },
+      "green-blue": {
+        "primary-color": "#1a602d",
+        "secondary-color": "#2a5ea4",
+      },
+      "red-blue": {
+        "primary-color": "#932c1c",
+        "secondary-color": "#2a5ea4",
+      },
+      "gray-blue": {
+        "primary-color": "#3e3e3e",
+        "secondary-color": "#3d71b5",
+      },
+      "blue-gray": {
+        "primary-color": "#2a5ea4",
+        "secondary-color": "#3e3e3e",
+      },
+      "grays": {
+        "primary-color": "#222222",
+        "secondary-color": "#6e6e6e",
+      },
+      "greens": {
+        "primary-color": "#193e1c",
+        "secondary-color": "#347a3a",
+      },
+      "purples": {
+        "primary-color": "hsl{321, 40%, 20%}",
+        "secondary-color": "hsl{321, 60%, 32%}",
+      },
+      "blues": {
+        "primary-color": "hsl{217, 70%, 20%}",
+        "secondary-color": "hsl{217, 43%, 37%}",
+      }
+    }
 
-            # modify file so that it points to the map file theme.css.map
-            filedata = re.sub(r'sourceMappingURL=[^\s]*', r'sourceMappingURL=theme.css.map', filedata)
+    scheme = "default"
+    if 'color-scheme' in theme_opts['options'].keys():
+        scheme = theme_opts['options']['color-scheme']
 
-            # append some css variables to the file so that colors can be customized
-            # without rebuilding the theme
-            regular_vars = {k:v for k, v in theme_opts['variables'].items() if "-dark" not in k}
-            dark_vars = {k.replace("-dark",""):v for k, v in theme_opts['variables'].items() if "-dark" in k}
-            if regular_vars:
-                filedata += "\n/* generated from pub variables */\n:root {"
-                for key, value in regular_vars.items():
-                    filedata += "--{}: {};".format(key, value)
-                filedata += "}"
-            if dark_vars:
-                filedata += "\n/* generated from pub variables */\n:root.dark-mode {"
-                for key, value in dark_vars.items():
-                    filedata += "--{}: {};".format(key, value)
-                filedata += "}"
+    if 'primary-color' not in theme_opts['options'].keys():
+        theme_opts['options']['primary-color'] = color_schemes[scheme]['primary-color']
 
-            os.makedirs(os.path.dirname(dest), exist_ok=True)
-            with open(dest, 'w+') as file:
-                file.write(filedata)
+    if 'secondary-color' not in theme_opts['options'].keys():
+        theme_opts['options']['secondary-color'] = color_schemes[scheme]['secondary-color']
 
-        # map file copied as is
-        shutil.copy(src + ".map", dest + ".map")
+    log.debug("Using prebuilt theme: " + theme_name + " with options: " + str(theme_opts))
+
+    # copy src -> dest with modifications
+    with open(src, 'r') as theme_file:
+        filedata = theme_file.read()
+
+        # modify file so that it points to the map file theme.css.map
+        filedata = re.sub(r'sourceMappingURL=[^\s]*', r'sourceMappingURL=theme.css.map', filedata)
+
+        # append some css variables to the file so that colors can be customized
+        # without rebuilding the theme
+        regular_vars = {k:v for k, v in theme_opts['options'].items() if "-dark" not in k}
+        print("regular vars: ", regular_vars)
+        if regular_vars:
+            filedata += "\n/* generated from pub variables */\n:root:not(.dark-mode) {"
+            for key, value in regular_vars.items():
+                filedata += "--{}: {};".format(key, value)
+            filedata += "}"
+
+        dark_vars = {k.replace("-dark",""):v for k, v in theme_opts['options'].items() if "-dark" in k}
+        if dark_vars:
+            filedata += "\n/* generated from pub variables */\n:root.dark-mode {"
+            for key, value in dark_vars.items():
+                filedata += "--{}: {};".format(key, value)
+            filedata += "}"
+
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        with open(dest, 'w+') as file:
+            file.write(filedata)
+
+    # map file copied as is
+    shutil.copy(src + ".map", dest + ".map")
 
 # Helper to build a custom version of a theme
 def _build_custom_theme(xml, theme_name, theme_opts, tmp_dir):
@@ -3628,15 +3691,12 @@ def build_or_copy_theme(xml, pub_file, stringparams, tmp_dir):
 
     # attempt basic sanity check of colors
     for var, check_color in theme_opts['contrast-checks'].items():
-        if var in theme_opts['variables']:
-            check_color_contrast(theme_opts['variables'][var], check_color)
+        if var in theme_opts['options']:
+            check_color_contrast(theme_opts['options'][var], check_color)
 
     # prerolled themes with no options get copied from css/dist; otherwise, build a custom theme
     prerolled = "-legacy" in theme_name or theme_name == "default-modern"
-    print(theme_name)
-    print(prerolled)
-    print(theme_opts)
-    if prerolled and not theme_opts['options']:
+    if prerolled:
         _move_prebuilt_theme(theme_name, theme_opts, tmp_dir)
     else:
         _build_custom_theme(xml, theme_name, theme_opts, tmp_dir)
