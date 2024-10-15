@@ -29,6 +29,7 @@ $background-color-dark: #23241f !default;
   $color4: $color4,
 );
 
+// primary color defined by color1 as determined by palette-chunks
 $primary-color: map.get(palette-chunks.$colors, 'color1');
 
 // Imports in this file can be either relative to this file or 

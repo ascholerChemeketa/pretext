@@ -21,7 +21,7 @@ $background-color-dark: #23241f !default;
 @use 'components/page-parts/parts-default';
 @use 'components/chunks/chunks-default';
 
-@use 'heading-tweaks' with ($palette: $palette);
+@use 'heading-tweaks';
 
 // fonts and colors
 // $body-font: 'Open Sans' !default;
@@ -34,6 +34,11 @@ $background-color-dark: #23241f !default;
     $primary-color: $primary-color,
     $secondary-color: $secondary-color,
 );
+
+// primary/secondary color defined as determined by palette-chunks from
+// color-scheme, primary-color, secondary-color
+$primary-color: map.get(palette-dual.$colors, 'primary-color');
+$secondary-color: map.get(palette-dual.$colors, 'secondary-color');
 
 @use 'colors/palette-dark' as palette-dark with (
     $primary-color: $primary-color-dark,
