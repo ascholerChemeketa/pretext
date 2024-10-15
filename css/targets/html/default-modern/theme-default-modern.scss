@@ -4,9 +4,9 @@
 // Variables used by theme. CSSBuilder overrides these by prepending
 // different definitions for these variables to this file before the theme
 // is compiled.
-$palette: 'dual' !default;
-$primary-color: #2a5ea4 !default;
-$secondary-color: #a11c1c !default;
+$color-scheme: 'default' !default;
+$primary-color: null !default;
+$secondary-color: null !default;
 $primary-color-dark: #829ab1 !default;
 $background-color-dark: #23241f !default;
 
@@ -15,11 +15,10 @@ $background-color-dark: #23241f !default;
 // Imports in this file can be either relative to this file or 
 // relative to css/ directory
 // Basic components: 
+//@use 'components/pretext';// with ($inline-section-headings: false);
 @use 'components/pretext';
-@use 'components/pretext_add_on';
 @use 'shell_default-modern';
-
-// "style" components 
+@use 'components/page-parts/parts-default';
 @use 'components/chunks/chunks-default';
 
 @use 'heading-tweaks' with ($palette: $palette);
@@ -30,36 +29,21 @@ $background-color-dark: #23241f !default;
 @use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
 
 @use "colors/color-helpers" as colorHelpers;
-@use 'colors/palette-single' as palette-single with (
-    $primary-color: $primary-color,
-);
 @use 'colors/palette-dual' as palette-dual with (
+    $color-scheme: $color-scheme,
     $primary-color: $primary-color,
     $secondary-color: $secondary-color,
 );
-@use 'colors/palette-muted' as palette-muted with (
-    $primary-color: $primary-color,
-);
+
 @use 'colors/palette-dark' as palette-dark with (
     $primary-color: $primary-color-dark,
     $background-color: $background-color-dark,
 );
 
-// Sample of how to override a color in a palette
-// palette-dual.$colors: map.merge(palette-dual.$colors, (
-//     "bodytitle": var(--primary-color-white-50),
-// ));
-
 :root {
     color-scheme: light;
     &:not(.dark-mode) {  // prevent variable leak through to dark
-        @if $palette == 'dual' {
-            @include colorHelpers.scss-to-css(palette-dual.$colors);
-        } @else if $palette == 'single' {
-            @include colorHelpers.scss-to-css(palette-single.$colors);
-        } @else if $palette == 'muted' {
-            @include colorHelpers.scss-to-css(palette-muted.$colors);
-        }
+      @include colorHelpers.scss-to-css(palette-dual.$colors);
     }
 }
 

@@ -1,17 +1,22 @@
+$border-radius: 8px !default;
+
 // One stop include for default style content blocks
 @use 'asides-floating';
 @use 'codelike';
 @use 'exercises';
+@use 'solutions';
+@use 'sidebyside';
 @use 'discussion-inline';
-@use 'knowls';
+@use 'knowls' with ($border-radius: $border-radius);
 @use './helpers/L-mixin';
-@use './helpers/box-mixin';
+@use './helpers/box-mixin' with ($border-radius: $border-radius);
 @use './helpers/heading-box-mixin';
 @use './helpers/sidebar-mixin';
+@use './helpers/inline-heading-mixin';
 
 // rounded box
 .assemblage-like {
-  @include box-mixin.box($border-color: var(--assembborder), $background-color: var(--assembbody), $round-corners: true);
+  @include box-mixin.box($border-color: var(--assembborder), $background-color: var(--assembbody));
 }
 
 // box with title inset on top
@@ -75,4 +80,9 @@
 // wide sidebar on an entire section of solutions
 section.solutions:not(:is(:first-child)) {
   @include sidebar-mixin.sidebar($border-color: var(--solutionborder));
+}
+
+.paragraphs,
+article {
+  @include inline-heading-mixin.inline-head;
 }

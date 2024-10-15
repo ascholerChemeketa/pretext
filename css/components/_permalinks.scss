@@ -1,4 +1,5 @@
 // TODO - refactor
+$opacity: 0.05 !default;
 
 /* so that we can position things (like .autopermalink) absolutely wrt these items */
 section,
@@ -15,7 +16,8 @@ article,
   top: 0.5ex;
   left: -2em;
   font-size: 85%;
-  opacity: var(--permalink-opacity, 0.05);
+  // variable allows theme to set different opacities for dark/light
+  opacity: var(--permalink-opacity, $opacity);
   transition: opacity 0.2s;
   margin-top: 0 !important;
 }

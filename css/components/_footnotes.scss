@@ -1,25 +1,30 @@
+$border-radius: 0px !default;
 
 .ptx-footnote {
   display: inline;
+  position: relative;
 }
 
 .ptx-footnote[open] {
   display: contents;
 }
 
-.ptx-footnote[open] .ptx-footnote__number {
-  visibility: hidden;
-}
+
 .ptx-footnote[open] .ptx-footnote__number::before {
-  font-size: 0.6rem;
+  font-size: smaller;
   content: "[x]";
   visibility: visible;
   vertical-align: super;
 }
 
+.ptx-footnote[open] .ptx-footnote__number sup {
+  display: none;
+}
+
 .ptx-footnote__number {
-  display: inline;
+  display: inline-block;
   cursor: pointer;
+  min-width: 1em; //hopefully enough space...
 }
 
 .ptx-footnote__number::marker {
@@ -30,10 +35,12 @@
   display: block;
   font-style: italic;
   background: var(--knowlbackground);
-  border-radius: 6px;
-  padding: 0 8px;
+  border-radius: $border-radius;
+  padding: 8px;
   margin: 4px auto;
   width: fit-content;
   max-width: calc(100% - 60px);
   border: 2px solid var(--knowlborder);
+  // position: absolute;
+  // z-index: 10;
 }

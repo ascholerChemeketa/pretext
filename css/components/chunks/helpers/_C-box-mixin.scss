@@ -51,7 +51,7 @@ $heading-color: var(--groupheadcolor) !default;
 
       @if $border-radius > 0 {
         border-top-right-radius: $border-radius;
-        border-top-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
       }
 
       &:after {

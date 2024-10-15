@@ -1,6 +1,7 @@
-
+@use './helpers/inline-heading-mixin';
 
 .discussion-like {
+  @include inline-heading-mixin.inline-head;
   & > .heading {
     ::after {
       content: "\2009";

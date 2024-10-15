@@ -1,7 +1,7 @@
 // These values can be set on @use to avoid repeating values in each @import
 $pad: 20px !default;
 $border-radius: 0px !default;
-$margin-top: 3em !default;
+$margin-top: 1.5em !default;
 $font-style: 'normal' !default;
 // $font-size: 1.25em !default;
 $box-padding: 5px !default;
@@ -52,6 +52,7 @@ $heading-color: var(--groupheadcolor) !default;
       padding: $box-padding (2 * $box-padding);
       // font-size: $font-size;
       margin-top: $heading-top;
+      width: fit-content;
 
       @if $font-style != 'normal' {
         font-style: $font-style;
@@ -70,6 +71,13 @@ $heading-color: var(--groupheadcolor) !default;
         //disable any extra junk
         display: none;
       }
+    }
+  }
+
+  // if the first child of a knowl, need just enough margin to clear exposed heading
+  @at-root {
+    .knowl__content *:first-child & {
+      margin-top: 1em;
     }
   }
 }
