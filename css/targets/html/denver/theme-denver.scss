@@ -6,7 +6,7 @@
 // is compiled.
 
 // light colors
-$color-scheme: 'default' !default;
+$color-scheme: 'earth-sea' !default;
 $color1: null !default;
 $color2: null !default;
 $color3: null !default;
@@ -23,6 +23,7 @@ $background-color-dark: #23241f !default;
 
 // fancy colors for chunks
 @use 'colors/palette-quad-chunks' as palette-chunks with (
+  $color-scheme: $color-scheme,
   $color1: $color1,
   $color2: $color2,
   $color3: $color3,

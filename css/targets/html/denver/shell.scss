@@ -1,14 +1,16 @@
 
-$content-width: 600px;
+$content-width: 720px;
 $sidebar-width: 240px;
 $nav-height: 36px;
 $content-side-margin: 48px;
+$margins: calc((100% - $content-width) / 2);
+$scrolling-toc: true;
 
 @use 'components/helpers/buttons-default' as buttons;
 
 @use 'components/page-parts/parts-default' with(
   $page-centered: true,
-  $scrolling-toc: false,
+  $scrolling-toc: $scrolling-toc,
   $content-width: $content-width,
   $content-side-margin: $content-side-margin
 );
@@ -18,27 +20,78 @@ a {
   font-weight: bold;
 }
 
+.ptx-masthead .ptx-banner {
+  max-width: unset;
+  padding: 10px 24px;
+}
+
 .ptx-page {
   display: flex;
+  max-width: 100%;
 }
 
 .ptx-main {
   display: block;
   position: relative;
-  margin: 0;
+  margin-left: max(2%, calc($margins - $sidebar-width));
   padding: 0;
-  flex-grow: 1;
+  max-width: $content-width;
+}
+
+@media screen and (min-width: 1200px) {
+  body.pretext .ptx-navbar {
+      padding-left:  calc($sidebar-width + max(2%, calc($margins - $sidebar-width)));
+      padding-right: calc(100% - $content-width - $sidebar-width - max(2%, calc($margins - $sidebar-width)));
+      // toc-toggle
+      .toc-toggle {
+        position: absolute;
+        left: 24px;
+        top: 0;
+        gap: 1em;
+      }
+  }
+
+  }
+
+.ptx-sidebar.hidden + .ptx-main {
+  //margin-left: calc($margins + $sidebar-width);
+  margin-left: $margins;
 }
 
 
-.ptx-sidebar.hidden + .ptx-main {
-  margin-left: 0;
+.ptx-sidebar {
+  top: 0;
+  left: 24px;
+  position: relative;
+  display: block;
+}
+
+.ptx-sidebar::after {
+  content: "";
+  top: 0;
+  left: 0;
+  height: 48px;
+  right: 0;
+  background: linear-gradient(to bottom, var(--mainbackground) 25%, #ffffff00 100%);
+  position: absolute;
 }
 
 .ptx-toc {
-  border-right: 2px solid var(--tocborder);
-}
+  padding-top: $nav-height;
+  border-right: 2px solid var(--mainbackground);
+  position: sticky;
+  top: $nav-height;
+  background-color: var(--mainbackground);
 
+  @if $scrolling-toc {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tocborder) var(--mainbackground);
+  }
+
+  .toc-item {
+    background-color: var(--mainbackground);
+  }
+}
 
 .ptx-toc.focused {
   padding-top: 10px
