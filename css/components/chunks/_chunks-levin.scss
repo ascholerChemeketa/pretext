@@ -1,4 +1,4 @@
-$border-radius: 2px !default;
+$border-radius: 0 !default;
 
 // One stop include for heading-box dominant content blocks
 @use 'asides-floating';
@@ -17,6 +17,9 @@ $border-radius: 2px !default;
 );
 @use './helpers/sidebar-mixin' with ($border-width: 4px);
 @use './helpers/C-box-mixin' with ($border-radius: $border-radius);
+@use './helpers/horizontal-bars-mixin';
+@use './helpers/inline-heading-mixin';
+
 
 .theorem-like {
   @include heading-box-mixin.heading-box(
@@ -24,6 +27,7 @@ $border-radius: 2px !default;
     $border-color: var(--theoremborder),
     $heading-background: var(--theoremborder),
   );
+
 }
 
 .assemblage-like {
@@ -42,31 +46,40 @@ $border-radius: 2px !default;
   @include heading-box-mixin.heading-box(
     $background-color: var(--projectbody),
     $border-color: var(--projectborder),
-    $heading-background: var(--projectborder)
-  );
-}
-
-.project-like.investigation {
-  & > .heading {
-    font-style: italic;
-  }
-  @include heading-box-mixin.heading-box(
-    $background-color: var(--investigatebody),
-    $border-color: var(--investigateborder),
-    $heading-background: var(--investigateborder)
+    $heading-background: var(--projectbody),
+    $heading-color: var(--bodyfontcolor),
   );
 }
 
 
 .proof {
-  @include sidebar-mixin.sidebar(
-    $border-color: var(--proofborder),
-    $background-color: var(--proofbody),
-    $padding: 10px,
-    $border-radius: $border-radius,
-  );
+  padding-bottom: 1.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+
+  &::after {
+    content: "QED";
+    font-size: smaller;
+    font-style: italic;
+    font-variant: small-caps;
+    float: right;
+  }
+
+  .heading {
+    display: inline;
+    font-size: unset;
+    font-weight: bolder;
+  }
+
 }
 
+.solution-like {
+  .heading {
+    display: inline;
+    font-style: italic;
+    font-size: unset;
+  }
+}
 
 .remark-like {
   @include sidebar-mixin.sidebar(
@@ -79,11 +92,12 @@ $border-radius: 2px !default;
 }
 
 .goal-like {
-  @include heading-box-mixin.heading-box(
+  @include horizontal-bars-mixin.bars(
     $background-color: var(--goalbody),
     $border-color: var(--goalborder),
-    $heading-background: var(--goalborder)
-  );
+    $font-style: italic,
+    $padding: 0.7em
+    );
 }
 
 
@@ -108,22 +122,59 @@ $border-radius: 2px !default;
 
 .example-like {
   @include C-box-mixin.C-box(
-    $border-color: var(--exampleborder),
-    $heading-background: var(--exampleborder)
+    $border-color: var(--assembborder),
+    $heading-background: var(--assembborder)
   );
 }
 
 
-.exercise-like {
+.exercise-like.born-hidden-knowl {
+  @include C-box-mixin.C-box-knowl(
+    $border-color: var(--exerciseborder),
+    $heading-background: var(--exerciseborder)
+  );
+}
+
+
+.exercise-like:not(.project-like .exercise-like, .exercise-like .exercise-like, .exercises .exercise-like, .reading-questions .exercise-like, .task) {
   @include C-box-mixin.C-box(
     $border-color: var(--exampleborder),
     $heading-background: var(--exampleborder)
   );
 }
+
 
 .computation-like {
   @include C-box-mixin.C-box(
     $border-color: var(--computationborder),
     $heading-background: var(--computationborder)
   );
+}
+
+/* No decorations/borders in knowls, to save space */
+.knowl__content {
+  border: none;
+  .theorem-like,
+  .definition-like,
+  .example-like,
+  .project-like,
+  .remark-like,
+  .openproblem-like,
+  .computation-like,
+  .project-like,
+  .commentary {
+    padding-left: 0;
+    margin-left: 0;
+    border-left: none;
+
+    &::after {
+      border-bottom: none;
+      display: none;
+    }
+  }
+}
+
+
+article {
+  @include inline-heading-mixin.inline-head;
 }

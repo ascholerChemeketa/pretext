@@ -6,7 +6,7 @@
 // is compiled.
 
 // light colors
-$color-scheme: 'earth-sea' !default;
+$color-scheme: 'bold2' !default;
 $color1: null !default;
 $color2: null !default;
 $color3: null !default;
@@ -43,6 +43,7 @@ $primary-color: map.get(palette-chunks.$colors, 'color1');
 @use './shell';
 // @debug map.get($palette-chunks, 'color1');
 @use 'heading-tweaks' with ($text-color: colorHelpers.text-contrast($primary-color));
+@use 'components/page-parts/parts-default';
 
 
 $heading-font: 'Noto Sans' !default;
@@ -53,6 +54,9 @@ $heading-font: 'Noto Sans' !default;
   $primary-color: $primary-color
 );
 
+$theorem-body: color.scale(palette-chunks.$color3, $lightness: 85%);
+$remark-body: color.scale(palette-chunks.$color4, $lightness: 85%);
+$assemble-body: color.scale(palette-chunks.$color1, $lightness: 85%);
 
 $light-colors: map.merge(palette-light.$colors, palette-chunks.$colors);
 
@@ -64,6 +68,9 @@ $light-colors: map.merge($light-colors, ("chaptertoc": var(--mainbackground),
       "parttocactive": var(--primary-color-white-90),
       "parttoctextactive": var(--parttoctext),
       "permalink-opacity": 0,
+      "theorembody": $theorem-body,
+      "remarkbody": $remark-body,
+      "assembbody": $assemble-body,
     ));
 
 
@@ -90,7 +97,7 @@ $palette-dark: map.merge(palette-dark.$colors, ("chaptertoc": var(--mainbackgrou
 :root.dark-mode {
   color-scheme: dark;
   @include colorHelpers.scss-to-css($palette-dark);
-  
+
   //ultra specific to force border on navbar buttons
   .pretext .ptx-navbar {
     .button {
