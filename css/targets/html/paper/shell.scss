@@ -1,0 +1,133 @@
+$content-width: 80ch;
+$sidebar-width: 240px;
+$nav-height: 36px;
+$content-side-margin: 5ch;
+$margins: calc((100% - $content-width) / 2);
+$scrolling-toc: true;
+
+@use 'components/helpers/buttons-default' as buttons;
+
+@use 'components/page-parts/parts-default' with(
+  $page-centered: true,
+  $scrolling-toc: $scrolling-toc,
+  $content-width: $content-width,
+  $content-side-margin: $content-side-margin
+);
+
+// help links stick out
+a {
+  font-weight: bold;
+}
+
+// Fix summary links
+.summary-links a {
+  background: unset;
+}
+
+.ptx-masthead .ptx-banner {
+  max-width: unset;
+  padding: 10px 24px;
+}
+
+.ptx-page {
+  display: flex;
+  max-width:100%;
+}
+
+.ptx-main {
+  display: block;
+  position: relative;
+  margin-left: max(2%, calc($margins - $sidebar-width));
+  padding: 0;
+  max-width: $content-width;
+  //box-shadow: 10px 10px 20px -10px var(--assembborder);
+}
+
+@media screen and (min-width: 1200px) {
+  body.pretext .ptx-navbar {
+      padding-left:  calc($sidebar-width + max(2%, calc($margins - $sidebar-width)));
+      padding-right: calc(100% - $content-width - $sidebar-width - max(2%, calc($margins - $sidebar-width)));
+      // toc-toggle
+      .toc-toggle {
+        position: absolute;
+        left: 24px;
+        top: 0;
+        gap: 1em;
+      }
+  }
+}
+
+.ptx-sidebar.hidden + .ptx-main {
+  margin-left: $margins;
+}
+
+.ptx-sidebar {
+  top: 0;
+  left: 24px;
+  position: relative;
+  display: block;
+}
+
+.ptx-sidebar::after {
+  content: "";
+  top: 0;
+  left: 0;
+  height: 48px;
+  right: 0;
+  background: linear-gradient(to bottom, var(--mainbackground) 25%, #ffffff00 100%);
+  position: absolute;
+}
+
+.ptx-toc {
+  padding-top: $nav-height;
+  border-right: 2px solid var(--mainbackground);
+  position: sticky;
+  top: $nav-height;
+  background-color: var(--mainbackground);
+
+  @if $scrolling-toc {
+    scrollbar-width: thin;
+    scrollbar-color: var(--page-border-color) var(--mainbackground);
+  }
+
+  .toc-item {
+    background-color: var(--mainbackground);
+  }
+}
+
+
+//.ptx-toc.focused {
+//  padding-top: 10px
+//}
+
+.ptx-toc.focused .toc-expander {
+  padding: 2px 0 2px 5px;
+}
+
+
+@media screen and (max-width: 800px) {
+  .ptx-main {
+    margin-left: 0;
+    left: auto;
+  }
+  .ptx-page-footer {
+    // Make space for navbar fixed to bottom of screen
+    margin-bottom: $nav-height;
+  }
+
+  .ptx-sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: var(--mainbackground);
+    bottom: $nav-height;
+  }
+  .ptx-content-footer {
+    display: none;
+  }
+}
+
+
+
+
