@@ -1,17 +1,23 @@
-$content-width: 80ch;
+$text-width: 600px;
+$text-side-padding: 120px;
+$content-width: $text-width + (2 * $text-side-padding);
 $sidebar-width: 240px;
-$nav-height: 36px;
-$content-side-margin: 5ch;
-$margins: calc((100% - $content-width) / 2);
+$sidebar-margin-left: 24px;
+$side-width: $sidebar-width +  $sidebar-margin-left;
+//$max-width: 1200px;
+$max-width: $content-width + (2* $side-width);
+
+//$content-margins: calc((100% - $content-width) / 2);
 $scrolling-toc: true;
+$nav-height: 36px;
 
 @use 'components/helpers/buttons-default' as buttons;
 
 @use 'components/page-parts/parts-default' with(
   $page-centered: true,
   $scrolling-toc: $scrolling-toc,
-  $content-width: $content-width,
-  $content-side-margin: $content-side-margin
+  $content-width: $text-width,
+  $content-side-margin: $text-side-padding
 );
 
 // help links stick out
@@ -25,32 +31,36 @@ a {
 }
 
 .ptx-masthead .ptx-banner {
-  max-width: unset;
+  //max-width: unset;
+  max-width: $max-width;
   padding: 10px 24px;
 }
 
 .ptx-page {
   display: flex;
-  max-width:100%;
+  max-width: $max-width;
 }
 
 .ptx-main {
   display: block;
   position: relative;
-  margin-left: max(2%, calc($margins - $sidebar-width));
+  margin-left: 0;
   padding: 0;
   max-width: $content-width;
-  //box-shadow: 10px 10px 20px -10px var(--assembborder);
+  box-shadow: 10px 15px 40px -20px var(--assembborder);
 }
 
 @media screen and (min-width: 1200px) {
   body.pretext .ptx-navbar {
-      padding-left:  calc($sidebar-width + max(2%, calc($margins - $sidebar-width)));
-      padding-right: calc(100% - $content-width - $sidebar-width - max(2%, calc($margins - $sidebar-width)));
+
+      //padding-left:  calc($sidebar-width + max(2%, calc($margins - $sidebar-width)));
+      padding: 0 calc((100% - $content-width) / 2);
+      //padding-right: calc(100% - $content-width - $sidebar-width - max(2%, calc($margins - $sidebar-width)));
       // toc-toggle
       .toc-toggle {
         position: absolute;
-        left: 24px;
+        left: calc((100% - $max-width) / 2);
+        margin-left: $sidebar-margin-left;
         top: 0;
         gap: 1em;
       }
@@ -58,12 +68,13 @@ a {
 }
 
 .ptx-sidebar.hidden + .ptx-main {
-  margin-left: $margins;
+  margin-left: $side-width;
 }
 
 .ptx-sidebar {
   top: 0;
-  left: 24px;
+  left: 0;
+  margin-left: $sidebar-margin-left;
   position: relative;
   display: block;
 }
@@ -128,6 +139,14 @@ a {
   }
 }
 
+// Some hacks to get runestone components looking better:
+.Codemirror {
+  font-size: 14px;
+}
 
+.ptx-runestone-container:has(.parsons_section,.ac_section,.codelens) {
 
-
+  min-width: 100%;
+  max-width: calc(100% + 128px);
+  margin-left: -64px;
+}
