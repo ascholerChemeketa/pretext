@@ -1,4 +1,5 @@
 // Body level styling
+$max-width: 1200px !default;
 
 // hits regular pages and generated iframe pages
 body {
@@ -13,7 +14,7 @@ body {
 .ptx-banner,
 .ptx-page,
 .ptx-footer {
-  max-width: 1200px;
+  max-width: $max-width;
   margin-left: auto;
   margin-right: auto;
 }
