@@ -112,7 +112,7 @@ function getTargets(options) {
     // Modern web targets
     { out: 'theme-default-modern', in: path.join(cssRoot, 'targets/html/default-modern/theme-default-modern.scss'), autobuild: true },
     // only default is prebuilt
-    { out: 'theme-centered-wide', in: path.join(cssRoot, 'targets/html/centered-wide/theme-centered-wide.scss')},
+    { out: 'theme-salem', in: path.join(cssRoot, 'targets/html/salem/theme-salem.scss')},
     { out: 'theme-denver', in: path.join(cssRoot, 'targets/html/denver/theme-denver.scss') },
     { out: 'theme-tacoma', in: path.join(cssRoot, 'targets/html/tacoma/theme-tacoma.scss') },
     // -------------------------------------------------------------------------

@@ -2327,6 +2327,13 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <option name="primary-color" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
+    <theme name="salem">
+        <option name="provide-dark-mode" default="yes"/>
+        <option name="palette" default="default"/>
+        <option name="primary-color" check-contrast="#fff"/>
+        <option name="secondary-color" check-contrast="#fff"/>
+        <option name="primary-color-dark" check-contrast="#23241f"/>
+    </theme>
     <theme name="custom">
         <option name="entry-point" default="custom-theme.scss"/>
     </theme>
