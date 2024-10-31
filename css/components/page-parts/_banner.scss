@@ -48,15 +48,15 @@
     display: flex;
   }
 
-  // Insert a placeholder icon if the logo-link is empty
-  .logo-link:empty::before {
-    display: flex;
-    font-family: var(--font-body);
-    font-size: 4rem;
-    margin-top: -0.7rem;
-    content: "\2211"; //sigma symbol
-    color: var(--page-border-color)
-  }
+  // // Insert a placeholder icon if the logo-link is empty
+  // .logo-link:empty::before {
+  //   display: flex;
+  //   font-family: var(--font-body);
+  //   font-size: 4rem;
+  //   margin-top: -0.7rem;
+  //   content: "\2211"; //sigma symbol
+  //   color: var(--page-border-color)
+  // }
 
   .byline {
     color: var(--byline-color);

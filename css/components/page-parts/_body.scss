@@ -58,7 +58,7 @@ body.pretext > a.assistive {
   background:transparent;
   z-index: 10000;
 
-  & :focus {
+  &:focus {
     top:0px;
     background:#BF1722;
     outline:0;

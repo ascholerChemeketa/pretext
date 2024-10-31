@@ -1,16 +1,18 @@
 
 /* Start of division toc links */
-.summary-links {
+// .ptx-content to override _links rules
+.ptx-content .summary-links {
   font-family: var(--font-headings);
   display: block;
-  margin-top: 2em;
+  margin-top: 1em;
 
   a {
-    color: var(--linkColor);
-    background: var(--navbarbackground);
+    color: var(--buttonforeground);
+    background: var(--buttonbackground);
     font-size: 1.5em;
     line-height: 1.25em;
     padding: 10px 20px;
+    padding-right: 60px;
     border-radius: 3px;
     position: relative;
     display: block;
@@ -34,12 +36,18 @@
       height: 0;
       border-top: 0.4em solid transparent;
       border-bottom: 0.4em solid transparent;
-      border-left: 0.4em solid var(--linkColor);
+      border-left: 0.4em solid var(--buttonforeground);
     }
 
     &:hover {
-      color: var(--mainbackground);
-      background: var(--linkColor);
+      color: var(--buttonforeground);
+      background: var(--buttonbackground);
+
+      // need to override work done in _links
+      * {
+        color: var(--buttonforeground);
+        background: var(--buttonbackground);
+      }
 
       &::after {
         border-left: 0.4em solid var(--mainbackground);
@@ -48,7 +56,9 @@
   }
 
   ul {
-      list-style-type:none;
+      list-style-type: none;
+      padding: 0;
+      margin-top: 0;
   }
 
   li {
