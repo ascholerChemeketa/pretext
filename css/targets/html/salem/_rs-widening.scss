@@ -1,0 +1,215 @@
+
+// --------------------------------------------------------------------------
+// Widening of rs elements
+
+// components that should be wide 
+$rs-wide-elements: ".ac_section, .codelens, .parsons_section, .hparsons_section, .datafile, .contains-wide";
+
+// grouping elements that may have wide elements and require different margins
+// need to make sure those elements have a consistent amount of (padding+border)
+$grouping-elements: ".theorem-like, .definition-like, .example-like, .exercise-like, .project-like, .remark-like, .openproblem-like, .openproblems-like, .computation-like, .knowl__content";
+
+
+:root {
+  --content-margin: 48px;
+  --content-width: 750px;
+  --content-width-wide: 1050px;
+  --page-width: 1100px;
+  --xl-margin: calc(
+    (var(--content-width) - var(--content-width-wide)) / 2 - var(--content-margin)
+  );
+
+  --content-font-size: 1.1rem;
+}
+
+
+
+.ptx-runestone-container:has(#{$rs-wide-elements}),
+// :is(#{$grouping-elements}):has(#{$rs-wide-elements})
+{
+  width: var(--content-width-wide);
+  max-width: unset;
+  margin-left: var(--xl-margin);
+  max-width: unset;
+}
+
+// unless nested in other runestones
+.ptx-runestone-container {
+  .ptx-runestone-container:has(#{$rs-wide-elements})
+  {
+    width: 100%;
+    margin-left: auto;
+  }
+}
+
+// fix margins for items nested in grouping elements
+// assumes 15px left (padding+border) for each level of nesting
+:is(#{$grouping-elements}) .ptx-runestone-container:has(#{$rs-wide-elements}) {
+  margin-left: calc(var(--xl-margin) - 14px);
+  // margin-left: 0;
+  // width: calc( var(--content-width-wide) - 29px);
+}
+
+:is(#{$grouping-elements}) :is(#{$grouping-elements}) .ptx-runestone-container:has(#{$rs-wide-elements}) {
+  margin-left: calc(var(--xl-margin) - 29px);
+}
+
+:is(#{$grouping-elements}) :is(#{$grouping-elements})  .ptx-runestone-container:has(#{$rs-wide-elements}) {
+  margin-left: calc(var(--xl-margin) - 44px);
+}
+// max 3 levels of nesting
+
+/* limit width of content inside ac except for actual activecode */
+.runestone.ac_section
+  > div
+  > div
+  > *:not(.ac_code_div):not(.ac_output):not(.codelens):not(.ac_actions) {
+  max-width: calc(var(--content-width) - 2 * var(--content-margin));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* limit width of content inside contains-wide */
+.runestone.contains-wide .tab-content {
+  max-width: var(--content-width);
+  margin-left: auto;
+  margin-right: auto;
+
+  /* but widen item that needs it */
+  .runestone:is(#{$rs-wide-elements}) {
+    width: calc(var(--content-width-wide) - 20px);
+    margin-left: calc(var(--xl-margin) + 8px);
+  }
+}
+
+/* limit width of content inside parsons except for actual parsons */
+.runestone.parsons_section > .parsons {
+  width: 100%;
+  padding-right: 0;
+  
+  .sortable-code-container {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px auto;
+  }
+
+  .sortable-code {
+    margin: 0;
+  }
+
+  .runestone_caption_text {
+    max-width: unset;
+  }
+  
+  & > div > *:not(.sortable-code-container) {
+    max-width: calc(var(--content-width) - 2 * var(--content-margin));
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// --------------------------------------------------------------------------
+// whole bunch of breakpoints to relatively gracefully handle lots of different sizes without js
+
+@media screen and (width <= 1100px) {
+  /* tune to match --page-width */
+  .ptx-page {
+    border: 0;
+  }
+
+  :root {
+    --page-width: 100%;
+  }
+}
+
+@media screen and (width <= 1100px) {
+  :root {
+    --content-width-wide: 1000px;
+  }
+}
+
+@media screen and (width <= 1050px) {
+  :root {
+    --content-width-wide: 950px;
+  }
+}
+
+@media screen and (width <= 1000px) {
+  :root {
+    --content-width-wide: 900px;
+  }
+}
+
+@media screen and (width <= 950px) {
+  :root {
+    --content-width-wide: 850px;
+  }
+}
+
+@media screen and (width <= 943px) {
+  /* Override rule that adds scrollbars to program listings when not needed */
+  .ptx-content .figure-like {
+    overflow-x: inherit;
+  }
+}
+
+@media screen and (width <= 900px) {
+  :root {
+    --content-width-wide: 800px;
+  }
+}
+
+@media screen and (width <= 850px) {
+  /* match to --content-width - should be that + 100 */
+  body {
+    --content-width: 100%;
+    --content-font-size: 1rem;
+    --content-width-wide: calc(100% + 2 * var(--content-margin));
+    --xl-margin: calc(-1 * var(--content-margin));
+  }
+
+
+  // fix nested sizes... sure would be nice if 100vw didn't get messed up by scrollbar
+  :is(#{$grouping-elements}) .ptx-runestone-container:has(#{$rs-wide-elements}) {
+    --content-width-wide: calc(100% + 2 * var(--content-margin) + 26px);
+  }
+
+  :is(#{$grouping-elements}) :is(#{$grouping-elements}) .ptx-runestone-container:has(#{$rs-wide-elements}) {
+    --content-width-wide: calc(100% + 2 * var(--content-margin) + 54px);
+  }
+
+  :is(#{$grouping-elements}) :is(#{$grouping-elements}) :is(#{$grouping-elements}) .ptx-runestone-container:has(#{$rs-wide-elements})  {
+    --content-width-wide: calc(100% + 2 * var(--content-margin) + 85px);
+  }
+
+  // TODO - double check rest of file
+  .ptx-content
+    .runestone:is(#{$rs-wide-elements}) {
+    border-left: 0;
+    border-right: 0;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-radius: 0;
+  }
+
+  .ptx-content .code-inline {
+    white-space: pre-wrap;
+  }
+
+  .ptx-runestone-container .cd_section,
+  .ptx-content .ptx-runestone-container .parsons .sortable-code {
+    overflow-x: auto;
+  }
+  
+  .ptx-content .ptx-runestone-container .parsons .sortable-code:first-of-type {
+    padding: 0 25px;
+  }
+}
+
+@media screen and (width <= 700px) {
+  :root {
+    --content-margin: 28px; // based on value set in shell_default
+  }
+}
