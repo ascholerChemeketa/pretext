@@ -1,20 +1,18 @@
-$sidebar-width: 240px !default;
-$scrolling-toc: true !default;
+$sidebar-width: 360px !default;
 
 $nav-height: 36px !default;
 
 $content-width: 600px !default;
 $content-side-margin: 48px !default;
 
-@use 'body';
+@use 'body' with ($max-width: 0);
 @use 'banner';
 
 @use 'navbar' with (
   $nav-height: $nav-height,
 );
 
-@use 'toc-default' with (
-  $scrolling: $scrolling-toc,
+@use 'toc-overlay' with (
   $sidebar-width: $sidebar-width,
 );
 

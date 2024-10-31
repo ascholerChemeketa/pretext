@@ -1,4 +1,5 @@
 // Body level styling
+$max-width: 1200px !default;  // 0 == no max width
 
 // hits regular pages and generated iframe pages
 body {
@@ -10,28 +11,32 @@ body {
   }
 }
 
-.ptx-banner,
-.ptx-page,
-.ptx-footer {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .ptx-page {
   position: relative;
   min-height: 100vh;
+  display: flex;
 }
 
-@media screen and (min-width: 1200px) {
-  body.pretext {
-    .ptx-navbar {
-      //forces navbar to line up cleanly with sidebar
-      padding: 0 calc((100% - 1200px) / 2 + 1px);
 
-      & > *:first-child {
-        justify-content: start;
-        gap: 50px;
+@if $max-width > 0 {
+  .ptx-banner,
+  .ptx-page,
+  .ptx-footer {
+    max-width: $max-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: $max-width) {
+    body.pretext {
+      .ptx-navbar {
+        //forces navbar to line up cleanly with sidebar
+        padding: 0 calc((100% - $max-width) / 2 + 1px);
+
+        & > *:first-child {
+          justify-content: start;
+          gap: 50px;
+        }
       }
     }
   }
