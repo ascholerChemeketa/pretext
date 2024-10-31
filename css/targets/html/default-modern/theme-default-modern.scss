@@ -29,10 +29,9 @@ $background-color-dark: #23241f !default;
 @use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
 
 @use "colors/color-helpers" as colorHelpers;
-@use 'colors/palette-dual' as palette-dual with (
-    $color-scheme: $color-scheme,
-    $primary-color: $primary-color,
-    $secondary-color: $secondary-color,
+@use 'colors/palette-dual' as palette-dual with ($color-scheme: $color-scheme,
+  $primary-color: $primary-color,
+  $secondary-color: $secondary-color,
 );
 
 // primary/secondary color defined as determined by palette-chunks from
@@ -40,20 +39,21 @@ $background-color-dark: #23241f !default;
 $primary-color: map.get(palette-dual.$colors, 'primary-color');
 $secondary-color: map.get(palette-dual.$colors, 'secondary-color');
 
-@use 'colors/palette-dark' as palette-dark with (
-    $primary-color: $primary-color-dark,
-    $background-color: $background-color-dark,
+@use 'colors/palette-dark' as palette-dark with ($primary-color: $primary-color-dark,
+  $background-color: $background-color-dark,
 );
 
 :root {
-    color-scheme: light;
-    &:not(.dark-mode) {  // prevent variable leak through to dark
-      @include colorHelpers.scss-to-css(palette-dual.$colors);
-    }
+  color-scheme: light;
+
+  &:not(.dark-mode) {
+    // prevent variable leak through to dark
+    @include colorHelpers.scss-to-css(palette-dual.$colors);
+  }
 }
 
 :root.dark-mode {
-    color-scheme: dark;
+  color-scheme: dark;
 
-    @include colorHelpers.scss-to-css(palette-dark.$colors);
+  @include colorHelpers.scss-to-css(palette-dark.$colors);
 }
