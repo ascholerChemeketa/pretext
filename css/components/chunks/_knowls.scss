@@ -3,6 +3,8 @@
 */
 
 $border-radius: 0px !default;
+$border-width: 3px !default;
+$pad: 12px !default;
 
 .knowl__link {
   cursor: pointer;
@@ -28,9 +30,9 @@ summary.knowl__link {
 
 .knowl__content {
   margin: 0.75em 0;  //at least this much space above/below
-  border: 6px solid var(--knowlborder);
+  border: $border-width solid var(--knowlborder);
   border-radius: $border-radius;
-  padding: 0.8em;
+  padding: $pad;
   background-color: var(--knowlbackground);
 
   .incontext {
