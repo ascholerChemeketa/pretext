@@ -1,5 +1,5 @@
 // TODO - refactor
-$opacity: 0.05 !default;
+$opacity: 0.0 !default;
 
 /* so that we can position things (like .autopermalink) absolutely wrt these items */
 section,
@@ -34,7 +34,6 @@ li > .para > .autopermalink {
 
 /* when jumping to a permalink, push down so sticky navbar does not cover */
 :target {
-  /* scroll-snap-margin-top: 45px;   for safari, except it doesn't work */
   scroll-margin-top: 45px;
 }
 
