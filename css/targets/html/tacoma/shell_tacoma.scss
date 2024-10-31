@@ -1,26 +1,3 @@
-/*******************************************************************************
- * shell_X.css controls the overall arrangement of the blocks on the page.
- *******************************************************************************
- *
- * Authors: David Farmer, Rob Beezer
- *
- *******************************************************************************
- */
-
-/* The overall structure is
-  html
-    head
-    body.pretext
-      header.ptx-masthead
-      nav.ptx-navbar
-      div.ptx-page
-        div.sidebar
-          nav.ptx-toc
-        main.ptx-main
-          div.ptx-content
-          div.ptx-content-footer
-      div.ptx-page-footer
-*/
 
 @use 'components/helpers/buttons-default' as buttons;
 
@@ -29,19 +6,11 @@ $sidebar-width: 240px;
 $nav-height: 36px;
 $body-side-margin: 48px;
 
-.ptx-sidebar {
-  position: sticky;
-  top: $nav-height;
-  left: 0;
-  float: left;
-  border-left: 1px solid var(--page-border-color);
-}
-
 .ptx-main {
   display: block;
   position: relative;
   overflow-y: hidden;
-  margin: 0 0 0 $sidebar-width;
+  margin: 0;
   padding: 0;
   background: var(--mainbackground, white);
   transition-property: margin-left;

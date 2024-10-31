@@ -18,7 +18,12 @@ $background-color-dark: #23241f !default;
 //@use 'components/pretext';// with ($inline-section-headings: false);
 @use 'components/pretext';
 @use 'shell_tacoma';
-@use 'components/page-parts/parts-default';
+@use 'components/page-parts/parts-default' with(
+  $scrolling-toc: false,
+  // $content-width: $content-width,
+  // $content-side-margin: $content-side-margin
+);
+
 @use 'components/chunks/chunks-default' with ($border-radius: 0);
 
 // fonts and colors
