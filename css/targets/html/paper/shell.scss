@@ -72,8 +72,6 @@ a {
 }
 
 .ptx-runestone-container:has(.parsons_section,.ac_section,.codelens) {
-
-  min-width: 100%;
-  max-width: calc(100% + 128px);
-  margin-left: -64px;
+  width: calc(100% + var(--content-margin));
+  margin-left: calc(-0.5 * var(--content-margin));
 }

@@ -62,9 +62,11 @@ body.pretext .ptx-navbar {
   .ptx-toc {
     margin-top: 36px;
     border-right: none;
+    position: sticky;
+    top: $nav-height;
 
     @if $scrolling-toc {
-      scrollbar-width: thin;
+      scrollbar-width: auto;
       scrollbar-color: var(--page-border-color) var(--mainbackground);
     }
 
