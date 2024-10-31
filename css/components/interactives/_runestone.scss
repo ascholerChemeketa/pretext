@@ -63,6 +63,29 @@ $wide-rs-elements: ".parsons_section, .ac_section, .codelens";
   background: #fdfdfd;
 }
 
+//Fixup datafile captions
+.runestone.datafile {
+  .datafile_caption {
+    background: var(--code-inline);
+    border: 1px solid color-mix(in oklab, var(--code-inline) 50%, #888);
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  img {
+    margin: 0 auto;
+    display: block;
+    border: 1px solid color-mix(in oklab, var(--code-inline) 50%, #888);
+  }
+  pre {
+    margin: 0 auto;
+    border: 1px solid color-mix(in oklab, var(--code-inline) 50%, #888);
+  }
+}
+.runestone.datafile + .program {
+  margin-top: 0;
+}
+
 :root.dark-mode {
   // Darker styling to match Runesone's code mirror theme
   .ptx-runestone-container code[class*="language-"],
