@@ -29,6 +29,13 @@ $colors: map.merge(
   (
     "primary-color": $primary-color,
 
+    //Not really minimal anymore...
+    "linkColor": var(--primary-color),
+    "linkActive": var(--primary-color-white-40),
+    "linkBackground": var(--background-color-gray-30),
+    "altLinkColor": var(--linkColor),
+    "altLinkActive": var(--linkActive),
+
     "toc-text": "var(--primary-color-black-30)",
     "parttoctext": "var(--toc-text)",
     "parttoc": "#fff",
