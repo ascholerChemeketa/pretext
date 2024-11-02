@@ -2237,7 +2237,16 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- Whether or not to tag TOC as focused -->
 <xsl:variable name="html-toc-focused_value">
-    <xsl:apply-templates select="$publisher-attribute-options/html/tableofcontents/pi:pub-attribute[@name='focused']" mode="set-pubfile-variable"/>
+    <xsl:choose>
+        <xsl:when test="contains($html-theme-name, '-legacy')">
+            <!-- legacy themes can pick whether to use a focused toc or not -->
+            <xsl:apply-templates select="$publisher-attribute-options/html/tableofcontents/pi:pub-attribute[@name='focused']" mode="set-pubfile-variable"/>
+        </xsl:when>
+        <xsl:otherwise>
+            <!-- newer ones determined by theme                                -->
+            <xsl:if test="$html-theme/@focused-toc"><xsl:value-of select="$html-theme/@focused-toc"/></xsl:if>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:variable>
 <xsl:variable name="b-html-toc-focused" select="$html-toc-focused_value='yes'"/>
 
@@ -2307,14 +2316,14 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- lookup dict for known theme options -->
 <xsl:variable name="html-theme-option-list">
-    <theme name="default-modern">
+    <theme name="default-modern" focused-toc="yes">
         <option name="provide-dark-mode" default="yes"/>
         <option name="palette" default="default"/>
         <option name="primary-color" check-contrast="#fff"/>
         <option name="secondary-color" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
-    <theme name="denver">
+    <theme name="denver" focused-toc="yes">
         <option name="provide-dark-mode" default="yes"/>
         <option name="palette" default="default"/>
         <option name="color1" check-contrast="#fff"/>
@@ -2327,7 +2336,7 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <option name="primary-color" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
-    <theme name="salem">
+    <theme name="salem" focused-toc="yes">
         <option name="provide-dark-mode" default="yes"/>
         <option name="palette" default="default"/>
         <option name="primary-color" check-contrast="#fff"/>
