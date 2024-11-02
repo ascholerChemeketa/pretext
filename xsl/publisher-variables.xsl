@@ -2343,6 +2343,11 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <option name="secondary-color" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
+    <theme name="paper">
+        <option name="provide-dark-mode" default="yes"/>
+        <option name="primary-color" check-contrast="#fff"/>
+        <option name="primary-color-dark" check-contrast="#23241f"/>
+    </theme>
     <theme name="custom">
         <option name="entry-point" default="custom-theme.scss"/>
     </theme>
