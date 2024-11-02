@@ -1,6 +1,7 @@
 // These values can be set on @use to avoid repeating values in each @import
 $pad: 20px !default;
 $border-radius: 0px !default;
+$border-width: 3px !default;
 $font-style: 'normal' !default;
 $box-padding: 5px !default;
 $background-color: var(--mainbody) !default;
@@ -9,7 +10,7 @@ $heading-background: var(--groupborder) !default;
 $heading-color: var(--groupheadcolor) !default;
 
 // Block title and left/bottom wrapper
-@mixin C-box($border-width: 3px,
+@mixin C-box($border-width: $border-width,
   $background-color: $background-color,
   $border-color: $border-color,
   $heading-background: $heading-background,
