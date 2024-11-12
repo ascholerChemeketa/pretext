@@ -43,6 +43,7 @@ $secondary-color: map.get(palette-dual.$colors, 'secondary-color');
 
 @use './customization';
 @use 'components/page-parts/extras/navbar-btn-borders';
+@use 'components/page-parts/extras/toc-last-level-plain';
 
 
 // ---------------------------------------------

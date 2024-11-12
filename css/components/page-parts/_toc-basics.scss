@@ -124,16 +124,16 @@ $nav-height: 36px !default;
 // --------------------------------------------------------------------------
 // Conditional styling based on depth
 
-.ptx-toc > .toc-item-list > .toc-item {
+.ptx-toc .toc-item {
   color: var(--toclevel1-text);
   background-color: var(--toclevel1);
 }
 
-.ptx-toc > .toc-item-list > .toc-item > .toc-item-list > .toc-item {
+.ptx-toc .toc-item .toc-item {
   color: var(--toclevel2-text);
   background-color: var(--toclevel2);
 }
-.ptx-toc > .toc-item-list > .toc-item > .toc-item-list > .toc-item > .toc-item-list  .toc-item {
+.ptx-toc .toc-item  .toc-item .toc-item {
   color: var(--toclevel3-text);
   background-color: var(--toclevel3);
 }
