@@ -1,6 +1,6 @@
 
 // --------------------------------------------------------------------------
-// Widening of rs elements
+// Flexible/centered widening of rs elements
 
 // components that should be wide 
 $rs-wide-elements: ".ac_section, .codelens, .parsons_section, .hparsons_section, .datafile, .contains-wide";
@@ -16,16 +16,14 @@ $grouping-elements: ".theorem-like, .definition-like, .example-like, .exercise-l
   --content-width-wide: 1050px;
   --page-width: 1100px;
   --xl-margin: calc(
-    (var(--content-width) - var(--content-width-wide)) / 2 - var(--content-margin)
+    (var(--content-width) - var(--content-width-wide)) / 2
   );
 
   --content-font-size: 1.1rem;
 }
 
 
-
 .ptx-runestone-container:has(#{$rs-wide-elements}),
-// :is(#{$grouping-elements}):has(#{$rs-wide-elements})
 {
   width: var(--content-width-wide);
   max-width: unset;
@@ -148,13 +146,6 @@ $grouping-elements: ".theorem-like, .definition-like, .example-like, .exercise-l
   }
 }
 
-@media screen and (width <= 943px) {
-  /* Override rule that adds scrollbars to program listings when not needed */
-  .ptx-content .figure-like {
-    overflow-x: inherit;
-  }
-}
-
 @media screen and (width <= 900px) {
   :root {
     --content-width-wide: 800px;
@@ -162,14 +153,13 @@ $grouping-elements: ".theorem-like, .definition-like, .example-like, .exercise-l
 }
 
 @media screen and (width <= 850px) {
-  /* match to --content-width - should be that + 100 */
-  body {
-    --content-width: 100%;
+  :root {
+    --content-margin: 28px; // based on value set in shell_default
+    --content-width: calc(100% - 28px);
     --content-font-size: 1rem;
     --content-width-wide: calc(100% + 2 * var(--content-margin));
     --xl-margin: calc(-1 * var(--content-margin));
   }
-
 
   // fix nested sizes... sure would be nice if 100vw didn't get messed up by scrollbar
   :is(#{$grouping-elements}) .ptx-runestone-container:has(#{$rs-wide-elements}) {
@@ -205,11 +195,5 @@ $grouping-elements: ".theorem-like, .definition-like, .example-like, .exercise-l
   
   .ptx-content .ptx-runestone-container .parsons .sortable-code:first-of-type {
     padding: 0 25px;
-  }
-}
-
-@media screen and (width <= 700px) {
-  :root {
-    --content-margin: 28px; // based on value set in shell_default
   }
 }

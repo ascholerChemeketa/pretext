@@ -1,10 +1,6 @@
-// Default pretext theme. The dual color palette version is "prerolled".
-// Other palettes (single, muted) are available via rebuilding the css.
-
 // Variables used by theme. CSSBuilder overrides these by prepending
 // different definitions for these variables to this file before the theme
 // is compiled.
-$palette: 'dual' !default;
 $primary-color: #2a5ea4 !default;
 $primary-color-dark: #829ab1 !default;
 $background-color-dark: #23241f !default;
@@ -12,53 +8,41 @@ $background-color-dark: #23241f !default;
 @use "sass:map";
 @use "colors/color-helpers" as colorHelpers;
 
-// Imports in this file can be either relative to this file or 
-// relative to css/ directory
-// Basic components: 
-//@use 'components/pretext';// with ($inline-section-headings: false);
-@use 'components/pretext';
-@use 'shell_tacoma';
+@use 'components/helpers/expandable';
+
+// ---------------------------------------------
+// components
 @use 'components/page-parts/parts-default' with(
   $scrolling-toc: false,
-  // $content-width: $content-width,
-  // $content-side-margin: $content-side-margin
 );
 
 @use 'components/chunks/chunks-default' with ($border-radius: 0);
 
-// fonts and colors
-// $body-font: 'Open Sans' !default;
-// $heading-font: 'Roboto' !default;
-@use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
+@use 'components/pretext' with (
+  $navbar-breakpoint: parts-default.$navbar-breakpoint,
+);
 
-@use 'colors/palette-muted' as palette-muted with ($primary-color: $primary-color,
+// ---------------------------------------------
+// fonts and colors
+@use 'fonts/fonts-google';
+
+@use 'colors/palette-single-muted' as palette-muted with (
+  $primary-color: $primary-color,
 );
 $light-colors: map.merge(palette-muted.$colors, ("permalink-opacity": 0));
 
-@use 'colors/palette-dark' as palette-dark with ($primary-color: $primary-color-dark,
+@use 'colors/palette-dark' as palette-dark with (
+  $primary-color: $primary-color-dark,
   $background-color: $background-color-dark,
 );
 
-:root {
-  color-scheme: light;
+// ---------------------------------------------
+// customizations
+@use './customization';
 
-  &:not(.dark-mode) {
-    // prevent variable leak through to dark
-    @include colorHelpers.scss-to-css($light-colors);
-  }
-}
 
-:root.dark-mode {
-  color-scheme: dark;
+// ---------------------------------------------
+// concrete rules / includes that generate CSS
 
-  @include colorHelpers.scss-to-css(palette-dark.$colors);
-
-  //ultra specific to force border on navbar buttons
-  .pretext .ptx-navbar {
-    .button {
-      border-left-width: 1px;
-      border-right-width: 1px;
-      margin-left: -1px; //prevent double borders on neighbors
-    }
-  }
-}
+// render the actual colors
+@include colorHelpers.set-root-colors($light-colors, palette-dark.$colors);

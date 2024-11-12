@@ -5,25 +5,20 @@ $text-color: white !default;
     content: " -";
 }
 
+// Apply blocks of colors to headings when not in dark mode
 :root {
   &:not(.dark-mode) {
-    section > .heading.hide-type {
+    section > .heading{
       background: var(--primary-color-white-30);
       padding: 5px;
       padding-left: 15px;
       color: var(--page-color);
       border-radius: 2px;
     }
-    
+
     // Section heading is extra dark
     section.section > .heading{
       background-color: var(--primary-color);
     }
   }
 }
-
-// Top heading followed by no content and then a subsection that starts with heading
-section > .heading + section > .heading {
-  margin-top: 0.5em;
-}
-

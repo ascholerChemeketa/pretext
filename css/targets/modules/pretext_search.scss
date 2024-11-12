@@ -2,6 +2,10 @@
 @use 'components/helpers/buttons-default' as buttons;
 
 .searchbox {
+
+  .searchwidget {
+    height: 100%;
+  }
   
   .searchresultsplaceholder {
     position: fixed;

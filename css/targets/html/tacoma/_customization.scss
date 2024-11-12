@@ -1,0 +1,21 @@
+@use 'components/helpers/expandable';
+@use 'components/interactives/extras/runestone-wide';
+
+// more generous spacing for sections/articles
+section>*:not(:first-child) {
+  margin-top: 1.5em;
+}
+article>*:not(:first-child):has(.heading) {
+  margin-top: 1.5em;
+}
+
+
+// let math stretch out to fill space on right
+.displaymath {
+  overflow-x: visible;
+  overflow-y: unset;
+}
+
+.displaymath mjx-container {
+  @include expandable.expandable;
+}

@@ -1,59 +1,52 @@
-// Default pretext theme. The dual color palette version is "prerolled".
-// Other palettes (single, muted) are available via rebuilding the css.
-
 // Variables used by theme. CSSBuilder overrides these by prepending
 // different definitions for these variables to this file before the theme
 // is compiled.
-$color-scheme: 'default' !default;
+$color-scheme: 'blue-red' !default;
 $primary-color: null !default;
 $secondary-color: null !default;
-$primary-color-dark: #829ab1 !default;
+$primary-color-dark: #698aa8 !default;
 $background-color-dark: #23241f !default;
 
 @use "sass:map";
 
-// Imports in this file can be either relative to this file or 
-// relative to css/ directory
-// Basic components: 
-//@use 'components/pretext';// with ($inline-section-headings: false);
-@use 'components/pretext';
-@use 'shell_default-modern';
+// ---------------------------------------------
+// components
 @use 'components/page-parts/parts-default';
 @use 'components/chunks/chunks-default';
+@use 'components/pretext' with (
+  $navbar-breakpoint: parts-default.$navbar-breakpoint,
+);
 
-@use 'heading-tweaks';
-
+// ---------------------------------------------
 // fonts and colors
-// $body-font: 'Open Sans' !default;
-// $heading-font: 'Roboto' !default;
-@use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
+@use 'fonts/fonts-google';
 
 @use "colors/color-helpers" as colorHelpers;
-@use 'colors/palette-dual' as palette-dual with ($color-scheme: $color-scheme,
+@use 'colors/palette-dual' as palette-dual with (
+  $color-scheme: $color-scheme,
   $primary-color: $primary-color,
   $secondary-color: $secondary-color,
 );
 
-// primary/secondary color defined as determined by palette-chunks from
-// color-scheme, primary-color, secondary-color
+// primary/secondary color defined as determined by palette-dual using
+// $color-scheme, $primary-color, $secondary-color
 $primary-color: map.get(palette-dual.$colors, 'primary-color');
 $secondary-color: map.get(palette-dual.$colors, 'secondary-color');
 
-@use 'colors/palette-dark' as palette-dark with ($primary-color: $primary-color-dark,
+@use 'colors/palette-dark' as palette-dark with (
+  $primary-color: $primary-color-dark,
   $background-color: $background-color-dark,
 );
 
-:root {
-  color-scheme: light;
+// ---------------------------------------------
+// customizations
 
-  &:not(.dark-mode) {
-    // prevent variable leak through to dark
-    @include colorHelpers.scss-to-css(palette-dual.$colors);
-  }
-}
+@use './customization';
+@use 'components/page-parts/extras/navbar-btn-borders';
 
-:root.dark-mode {
-  color-scheme: dark;
 
-  @include colorHelpers.scss-to-css(palette-dark.$colors);
-}
+// ---------------------------------------------
+// concrete rules / includes that generate CSS
+
+// render the actual colors
+@include colorHelpers.set-root-colors(palette-dual.$colors, palette-dark.$colors);

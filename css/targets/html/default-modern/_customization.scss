@@ -1,0 +1,33 @@
+@use 'components/helpers/expandable';
+
+@use 'components/page-parts/extras/toc-borders';
+@use 'components/interactives/extras/runestone-wide';
+
+// underlines to headings
+.ptx-content section > .heading.hide-type {
+  padding-bottom: 3px;
+  border-bottom-width: 2px;
+}
+.ptx-content section > h2.heading.hide-type {
+  border-bottom-width: 4px;
+}
+.ptx-content section > h3.heading.hide-type {
+  border-bottom-width: 3px;
+}
+
+:root.dark-mode {
+  .ptx-content section > .heading.hide-type {
+    border-bottom: 2px solid var(--primary-color);
+    border-bottom-color: var(--primary-color-black-30);
+  }
+}
+
+// let math stretch out to fill space on right
+.displaymath {
+  overflow-x: visible;
+  overflow-y: unset;
+}
+
+.displaymath mjx-container {
+  @include expandable.expandable;
+}

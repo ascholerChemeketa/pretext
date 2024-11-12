@@ -2332,7 +2332,8 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <option name="color4" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
-    <theme name="tacoma">
+    <theme name="tacoma"  focused-toc="yes">
+        <option name="provide-dark-mode" default="yes"/>
         <option name="primary-color" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
@@ -2352,6 +2353,23 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <option name="entry-point" default="custom-theme.scss"/>
     </theme>
 </xsl:variable>
+
+<!-- attempt to get using key function  -->
+<!-- <xsl:variable name="html-theme-option-table" select="exsl:node-set($html-theme-option-list)"/>
+<xsl:key name="html-theme-option-key" match="theme" use="@name"/>
+
+<xsl:variable name="html-theme">
+  <xsl:message>
+    ====-=-=-=====
+    <xsl:value-of select="count($html-theme-option-table/*)"/>
+    ====-=-=-=====
+  </xsl:message>
+  <xsl:for-each select="$html-theme-option-table/*">
+    <xsl:message>
+      ====-=1=-=====
+    </xsl:message>
+  </xsl:for-each>
+</xsl:variable> -->
 
 <!-- Select just the one theme that is in use, or other if theme is not -->
 <!-- in the options list                                                -->
