@@ -642,17 +642,12 @@
 
             <p>The<cd>
                 <cline>/publication/html/css</cline>
-            </cd>element can have the following attributes:<ul>
-                <li><attr>colors</attr>: used to construct the filename for CSS controlling colors.</li>
-                <li><attr>style</attr>:  used to construct the filename for CSS controlling content appearance.</li>
-                <li><attr>knowls</attr>: used to construct the filename for CSS controlling knowls.</li>
-                <li><attr>toc</attr>:    used to construct the filename for CSS controlling the Table of Contents.</li>
-                <li><attr>banner</attr>: used to construct the filename for CSS controlling the banner (masthead).</li>
-                <li><attr>navbar</attr>: used to construct the filename for CSS controlling the navigation bar.</li>
-                <li><attr>shell</attr>:  used to construct the filename for CSS controlling the shell.</li>
-            </ul>In each case the default file is replaced and instead a new filename is formed from the attributes value.  For example, the specification<cd>
-                <cline>&lt;css colors='bright_red'/&gt;</cline>
-            </cd>will cause a CSS file named <c>colors_bright_red.css</c> to replace <c>colors_default.css</c>.  Possible values for the last four attributes are <c>default</c> and <c>crc</c>.  The server in use can be configured separately.  See <xref ref="online-style"/> for more.</p>
+            </cd>element can always have a <attr>theme</attr> to specify the theme used to style the pages. Depending on the theme chosen, there may be the following other attributes:<ul>
+                <li><attr>provide-dark-mode</attr>: set to <c>"no"</c> to disable dark mode on the theme.</li>
+                <li><attr>palette</attr>: used to specify a color palette to use.</li>
+                <li><attr>primary-color</attr>: used to override the main color in a palette.</li>
+                <li>There may be other color options depending on the theme.</li>
+            </ul>See <xref ref="online-style"/> for more.</p>
 
         </subsection>
 

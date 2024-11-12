@@ -3615,9 +3615,9 @@ def _move_prebuilt_theme(theme_name, theme_opts, tmp_dir):
       }
     }
 
-    scheme = "default"
-    if 'color-scheme' in theme_opts['options'].keys():
-        scheme = theme_opts['options']['color-scheme']
+    scheme = "blue-red"
+    if 'palette' in theme_opts['options'].keys():
+        scheme = theme_opts['options']['palette']
 
     if 'primary-color' not in theme_opts['options'].keys():
         theme_opts['options']['primary-color'] = color_schemes[scheme]['primary-color']

@@ -2326,10 +2326,10 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
     <theme name="denver" focused-toc="yes">
         <option name="provide-dark-mode" default="yes"/>
         <option name="palette" default="default"/>
-        <option name="color1" check-contrast="#fff"/>
-        <option name="color2" check-contrast="#fff"/>
-        <option name="color3" check-contrast="#fff"/>
-        <option name="color4" check-contrast="#fff"/>
+        <option name="color-main" check-contrast="#fff"/>
+        <option name="color-do" check-contrast="#fff"/>
+        <option name="color-fact" check-contrast="#fff"/>
+        <option name="color-meta" check-contrast="#fff"/>
         <option name="primary-color-dark" check-contrast="#23241f"/>
     </theme>
     <theme name="tacoma"  focused-toc="yes">
@@ -2354,20 +2354,14 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
     </theme>
 </xsl:variable>
 
+<!-- @Rob - this is my failed attempt to set an html-theme variable using the key -->
 <!-- attempt to get using key function  -->
 <!-- <xsl:variable name="html-theme-option-table" select="exsl:node-set($html-theme-option-list)"/>
 <xsl:key name="html-theme-option-key" match="theme" use="@name"/>
 
 <xsl:variable name="html-theme">
-  <xsl:message>
-    ====-=-=-=====
-    <xsl:value-of select="count($html-theme-option-table/*)"/>
-    ====-=-=-=====
-  </xsl:message>
-  <xsl:for-each select="$html-theme-option-table/*">
-    <xsl:message>
-      ====-=1=-=====
-    </xsl:message>
+  <xsl:for-each select="$html-theme-option-table">
+      <xsl:value-of select="key('html-theme-option-key', $html-theme-name)" />
   </xsl:for-each>
 </xsl:variable> -->
 
@@ -2384,9 +2378,9 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
         <!-- Must be an option in the theme -->
         <xsl:when test="$html-theme/option[@name = $optname]">
             <xsl:choose>
-                <xsl:when test="$publication/html/css/options/@*[name() = $optname]">
+                <xsl:when test="$publication/html/css/@*[name() = $optname]">
                     <!-- Exists in pub file, use that -->
-                    <xsl:value-of select="$publication/html/css/options/@*[name() = $optname]"/>
+                    <xsl:value-of select="$publication/html/css/@*[name() = $optname]"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Use default from theme def -->
@@ -2410,7 +2404,7 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 <xsl:variable name="html-theme-options">
     <xsl:text>{</xsl:text>
         <xsl:text>&quot;options&quot;:{</xsl:text>
-        <xsl:for-each select="$publication/html/css/options/@*">
+        <xsl:for-each select="$publication/html/css/@*">
             <xsl:if test="position() > 1"><xsl:text>, </xsl:text></xsl:if>
             <xsl:value-of select="concat('&quot;', name(.), '&quot;:')"/>
             <xsl:value-of select="concat('&quot;', ., '&quot;')"/>

@@ -197,15 +197,27 @@
         <p>The <pretext/> conversion to <init>HTML</init> creates standard <init>HTML</init> elements, with styles controlled by <init>CSS</init> via class names (and not so much via the element names).  As evidence of this, building <init>HTML</init> without the accompanying Javascript and <init>CSS</init> renders in a readable fashion, albeit quite plain (as one would expect).  This section describes ways that a publisher can influence the style by using the publication file to specify the use of alternate CSS files. See <xref ref="online-style-options"/> for exact syntax for the following options.</p>
 
         <paragraphs>
-            <title>Colors</title>
+            <title>Themes</title>
 
-            <p>The default file, <c>colors_default.css</c> contains documentation on how to design a color theme.</p>
-        </paragraphs>
-
-        <paragraphs>
-            <title>Style</title>
-
-            <p>A file may be used to control the look of content, such as consistently putting a colored box with a border around certain blocks.  As of 2022-12-15, the two options are <c>default</c> and <c>oscarlevin</c>.</p>
+            <p>There are multiple themes that define different appearances for a work some examples are:
+            <dl width="narrow">
+                <li>
+                    <title>default-modern</title>
+                    <p>The familiar two-color theme.</p>
+                </li>
+                <li>
+                    <title>tacoma</title>
+                    <p>A theme based on a single color that makes more minimal use of the color. Less "bright" than the default.</p>
+                </li>
+                <li>
+                    <title>denver</title>
+                    <p>A very colorful theme based on a palette of four colors.</p>
+                </li>
+                <li>
+                    <title>salem</title>
+                    <p>A bold, single color theme designed specifically for working well with wide elements like Runestone elements.</p>
+                </li>
+            </dl></p>
         </paragraphs>
 
         <paragraphs>
@@ -217,7 +229,7 @@
         <paragraphs>
             <title>Development</title>
 
-            <p>Please join us on the <c>pretext-dev</c> discussion group if you want to create alternate styles.</p>
+            <p>Please join us on the <c>pretext-dev</c> discussion group if you want to create alternate themes.</p>
         </paragraphs>
     </section>
 

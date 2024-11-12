@@ -125,7 +125,7 @@ function getTargets(options) {
     // Non-web targets
     { out: 'reveal', in: path.join(cssRoot, 'targets/revealjs/reveal.scss'), autobuild: true },
     { out: 'kindle', in: path.join(cssRoot, 'targets/ebook/kindle/kindle.scss'), autobuild: true },
-    // { out: 'epub', in: path.join(cssRoot, 'targets/ebook/epub/epub.scss'), autobuild: true },
+    { out: 'epub', in: path.join(cssRoot, 'targets/ebook/epub/epub.scss'), autobuild: true },
   ]
 
   if (options['selected-target']) {
