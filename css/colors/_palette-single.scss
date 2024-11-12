@@ -25,28 +25,30 @@ $colors: map.merge(
   $colors,
   (
     "primary-color": $primary-color,
-    
+
+    "bannerbackground": "#fafafa",
+
     "linkColor": var(--primary-color),
     "linkActive": var(--primary-color-white-40),
     "linkBackground": var(--background-color-gray-30),
     "altLinkColor": var(--linkColor),
     "altLinkActive": var(--linkActive),
 
-    "toc-text": "var(--primary-color-black-30)",
-    "parttoctext": "var(--toc-text)",
-    "parttoc": "var(--primary-color-white-95)",
-    "parttocactive": "var(--primary-color-white-15)",
-    "highlighttoc": "var(--primary-color-white-15)",
-    "chaptertoc": "var(--parttoc)",
-    "documenttitle": "var(--primary-color)",
-    "tocborder": "var(--primary-color-gray-80)",
-    "highlighttocborder": "var(--tocborder)",
-    "bannerbackground": "#fafafa",
-    "sectiontoc": "#fafafa",
-    "bodytitle": "var(--primary-color-black-20)",
-    "buttonhover": "var(--primary-color-white-80)",
-    "assembborder": "var(--primary-color-white-50)",
-    
+    "tocborder": var(--primary-color-white-80),
+
+    "toc-text": var(--primary-color-black-30),
+
+    "tocitem-active": var(--primary-color-white-15),
+    "tocitem-highlight": var(--primary-color-white-15),
+
+    "toclevel2": var(--primary-color-white-95),
+    "toclevel3": var(--primary-color-white-90),
+
+    "documenttitle": var(--primary-color),
+    "bodytitle": var(--primary-color-black-20),
+    "buttonhover": var(--primary-color-white-80),
+    "assembborder": var(--primary-color-white-50),
+
     "groupheadcolor": white,
     "knowlbackground": var(--primary-color-white-95),
     "knowlborder": var(--primary-color),

@@ -32,18 +32,18 @@ $colors: map.merge(
     "altLinkColor": var(--linkColor),
     "altLinkActive": var(--linkActive),
 
-    "toc-text": "var(--primary-color-black-30)",
-    "parttoctext": "var(--toc-text)",
-    "parttoc": "var(--page-color)",
-    "parttocactive": "var(--primary-color-white-15)",
-    "highlighttoc": "var(--primary-color-white-15)",
-    "chaptertoc": "var(--parttoc)",
-    "documenttitle": "var(--primary-color)",
-    "tocborder": #f8f8f8,
-    "highlighttocborder": "var(--tocborder)",
     "bannerbackground": "#fafafa",
-    "sectiontoc": "#fafafa",
 
+    "tocborder": #c9c9c9,
+    "toc-text": var(--primary-color-black-30),
+    "tocitem-background": #f2f2f2,
+
+    "tocitem-active": var(--primary-color),
+    "tocitem-highlight": var(--primary-color-white-10),
+
+    "toclevel2": #f8f8f8,
+
+    "documenttitle": var(--primary-color),
     "bodytitle": "black",
 
     "knowlbackground": #f8f8f8,

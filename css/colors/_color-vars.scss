@@ -40,24 +40,30 @@ $colors: (
   // TOC related
 
   "tocborder": #666,
-  "toc-text": var(--bodyfontcolor),
-  // highlight styles are used for hover/active states
-  "highlighttoc": #671d12,
-  "highlighttoctext": white,
-  "highlighttocborder": var(--tocborder),
+  "toc-background": var(--mainbackground),
 
-  "parttoc": #234b6a,
-  "parttoctext": white,
-  "parttocactive": #932919,
-  "parttoctextactive": white,
-  "chaptertoc": #3572a0,
-  "chaptertoctext": var(--parttoctext),
-  "chaptertocactive": var(--parttocactive),
-  "chaptertoctextactive": var(--parttoctextactive),
-  "sectiontoc": var(--bannerbackground),
-  "sectiontoctext": var(--toc-text),
-  "sectiontocactive": var(--parttocactive),
-  "sectiontoctextactive": var(--parttoctextactive),
+  "tocitem-background": var(--toc-background),
+  "toc-text": var(--bodyfontcolor),
+
+  // highlight styles are used for hover
+  "tocitem-highlight": #671d12,
+  "tocitem-highlight-text": white,
+  "tocitem-highlight-border": var(--tocborder),
+  
+  // active styles are used for the current toc item
+  "tocitem-active": #671d12,
+  "tocitem-active-text": white,
+  "tocitem-active-border": var(--tocborder),
+
+  // level based colors for TOC
+  // levels are not necessarily all used
+  // see the toc-basics.scss for how these are determined
+  "toclevel1": var(--mainbackground),
+  "toclevel1-text": var(--toc-text),
+  "toclevel2": var(--mainbackground),
+  "toclevel2-text": var(--toc-text),
+  "toclevel3": var(--mainbackground),
+  "toclevel3-text": var(--toc-text),
 
 
   // ==============================================================================
@@ -148,6 +154,6 @@ $colors: (
   "dropdownbackground": var(--mainbackground),
   "dropdownborder": var(--tocborder),
   "dropdowntext": var(--toc-text),
-  "dropdownhover": var(--parttocactive),
-  "dropdownhovertext": var(--parttoctextactive),
+  "dropdownhover": var(--toclevel1-active),
+  "dropdownhovertext": var(--toclevel1-textactive),
 );

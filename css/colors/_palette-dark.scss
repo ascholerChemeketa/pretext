@@ -36,23 +36,22 @@ $colors: map.merge(
 
   "tocborder": #555,
   "toc-text": var(--bodyfontcolor),
-  // highlight styles are used for hover/active states
-  "highlighttoc": var(--primary-color-gray-5),
-  "highlighttoctext": white,
-  "highlighttocborder": var(--highlighttoc),
 
-  "parttoc": var(--background-color-gray-10),
-  "parttoctext": var(--primary-color-white-40),
-  "parttocactive": var(--primary-color-black-25),
-  "parttoctextactive": white,
-  "chaptertoc": var(--parttoc),
-  "chaptertoctext": var(--parttoctext),
-  "chaptertocactive": var(--parttocactive),
-  "chaptertoctextactive": var(--parttoctextactive),
-  "sectiontoc": var(--mainbackground),
-  "sectiontoctext": var(--toc-text),
-  "sectiontocactive": var(--parttocactive),
-  "sectiontoctextactive": var(--parttoctextactive), 
+  // highlight styles are used for hover/active states
+  "tocitem-highlight": var(--primary-color-gray-5),
+  // "tocitem-highlight-text": white,
+  "tocitem-highlight-text": var(--background-color-black-50),
+  
+  "tocitem-active": var(--primary-color-gray-5),
+  // "tocitem-active-text": white,
+  "tocitem-active-text": var(--background-color-black-50),
+
+  "toclevel1": var(--background-color-gray-10),
+  "toclevel1-text": var(--primary-color-white-40),
+  "toclevel2": var(--toclevel1),
+  "toclevel2-text": var(--toclevel1-text),
+  "toclevel3": var(--mainbackground),
+  "toclevel3-text": var(--toc-text),
 
   // ==============================================================================
   // Content

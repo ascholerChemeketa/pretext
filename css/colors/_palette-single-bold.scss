@@ -1,5 +1,5 @@
 // Implements a palette with one main --primary-color
-// Less dramatic _palette-single.scss
+// More dramatic than _palette-single.scss
 
 @use "sass:meta";
 @use "sass:color";
@@ -28,37 +28,38 @@ $colors: map.merge(
   $colors,
   (
     "primary-color": $primary-color,
+    "documenttitle": var(--primary-color),
+    "bannerbackground": #f8f8f8,
 
-    //Not really minimal anymore...
+    "toc-text": var(--primary-color-black-30),
+    "toc-border": var(--primary-color-gray-10),
+
+    "tocitem-highlight": $slate,
+    "tocitem-highlight-text": #fff,
+    "tocitem-highlight-border": $slate,
+
+    "tocitem-active": var(--primary-color-white-15),
+
+    "toclevel1-text": var(--toc-text),
+    "toclevel1": var(--mainbackground),
+
+    "toclevel2": var(--primary-color-white-98),
+    "toclevel3": var(--primary-color-white-96),
+
     "linkColor": var(--primary-color),
     "linkActive": var(--primary-color-white-40),
     "linkBackground": var(--background-color-gray-30),
     "altLinkColor": var(--linkColor),
     "altLinkActive": var(--linkActive),
 
-    "toc-text": "var(--primary-color-black-30)",
-    "parttoctext": "var(--toc-text)",
-    "parttoc": "#fff",
-
-    "parttocactive": "var(--primary-color-white-15)",
-
-    "chaptertoc": "var(--parttoc)",
-    "documenttitle": "var(--primary-color)",
-    "toc-border": "var(--primary-color-gray-10)",
-    "bannerbackground": "#fff",
-    "sectiontoc": "#fff",
-    "bodytitle": "var(--primary-color-black-20)",
-    "knowlbackground": #f8f8f8,
-    "knowlborder": var(--primary-color-gray-80),
-
-    "navbarbackground": "var(--primary-color)",
-    "buttonbackground": "var(--primary-color)",
+    "bodytitle": var(--primary-color-black-20),
+    "navbarbackground": var(--primary-color),
+    "buttonbackground": var(--primary-color),
     "buttonborder": $slate,
-    "buttonforeground": "var(--primary-color-white-90)",
+    "buttonforeground": var(--primary-color-white-90),
     "buttonhover": $slate,
 
-    "highlighttoc": $slate,
-    "highlighttoctext": "#fff",
-    "highlighttocborder": $slate,
+    "knowlbackground": #f8f8f8,
+    "knowlborder": var(--primary-color-gray-80),
   )
 );

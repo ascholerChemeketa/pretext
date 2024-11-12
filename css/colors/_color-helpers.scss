@@ -2,12 +2,33 @@
 
 @use "sass:map";
 
+@mixin set-root-colors($colors, $dark-colors: null) {
+  :root {
+    color-scheme: light;
+    // prevent variable leak through to dark
+    &:not(.dark-mode) {
+      @include scss-to-css($colors);
+    }
+  }
+
+  @if $dark-colors {
+    :root.dark-mode {
+      color-scheme: dark;
+      @include scss-to-css($dark-colors);
+    }
+  }
+}
+
+// Renders a map of SCSS variables as CSS variables
 @mixin scss-to-css($colors) {
   @each $name, $value in $colors {
     --#{$name}: #{$value};
   }
 }
 
+// Create a map of colors that blend $color with $other at $mix-amounts
+// The resulting map will have keys of the form 'color-other-10'
+// Indicating 10% of other mixed into color
 @function mixes($color, $other, $mix-amounts) {
   $result: ();
 

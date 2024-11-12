@@ -7,9 +7,9 @@
 @use "colors/color-vars" as color-vars;
 
 $schemes: (
-  "default": (
-    "primary-color": #2a5ea4,
-    "secondary-color": #932c1c,
+  "red-blue": (
+    "primary-color": #932c1c,
+    "secondary-color": #2a5ea4,
   ),
   "blue-red": (
     "primary-color": #2a5ea4,
@@ -25,31 +25,31 @@ $schemes: (
   ),
   "gray-blue": (
     "primary-color": #3e3e3e,
-    "secondary-color": #3d71b5,
+    "secondary-color": #467dc5,
   ),
   "blue-gray": (
     "primary-color": #2a5ea4,
-    "secondary-color": #3e3e3e,
-  ),
-  "grays": (
-    "primary-color": #222222,
-    "secondary-color": #6e6e6e,
+    "secondary-color": #636363,
   ),
   "greens": (
     "primary-color": #193e1c,
     "secondary-color": #347a3a,
   ),
+  "brown-green": (
+    "primary-color": #3a2e21, 
+    "secondary-color": hsl(125, 30%, 34%),
+  ), 
   "purples": (
     "primary-color": hsl(321, 40%, 20%),
     "secondary-color": hsl(321, 60%, 32%),
   ),
   "blues": (
     "primary-color": hsl(217, 70%, 20%),
-    "secondary-color": hsl(217, 43%, 37%),
+    "secondary-color": hsl(216, 47%, 42%),
   ),
 );
 
-$color-scheme: 'default' !default;
+$color-scheme: 'red-blue' !default;
 
 @if not map.has-key($schemes, $color-scheme) {
   @error "Unknown color scheme #{$color-scheme} for theme. Valid schemes are: #{map.keys($schemes)}";
@@ -92,28 +92,40 @@ $colors: map.merge(
     "primary-color": $primary-color,
     "secondary-color": $secondary-color,
 
-    "linkColor": var(--primary-color),
-    "linkActive": var(--secondary-color),
-    "linkBackground": var(--primary-color-white-97),
-    "altLinkColor": var(--secondary-color-black-10),
-    "altLinkActive": var(--secondary-color),
-    "altLinkBackground": var(--secondary-color-white-97),
+    "linkColor": var(--secondary-color),
+    "linkActive": var(--secondary-color-black-20),
+    "linkBackground": var(--secondary-color-white-97),
 
-    "parttoc": "var(--primary-color)",
-    "parttocactive": "var(--secondary-color)",
-    "highlighttoc": "var(--secondary-color-white-10)",
-    "chaptertoc": "var(--parttoc)",
-    "documenttitle": "var(--primary-color)",
-    "tocborder": "var(--primary-color-gray-50)",
+    "altLinkColor": var(--primary-color-black-10),
+    "altLinkActive": var(--primary-color),
+    "altLinkBackground": var(--primary-color-white-97),
+
+    "tocborder": var(--primary-color-white-30),
+
+    "toclevel1": var(--primary-color-black-10),
+    "toclevel1-text": white,
+    "toclevel2": var(--primary-color-white-10),
+    "toclevel2-text": var(--toclevel1-text),
+
+
+    "tocitem-highlight": var(--secondary-color-white-10),
+    "tocitem-highlight-text": white,
     
-    "bodytitle": "var(--primary-color-black-5)",
+    "tocitem-active": var(--secondary-color),
+    "tocitem-active-text": white,
+
+    "documenttitle": var(--primary-color),
+    "bodytitle": var(--primary-color-black-5),
     
     "activated-content-bg": color.scale($secondary-color, $lightness: 90%),
     
     "goalborder": var(--secondary-color-white-20),
-    "knowlbackground": var(--primary-color-white-96),
-    "knowlborder": var(--primary-color-white-40),
-
-    //"buttonhover": "var(--secondary-color-white-80)",
+    
+    "knowlbackground": var(--secondary-color-white-97),
+    "knowlborder": var(--secondary-color-white-30),
+    "knowlNested1Background": var(--primary-color-white-97),
+    "knowlNested2Background": var(--secondary-color-white-97),
+    "knowlNested3Background": var(--primary-color-white-97),
+    "knowlNested4Background": var(--secondary-color-white-97),
   )
 );
