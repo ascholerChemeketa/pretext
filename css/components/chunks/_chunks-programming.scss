@@ -1,7 +1,6 @@
 $border-radius: 2px !default;
 
 // One stop include for heading-box dominant content blocks
-
 @use 'asides-floating';
 @use 'codelike';
 @use 'exercises';
@@ -31,7 +30,7 @@ $border-radius: 2px !default;
 );
 
 .theorem-like {
-  @include heading-box-mixin.heading-box(
+  @include heading-box-mixin.box(
     $background-color: var(--theorembody),
     $border-color: var(--theoremborder),
     $heading-background: var(--theoremborder),
@@ -39,7 +38,7 @@ $border-radius: 2px !default;
 }
 
 .assemblage-like {
-  @include heading-box-mixin.heading-box(
+  @include heading-box-mixin.box(
     $background-color: var(--assembbody),
     $border-color: var(--assembborder),
     $heading-background: var(--assembborder),
@@ -50,8 +49,7 @@ $border-radius: 2px !default;
   & > .heading {
     font-style: italic;
   }
-
-  @include heading-box-mixin.heading-box(
+  @include heading-box-mixin.box(
     $background-color: var(--projectbody),
     $border-color: var(--projectborder),
     $heading-background: var(--projectborder)
@@ -62,7 +60,7 @@ $border-radius: 2px !default;
   & > .heading {
     font-style: italic;
   }
-  @include heading-box-mixin.heading-box(
+  @include heading-box-mixin.box(
     $background-color: var(--investigatebody),
     $border-color: var(--investigateborder),
     $heading-background: var(--investigateborder)
@@ -71,7 +69,7 @@ $border-radius: 2px !default;
 
 
 .proof {
-  @include sidebar-mixin.sidebar(
+  @include sidebar-mixin.box(
     $border-color: var(--proofborder),
     $background-color: var(--proofbody),
     $padding: 10px,
@@ -81,7 +79,7 @@ $border-radius: 2px !default;
 
 
 .remark-like {
-  @include sidebar-mixin.sidebar(
+  @include sidebar-mixin.box(
     $border-color: var(--remarkborder),
     $background-color: var(--remarkbody),
     $padding: 10px,
@@ -91,50 +89,29 @@ $border-radius: 2px !default;
 }
 
 .goal-like {
-  @include heading-box-mixin.heading-box(
+  @include heading-box-mixin.box(
     $background-color: var(--goalbody),
     $border-color: var(--goalborder),
     $heading-background: var(--goalborder)
   );
 }
 
-
-// // undo inline headings created elsewhere... refactor
-// .example-like,
-// .proof,
-// .exercise-like,
-// .computation-like,
-// .remark-like,
-// .assemblage-like,
-// .computation-like,
-// .theorem-like:not(.theorem),
-// .definition-like {
-//   & > .heading {
-//     display: block;
-//   }
-//   & > .heading + * {
-//     margin-top: 0.75em;
-//     display: block !important;
-//   }
-// }
-
 .example-like {
-  @include C-box-mixin.C-box(
+  @include C-box-mixin.box(
     $border-color: var(--exampleborder),
     $heading-background: var(--exampleborder)
   );
 }
 
-
 .exercise-like {
-  @include C-box-mixin.C-box(
+  @include C-box-mixin.box(
     $border-color: var(--exampleborder),
     $heading-background: var(--exampleborder)
   );
 }
 
 .computation-like {
-  @include C-box-mixin.C-box(
+  @include C-box-mixin.box(
     $border-color: var(--computationborder),
     $heading-background: var(--computationborder)
   );

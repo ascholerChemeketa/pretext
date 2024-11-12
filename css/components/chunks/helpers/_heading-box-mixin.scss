@@ -13,7 +13,7 @@ $heading-color: var(--groupheadcolor) !default;
 
 
 // Generate styles for a box with inset heading
-@mixin heading-box($border-width: $border-width,
+@mixin box($border-width: $border-width,
   $style: solid,
   $background-color: $background-color,
   $border-color: $border-color,

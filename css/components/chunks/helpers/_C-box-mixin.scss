@@ -10,7 +10,7 @@ $heading-background: var(--groupborder) !default;
 $heading-color: var(--groupheadcolor) !default;
 
 // Block title and left/bottom wrapper
-@mixin C-box($border-width: $border-width,
+@mixin box($border-width: $border-width,
   $background-color: $background-color,
   $border-color: $border-color,
   $heading-background: $heading-background,
@@ -39,6 +39,7 @@ $heading-color: var(--groupheadcolor) !default;
       padding: $box-padding (2 * $box-padding);
       margin-left: -$padding;
       margin-left: -$padding;
+      margin-top: 0;
 
       @if $font-style != 'normal' {
         font-style: $font-style;

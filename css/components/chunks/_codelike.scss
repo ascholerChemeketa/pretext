@@ -1,4 +1,4 @@
-@use '../helpers/expandable';
+@use 'components/helpers/expandable';
 
 @mixin code-text {
   font-family: var(--font-monospace);
@@ -6,12 +6,17 @@
   line-height: 1.2;
 }
 
+// wide programs need to be scrollable
+.code-box {
+  overflow-x: auto;
+}
+
 .console,
 .program {
   border: 1px solid var(--page-border-color);
   padding: 5px 15px;
   @include code-text();
-  @include expandable.expandable(350px, 116px);
+  // @include expandable.expandable(350px, 116px);
 }
 
 .code-inline {
@@ -29,7 +34,7 @@
   user-select: none;
 }
 
-// code blocks are preformatted text that is not a program - they just get upside down L borders
+// code blocks are preformatted text that is not a program
 .code-block {
   border-left: 1px solid #aaa;
   padding: 0 15px 5px;

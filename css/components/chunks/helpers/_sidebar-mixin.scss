@@ -8,7 +8,7 @@ $side: left !default;
 $border-width: 2px !default;
 
 // Generate styles for a sidebar down left or right of content
-@mixin sidebar($border-width: $border-width,
+@mixin box($border-width: $border-width,
   $style: solid,
   $border-color: $border-color,
   $background-color: $background-color,

@@ -25,7 +25,7 @@ $border-radius: 8px !default;
 
 
 .assemblage-like, .goal-like {
-  @include sidebar-mixin.sidebar(
+  @include sidebar-mixin.box(
     $border-width: 4px,
     $background-color: var(--goalbody),
   );
@@ -106,10 +106,10 @@ $border-radius: 8px !default;
 
 // wide sidebar on an entire section of solutions
 section.solutions:not(:is(:first-child)) {
-  @include sidebar-mixin.sidebar($border-color: var(--solutionborder));
+  @include sidebar-mixin.box($border-color: var(--solutionborder));
 }
 
 .paragraphs,
 article {
-  @include inline-heading-mixin.inline-head;
+  @include inline-heading-mixin.heading;
 }
