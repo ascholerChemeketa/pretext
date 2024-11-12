@@ -1,1 +1,1 @@
-Styling for basic HTML elements (and constructs that expand on those basic elements)
+Styling for large display regions on the page

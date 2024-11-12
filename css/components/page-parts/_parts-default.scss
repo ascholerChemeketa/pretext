@@ -1,46 +1,36 @@
+// Left aligned "page" that is limited to 1200px of width, beyond which it is centered
+
 $sidebar-width: 240px !default;
 $scrolling-toc: true !default;
-
 $nav-height: 36px !default;
-
 $content-width: 600px !default;
 $content-side-margin: 48px !default;
+$navbar-breakpoint: 800px !default;
 
-@use 'body';
-@use 'banner';
+$sidebar-breakpoint: $content-width + $sidebar-width + $content-side-margin * 2;
+
+@use 'body' with (
+  $content-width: $content-width,
+  $content-side-margin: $content-side-margin,
+  $sidebar-breakpoint: $sidebar-breakpoint,
+);
+
+@use 'banner' with (
+  $navbar-breakpoint: $navbar-breakpoint,
+);
 
 @use 'navbar' with (
   $nav-height: $nav-height,
+  $navbar-breakpoint: $navbar-breakpoint,
 );
 
 @use 'toc-default' with (
   $scrolling: $scrolling-toc,
   $sidebar-width: $sidebar-width,
+  $sidebar-breakpoint: $sidebar-breakpoint,
+  $navbar-breakpoint: $navbar-breakpoint,
 );
 
-@use 'summary-links';
-@use 'footer';
-
-// set these up as CSS variables so they can be modifies easily at runtime
-:root {
-  --content-width: #{$content-width};
-  --content-margin: #{$content-side-margin};
-}
-
-// Base width/margins
-// ptx-main ensures iframe pages don't get these margins
-.ptx-main > .ptx-content {
-  max-width: $content-width;
-  margin: 32px $content-side-margin 60px;
-}
-
-// Decrease the side margins once out of room
-@media screen and (max-width: $content-width + 2 * $content-side-margin) {
-  .ptx-page > .ptx-main .ptx-content {
-    margin-left: 28px;
-    margin-right: 28px;
-  }
-  :root {
-    --content-margin: 28px;
-  }
-}
+@use 'footer' with (
+  $navbar-breakpoint: $navbar-breakpoint,
+);

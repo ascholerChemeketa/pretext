@@ -1,10 +1,14 @@
 
+$navbar-breakpoint: 856px !default;
+$nav-height: 36px !default;
+
 @use 'components/helpers/buttons-default' as buttons;
 
 .ptx-content-footer {
   display: flex;
   justify-content: space-around;
   max-width: var(--content-width);
+  
   //condensed margin format does not like vars
   margin-top: 2em;
   margin-bottom: 2em;
@@ -27,7 +31,9 @@
   border-bottom: 2px solid var(--page-border-color);
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  width: 100%;
+  gap: 90px;
   position: relative;
   
   & > a {
@@ -47,10 +53,11 @@
 }
 
 
-@media screen and (min-width: 800px) {
+@media screen and (max-width: $navbar-breakpoint) {
   .ptx-page-footer {
     // prevent icons from spreading too much
-    gap: 150px;
+    gap: 50px;
     justify-content: center;
+    margin-bottom: $nav-height - 2;
   }
 }

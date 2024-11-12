@@ -1,9 +1,25 @@
 // Body level styling
 $max-width: 1200px !default;  // 0 == no max width
 
+$content-width: 600px !default;
+$content-side-margin: 48px !default;
+$sidebar-breakpoint: 856px !default;
+$centered-content: false !default;
+
+// set these up as CSS variables so they can be modifies easily at runtime
+:root {
+  --content-width: #{$content-width};
+  --content-margin: #{$content-side-margin};
+}
+
 // hits regular pages and generated iframe pages
 body {
   margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
   &.pretext {
     color: var(--bodyfontcolor);
@@ -13,8 +29,24 @@ body {
 
 .ptx-page {
   position: relative;
-  min-height: 100vh;
   display: flex;
+  flex-grow: 1;  // fill space in body
+  width: 100%;
+}
+
+.ptx-main {
+  flex-grow: 1;
+  position: relative;
+  max-width: 100%;
+  container-name: ptx-main;  // for container queries elsewhere
+  container-type: inline-size;  // for container queries elsewhere
+}
+
+// Base width/margins
+// ptx-main ensures iframe pages don't get these margins
+.ptx-main > .ptx-content {
+  max-width: var(--content-width);
+  margin: 32px $content-side-margin 60px;
 }
 
 
@@ -25,20 +57,6 @@ body {
     max-width: $max-width;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  @media screen and (min-width: $max-width) {
-    body.pretext {
-      .ptx-navbar {
-        //forces navbar to line up cleanly with sidebar
-        padding: 0 calc((100% - $max-width) / 2 + 1px);
-
-        & > *:first-child {
-          justify-content: start;
-          gap: 50px;
-        }
-      }
-    }
   }
 }
 
@@ -68,5 +86,26 @@ body.pretext > a.assistive {
     background:#BF1722;
     outline:0;
     transition: top .1s ease-in, background .5s linear;
+  }
+}
+
+@if $centered-content {
+  .ptx-page > .ptx-main .ptx-content {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Decrease the side margins once out of room
+@container ptx-main (width < #{$content-width + 2 * $content-side-margin}) {
+  .ptx-page > .ptx-main {
+    .ptx-content {
+      margin-left: 28px;
+      margin-right: 28px;
+    }
+  }
+  :root {
+    --content-margin: 28px;
+    --content-width: calc(100% - 28px);
   }
 }

@@ -1,44 +1,88 @@
-$sidebar-width: 360px !default;
+// Produces a centered "page" with borders and centered banner
+// TOC will be an initially hidden overlay
 
+$sidebar-width: 350px !default;
 $nav-height: 36px !default;
-
 $content-width: 600px !default;
 $content-side-margin: 48px !default;
+$navbar-breakpoint: 800px !default;
 
-@use 'body' with ($max-width: 0);
-@use 'banner';
+$sidebar-breakpoint: $content-width + $sidebar-width + $content-side-margin * 2;
+
+@use 'body' with (
+  $max-width: 0,
+  $content-width: $content-width,
+  $content-side-margin: $content-side-margin,
+  $centered-content: true,
+);
+
+@use 'banner' with (
+  $navbar-breakpoint: $navbar-breakpoint,
+);
 
 @use 'navbar' with (
+  $max-width: 0,
   $nav-height: $nav-height,
+  $navbar-breakpoint: $navbar-breakpoint,
 );
 
 @use 'toc-overlay' with (
+  $nav-height: $nav-height,
   $sidebar-width: $sidebar-width,
+  $navbar-breakpoint: $navbar-breakpoint,
 );
 
-@use 'summary-links';
-@use 'footer';
+@use 'footer' with (
+  $navbar-breakpoint: $navbar-breakpoint,
+);
 
-// set these up as CSS variables so they can be modifies easily at runtime
 :root {
-  --content-width: #{$content-width};
-  --content-margin: #{$content-side-margin};
+  --page-width: 1100px;
 }
 
-// Base width/margins
-// ptx-main ensures iframe pages don't get these margins
-.ptx-main > .ptx-content {
-  max-width: $content-width;
-  margin: 32px $content-side-margin 60px;
+@mixin page-block {
+  & {   // quiet sass warnings
+    max-width: var(--page-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @at-root {
+    @media screen and (width > 1100px) {
+      & {
+        border-left: 1px solid var(--page-border-color);
+        border-right: 1px solid var(--page-border-color);
+      }
+    }
+  }
 }
 
-// Decrease the side margins once out of room
-@media screen and (max-width: $content-width + 2 * $content-side-margin) {
-  .ptx-page > .ptx-main .ptx-content {
-    margin-left: 28px;
-    margin-right: 28px;
+.ptx-masthead {
+  .ptx-banner {
+    justify-content: center;
   }
-  :root {
-    --content-margin: 28px;
+  
+  .title-container {
+    flex: unset;
   }
+  @include page-block;
+}
+
+
+.ptx-navbar {
+  @include page-block;
+}
+
+.ptx-page {
+  @include page-block;
+}
+
+.ptx-page-footer {
+  border-bottom: 0;
+  @include page-block;
+}
+
+.ptx-content-footer {
+  margin: 2em auto 0;
+  padding-bottom: 2em;
+  justify-content: space-evenly;
 }

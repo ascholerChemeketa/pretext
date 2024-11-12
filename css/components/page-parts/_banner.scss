@@ -1,17 +1,19 @@
 /*******************************************************************************
  * PreTeXt Masthead Stylesheet
  *******************************************************************************/
+ 
+$navbar-breakpoint: 800px !default;
 
- .ptx-masthead {
+.ptx-masthead {
   position: relative;
   background: var(--bannerbackground);
-  min-height: inherit;
   position: relative;
+  width: 100%;
 
   .ptx-banner {
     border-top: 1px solid transparent;
     overflow: hidden;
-    padding: 0.6em 10px;
+    padding: 10px 10px;
     border-bottom: none;
     display:flex;
     align-items: center;
@@ -67,14 +69,14 @@
   }
 }
 
-
-
-@media screen and (width <= 800px) {
+@media screen and (max-width: $navbar-breakpoint) {
   .ptx-masthead {
     border-bottom: 1px solid var(--page-border-color);
 
     .ptx-banner {
-      padding: 4px 10px;
+      padding: 10px 28px;
+      display: flex;
+      justify-content: center;
     }
 
     .logo-link::before {
@@ -82,14 +84,18 @@
       margin-top: 0;
     }
 
-    .title-container .heading {
-      line-height: 1em;
-      
-      .subtitle {
-        /* Force the subtitle onto a separate line */
-        display: block;
-        font-size: 80%;
+    .title-container {
+      width: fit-content;
+      flex: unset;
+      .heading {
         line-height: 1em;
+        
+        .subtitle {
+          /* Force the subtitle onto a separate line */
+          display: block;
+          font-size: 80%;
+          line-height: 1em;
+        }
       }
     }
 
