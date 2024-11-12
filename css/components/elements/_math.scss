@@ -1,11 +1,13 @@
 // TODO - refactor
-@use 'helpers/expandable';
+
+.displaymath {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
 
 .displaymath mjx-container[jax="CHTML"][display="true"] {
   margin: 1rem 0 0 0;  // font size for display math throws off em units
 }
-
-
 
 // ?
 [data-knowl] > mjx-mrow .TEX-I {
@@ -23,12 +25,3 @@ mjx-msup mjx-utext,
 mjx-msub mjx-utext {
     display: inline;
 }
-
-
-
-/* for long math formulas and tables to scroll on small screens */
-//@media screen and (max-width: 943px) {
-.displaymath {
-  @include expandable.expandable(350px, 116px);
-}
-//}

@@ -66,19 +66,10 @@
   }
 }
 
-
-@media screen and (width <= 600px) {
-  // center at med/small sizes
-  .summary-links ul {
-    margin-left: calc((100vw - 100%) / 2);
-    margin-right: calc((100vw - 100%) / 2);
-    padding: 0;
-  }
-}
-
 @media screen and (width <= 480px) {
-  .summary-links a {
-    font-size: 1em;
+  .ptx-content .summary-links a {
+    //shrink on mobile
+    font-size: 100%;
     line-height: 1.25em;
   }
 }

@@ -58,6 +58,11 @@ article > .heading {
   font-size: 1.125em;
 }
 
+// heading followed by no content and then a subsection that starts with heading
+section > .heading + section > .heading {
+  margin-top: 0.5em;
+}
+
 // smaller headings on phone screens
 @media screen and (max-width: 480px) {
   section > .heading {
@@ -74,7 +79,6 @@ article > .heading {
       line-height: 1em;
   }
 }
-
 
 .heading.hide-type > .type {
   display: none;
