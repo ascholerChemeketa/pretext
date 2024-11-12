@@ -1,24 +1,24 @@
 @use "sass:map";
 
 // Fonts to use
-$body: 'Open Sans' !default;
-$heading: 'PT Serif' !default;
-$monospace: 'Inconsolata' !default;
+$body: 'Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif' !default;
+$heading: 'PT Serif, Times New Roman, Times, serif' !default;
+$monospace: 'Inconsolata, Consolas, Monaco, monospace;' !default;
 
 
 @import url("https://fonts.googleapis.com/css?family=#{$body}:wdth,wght@75..100,300..800&amp;display=swap");
 :root {
-  --font-body: #{$body + ', Helvetica Neue, Helvetica, Arial, sans-serif'};
+  --font-body: #{$body};
 }
 
 @import url("https://fonts.googleapis.com/css?family=#{$heading}:wdth,wght@75..100,300..800&amp;display=swap");
 :root {
-  --font-headings: #{$heading + ', Times New Roman, Times, serif'};
+  --font-headings: #{$heading};
 }
 
 @import url("https://fonts.googleapis.com/css?family=#{$monospace}:wdth,wght@75..100,300..800&amp;display=swap");
 :root {
-  --font-monospace: #{$monospace + ', Consolas, Monaco, monospace;'};
+  --font-monospace: #{$monospace};
 }
 
 
