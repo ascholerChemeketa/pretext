@@ -1,15 +1,12 @@
 // Styling for elements that are allowed to expand past normal width
 // even in fixed-width layouts
 
-@mixin expandable($sidebar-width:350px, $sidebar-hidden-width:116px) {
-  width: fit-content;
-  min-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  max-width: calc(100vw - $sidebar-width); 
-
-  @at-root .ptx-page:has(.ptx-sidebar.hidden) & {
-    max-width: calc(100vw - $sidebar-hidden-width); 
+@mixin expandable($min-width: 100%, $base-content-width: 600px) {
+  @container ptx-main (width > #{$base-content-width}) {
+    min-width: $min-width;
+    max-width: fit-content;
+    width: calc(100cqw - 2 * var(--content-margin));
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 }

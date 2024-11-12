@@ -1,0 +1,11 @@
+$max-width: 950px !default;
+$base-content-width: 600px !default;
+
+$wide-rs-elements: ".parsons_section, .ac_section, .codelens";
+
+@container ptx-main (width > #{$base-content-width}) {
+  .ptx-runestone-container:has(#{$wide-rs-elements}) {
+    width: calc(100cqw - 2 * var(--content-margin));
+    min-width: 100%;
+  }
+}
