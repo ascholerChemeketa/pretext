@@ -74,6 +74,10 @@ palette-dark.$colors: map.merge(palette-dark.$colors, ());
 @use 'rs-widen';
 @use 'heading-tweaks';
 
+body.pretext {
+  font-size: var(--content-font-size);
+}
+
 // ---------------------------------------------
 // concrete rules / includes that generate CSS
 
