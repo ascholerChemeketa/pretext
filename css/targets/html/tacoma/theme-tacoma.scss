@@ -8,8 +8,6 @@ $background-color-dark: #23241f !default;
 @use "sass:map";
 @use "colors/color-helpers" as colorHelpers;
 
-@use 'components/helpers/expandable';
-
 // ---------------------------------------------
 // components
 @use 'components/page-parts/parts-default' with(

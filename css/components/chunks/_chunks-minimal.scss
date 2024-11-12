@@ -14,15 +14,6 @@ $border-radius: 8px !default;
 @use './helpers/sidebar-mixin';
 @use './helpers/inline-heading-mixin';
 
-// shadowed box
-//.assemblage-like {
-//  box-shadow: 5px 5px 10px 0px var(--assembborder);
-//  @include box-mixin.box(
-//    $style: none,
-//    $background-color: var(--assembbody)
-//    );
-//}
-
 
 .assemblage-like, .goal-like {
   @include sidebar-mixin.box(

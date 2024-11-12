@@ -41,7 +41,9 @@ $colors: map.merge(
     "tocitem-active": var(--primary-color),
     "tocitem-highlight": var(--primary-color-white-10),
 
-    "toclevel2": #f8f8f8,
+    "toclevel1": var(--primary-color-white-90),
+    // "toclevel2": #fafafa,
+    // "toclevel3": #fff,
 
     "documenttitle": var(--primary-color),
     "bodytitle": "black",

@@ -124,19 +124,16 @@ $nav-height: 36px !default;
 // --------------------------------------------------------------------------
 // Conditional styling based on depth
 
-// top level always gets a new style
 .ptx-toc > .toc-item-list > .toc-item {
   color: var(--toclevel1-text);
   background-color: var(--toclevel1);
 }
 
-// other level only get new colors if they contain further levels
-// that way bottom level has default styling
-.ptx-toc:not(.depth0, .depth1, .depth2) > .toc-item-list > .toc-item > .toc-item-list > .toc-item {
+.ptx-toc > .toc-item-list > .toc-item > .toc-item-list > .toc-item {
   color: var(--toclevel2-text);
   background-color: var(--toclevel2);
 }
-.ptx-toc:not(.depth0, .depth1, .depth2, .depth3) > .toc-item-list > .toc-item > .toc-item-list > .toc-item > .toc-item-list  .toc-item {
+.ptx-toc > .toc-item-list > .toc-item > .toc-item-list > .toc-item > .toc-item-list  .toc-item {
   color: var(--toclevel3-text);
   background-color: var(--toclevel3);
 }
