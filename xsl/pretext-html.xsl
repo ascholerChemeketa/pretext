@@ -9243,7 +9243,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- Check if author wants to dark mode to propagate into iframe   -->
 <!-- Propogation will only work for iframes on same server as page -->
-<xsl:template match="*" mode="iframe-dark-mode-enabled-check">
+<xsl:template match="*" mode="iframe-dark-mode-attribute">
     <xsl:if test="$b-theme-has-darkmode and @dark-mode-enabled">
         <xsl:attribute name="data-dark-mode-enabled">true</xsl:attribute>
     </xsl:if>
@@ -9255,7 +9255,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <iframe src="https://www.desmos.com/calculator/{@desmos}">
         <xsl:apply-templates select="." mode="html-id-attribute"/>
         <xsl:apply-templates select="." mode="size-pixels-attributes" />
-        <xsl:apply-templates select="." mode="iframe-dark-mode-enabled-check" />
+        <xsl:apply-templates select="." mode="iframe-dark-mode-attribute" />
     </iframe>
 </xsl:template>
 
@@ -9337,7 +9337,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <iframe src="https://www.geogebra.org/material/iframe/id/{@geogebra}/width/{$ggbMaterialWidth}/height/{$ggbMaterialHeight}/border/888888/smb/false/stb/{$ggbToolBar}/stbh/{$ggbToolBar}/ai/{$ggbAlgebraInput}/asb/false/sri/{$ggbResetIcon}/rc/false/ld/false/sdz/{$ggbShiftDragZoom}/ctl/false">
         <xsl:apply-templates select="." mode="html-id-attribute"/>
         <xsl:apply-templates select="." mode="size-pixels-attributes" />
-        <xsl:apply-templates select="." mode="iframe-dark-mode-enabled-check" />
+        <xsl:apply-templates select="." mode="iframe-dark-mode-attribute" />
     </iframe>
 </xsl:template>
 
@@ -9372,7 +9372,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <iframe src="{$full-url}">
         <xsl:apply-templates select="." mode="html-id-attribute"/>
         <xsl:apply-templates select="." mode="size-pixels-attributes" />
-        <xsl:apply-templates select="." mode="iframe-dark-mode-enabled-check" />
+        <xsl:apply-templates select="." mode="iframe-dark-mode-attribute" />
     </iframe>
 </xsl:template>
 
@@ -9406,7 +9406,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <iframe src="https://www.falstad.com/circuit/circuitjs.html?cct='{$url-string}'">
         <xsl:apply-templates select="." mode="html-id-attribute"/>
         <xsl:apply-templates select="." mode="size-pixels-attributes"/>
-        <xsl:apply-templates select="." mode="iframe-dark-mode-enabled-check" />
+        <xsl:apply-templates select="." mode="iframe-dark-mode-attribute" />
     </iframe>
 </xsl:template>
 
@@ -9429,7 +9429,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <iframe src="{$location}">
         <xsl:apply-templates select="." mode="html-id-attribute"/>
         <xsl:apply-templates select="." mode="size-pixels-attributes"/>
-        <xsl:apply-templates select="." mode="iframe-dark-mode-enabled-check" />
+        <xsl:apply-templates select="." mode="iframe-dark-mode-attribute" />
     </iframe>
 </xsl:template>
 
@@ -9441,7 +9441,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
         <xsl:attribute name="src">
             <xsl:apply-templates select="." mode="iframe-filename" />
         </xsl:attribute>
-        <xsl:apply-templates select="." mode="iframe-dark-mode-enabled-check" />
+        <xsl:apply-templates select="." mode="iframe-dark-mode-attribute" />
     </iframe>
 </xsl:template>
 
