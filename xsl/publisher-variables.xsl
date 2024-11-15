@@ -2357,24 +2357,24 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
     </theme>
 </xsl:variable>
 
-<!-- @Rob - this is my failed attempt to set an html-theme variable using the key -->
-<!-- attempt to get using key function  -->
-<!-- <xsl:variable name="html-theme-option-table" select="exsl:node-set($html-theme-option-list)"/>
+<!-- @Rob - this is my now working but still ugly retrival of a node-set based on -->
+<!-- the selected theme                                                           -->
 <xsl:key name="html-theme-option-key" match="theme" use="@name"/>
 
-<xsl:variable name="html-theme">
-  <xsl:for-each select="$html-theme-option-table">
-      <xsl:value-of select="key('html-theme-option-key', $html-theme-name)" />
-  </xsl:for-each>
-</xsl:variable> -->
+<!-- I can't figure out how to turn the results of the for-each into a node-set -->
+<!-- without using another variable                                             -->
+<!-- node-set( ) around the key call does not work                              -->
+<xsl:variable name="html-theme-temp">
+    <xsl:for-each select="exsl:node-set($html-theme-option-list)">
+        <xsl:value-of select="key('html-theme-option-key', $html-theme-name)" />
+    </xsl:for-each>
+</xsl:variable>
 
-<!-- Select just the one theme that is in use, or other if theme is not -->
-<!-- in the options list                                                -->
-<xsl:variable name="html-theme" select="exsl:node-set($html-theme-option-list)/theme[@name = $html-theme-name]"/>
+<!-- Turn tree fragment into a node-set                                          -->
+<xsl:variable name="html-theme" select="exsl:node-set($html-theme-temp)"/>
 
 <!-- Get an option (attr) from pub file css/theme. Available options    -->
 <!-- are constrained by html-theme-option-list above.                   -->
-<!--TODO - double check why not key/map here. check local-name() vs name() -->
 <xsl:template name="get-theme-option">
     <xsl:param name="optname"/>
     <xsl:choose>
