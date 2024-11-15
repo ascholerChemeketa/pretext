@@ -1,23 +1,17 @@
-$text-width: 600px;
-$text-side-padding: 120px;
-$content-width: $text-width + (2 * $text-side-padding);
-$sidebar-width: 240px;
-$sidebar-margin-left: 24px;
-$side-width: $sidebar-width +  $sidebar-margin-left;
-//$max-width: 1200px;
-$max-width: $content-width + (2* $side-width);
+$content-width: 600px;
+$content-side-padding: 120px;
+//$content-width: $text-width + (2 * $text-side-padding);
+//$sidebar-width: 240px;
 
-//$content-margins: calc((100% - $content-width) / 2);
 $scrolling-toc: true;
 $nav-height: 36px;
 
 @use 'components/helpers/buttons-default' as buttons;
 
-@use 'components/page-parts/parts-default' with(
-  $page-centered: true,
-  $scrolling-toc: $scrolling-toc,
-  $content-width: $text-width,
-  $content-side-margin: $text-side-padding
+@use 'components/page-parts/parts-tricolumn' with(
+  //$scrolling-toc: $scrolling-toc,
+  $content-width: $content-width,
+  $content-side-margin: $content-side-padding
 );
 
 // help links stick out
@@ -25,91 +19,18 @@ a {
   font-weight: bold;
 }
 
-// Fix summary links
-.summary-links a {
-  background: unset;
-}
-
-.ptx-masthead .ptx-banner {
-  //max-width: unset;
-  max-width: $max-width;
-  padding: 10px 24px;
-}
-
-.ptx-page {
-  display: flex;
-  max-width: $max-width;
-}
 
 .ptx-main {
-  display: block;
-  position: relative;
-  margin-left: 0;
-  padding: 0;
-  max-width: $content-width;
   box-shadow: 10px 15px 40px -20px var(--assembborder);
 }
 
-@media screen and (min-width: 1200px) {
-  body.pretext .ptx-navbar {
-
-      //padding-left:  calc($sidebar-width + max(2%, calc($margins - $sidebar-width)));
-      padding: 0 calc((100% - $content-width) / 2);
-      //padding-right: calc(100% - $content-width - $sidebar-width - max(2%, calc($margins - $sidebar-width)));
-      // toc-toggle
-      .toc-toggle {
-        position: absolute;
-        left: calc((100% - $max-width) / 2);
-        margin-left: $sidebar-margin-left;
-        top: 0;
-        gap: 1em;
-      }
-  }
-}
-
-.ptx-sidebar.hidden + .ptx-main {
-  margin-left: $side-width;
-}
-
-.ptx-sidebar {
-  top: 0;
-  left: 0;
-  margin-left: $sidebar-margin-left;
-  position: relative;
-  display: block;
-}
-
-.ptx-sidebar::after {
-  content: "";
-  top: 0;
-  left: 0;
-  height: 48px;
-  right: 0;
-  background: linear-gradient(to bottom, var(--mainbackground) 25%, #ffffff00 100%);
-  position: absolute;
-}
-
 .ptx-toc {
-  padding-top: $nav-height;
-  border-right: 2px solid var(--mainbackground);
-  position: sticky;
-  top: $nav-height;
   background-color: var(--mainbackground);
-
-  @if $scrolling-toc {
-    scrollbar-width: thin;
-    scrollbar-color: var(--page-border-color) var(--mainbackground);
-  }
-
   .toc-item {
     background-color: var(--mainbackground);
   }
 }
 
-
-//.ptx-toc.focused {
-//  padding-top: 10px
-//}
 
 .ptx-toc.focused .toc-expander {
   padding: 2px 0 2px 5px;
@@ -145,8 +66,6 @@ a {
 }
 
 .ptx-runestone-container:has(.parsons_section,.ac_section,.codelens) {
-
-  min-width: 100%;
-  max-width: calc(100% + 128px);
-  margin-left: -64px;
+  width: calc(100% + 1.5 * var(--content-margin));
+  margin-left: calc(-0.75 * var(--content-margin));
 }

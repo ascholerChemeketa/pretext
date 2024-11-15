@@ -1,0 +1,87 @@
+// if page extends a max
+$page-centered: true !default;
+
+$sidebar-width: 240px !default;
+$scrolling-toc: true !default;
+
+$nav-height: 36px !default;
+
+$content-width: 600px !default;
+$content-side-margin: 48px !default;
+$max-width: $content-width + (2 * $content-side-margin) + (2* $sidebar-width);
+
+@use 'body' with ($max-width: 100%);
+@use 'banner';
+
+
+
+@use 'navbar' with (
+  $nav-height: $nav-height,
+);
+
+@use 'toc-default' with (
+  $scrolling: $scrolling-toc,
+  $sidebar-width: $sidebar-width,
+);
+
+//@use 'summary-links';
+@use 'footer';
+
+
+// set these up as CSS variables so they can be modified easily at runtime
+:root {
+  --content-width: min(50vw, #{$content-width});
+  --content-margin: min(10vw, #{$content-side-margin});
+  --right-page-margin: calc((100% - var(--content-width) - 2 * var(--content-margin)) / 2);
+  --max-width: calc(var(--content-width) + 2 * var(--content-margin) + 2 * #{$sidebar-width});
+}
+
+.ptx-masthead .ptx-banner {
+  max-width: var(--max-width);
+  padding: 10px 24px;
+}
+
+.ptx-page {
+  display: flex;
+  max-width: var(--max-width);
+}
+
+body.pretext .ptx-navbar {
+  padding-left: calc((100% - var(--max-width)) / 2);
+  padding-right: calc((100% - var(--max-width)) / 2 + $sidebar-width);
+  // toc-toggle
+  .toc-toggle {
+    gap: 1em;
+  }
+}
+
+// .ptx-main is the center column; it's margins are the two side columns
+.ptx-main {
+  margin-right: min($sidebar-width, var(--right-page-margin));
+}
+
+// replace the sidebar with a margin matching it's width
+.ptx-sidebar.hidden + .ptx-main {
+    margin-left: min($sidebar-width, var(--right-page-margin));
+  }
+
+.ptx-toc {
+  margin-top: 36px;
+  border-right: none;
+  position: sticky;
+  top: $nav-height;
+
+  @if $scrolling-toc {
+    scrollbar-width: auto;
+    scrollbar-color: var(--page-border-color) var(--mainbackground);
+  }
+
+}
+
+// Base width/margins
+// ptx-main ensures iframe pages don't get these margins
+.ptx-main > .ptx-content {
+  width: var(--content-width);
+  margin: 32px var(--content-margin) 60px;
+}
+

@@ -19,7 +19,6 @@ $background-color-dark: #23241f !default;
 @use 'components/pretext';
 @use 'shell';
 @use 'heading-tweaks';
-@use 'components/page-parts/parts-default';
 @use 'components/chunks/chunks-minimal';
 
 //@use 'heading-tweaks';
@@ -30,14 +29,14 @@ $background-color-dark: #23241f !default;
 @use 'fonts/fonts-google'; // with ($body: $body-font, $heading: $heading-font);
 
 @use "colors/color-helpers" as colorHelpers;
-@use "colors/palette-minimal" as palette-minimal with (
+@use "colors/palette-single-bold" as palette-single with (
   $primary-color: $primary-color,
 );
 
 
 // primary/secondary color defined as determined by palette-chunks from
 // color-scheme, primary-color, secondary-color
-$primary-color: map.get(palette-minimal.$colors, 'primary-color');
+$primary-color: map.get(palette-single.$colors, 'primary-color');
 //$secondary-color: map.get(palette-dual.$colors, 'secondary-color');
 
 @use 'colors/palette-dark' as palette-dark with (
@@ -48,7 +47,7 @@ $primary-color: map.get(palette-minimal.$colors, 'primary-color');
 :root {
     color-scheme: light;
     &:not(.dark-mode) {  // prevent variable leak through to dark
-      @include colorHelpers.scss-to-css(palette-minimal.$colors);
+      @include colorHelpers.scss-to-css(palette-single.$colors);
     }
 }
 
