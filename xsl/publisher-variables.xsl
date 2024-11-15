@@ -2283,6 +2283,10 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 <!-- A single JS file for development purposes -->
 <xsl:param name="html.js.extra" select="''" />
 
+<!-- Name of color file possibly used in legacy styling -->
+<xsl:variable name="html.css.colors">
+    <xsl:value-of select="$publication/html/css/@colors"/>
+</xsl:variable>
 
 <!--                              -->
 <!-- HTML Theme Specification     -->

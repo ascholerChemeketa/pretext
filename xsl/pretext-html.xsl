@@ -10419,7 +10419,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:call-template name="converter-blurb-html-no-date"/>
     <html>
         <xsl:call-template name="language-attributes"/>
-        <xsl:call-template name="html-theme-html-hook"/>
+        <xsl:call-template name="html-theme-attributes"/>
         <!-- Open Graph Protocol only in "meta" elements, within "head" -->
         <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
             <title>
@@ -12851,7 +12851,7 @@ TODO:
 
 <!-- Inject classes into the root div of a book. Only for used for   -->
 <!-- legacy styles - handles old css@colors and dark-mode disabling  -->
-<xsl:template name="html-theme-html-hook">
+<xsl:template name="html-theme-attributes">
     <!-- check for use of old css color sheets -->
     <xsl:if test="contains($html-theme-name, '-legacy')">
         <xsl:attribute name="data-legacy-colorscheme">
@@ -12859,18 +12859,13 @@ TODO:
                 <xsl:when test="not($debug.colors = '')">
                     <xsl:value-of select="$debug.colors"/>
                 </xsl:when>
-                <xsl:when test="$publication/html/css/@colors">
-                    <xsl:value-of select="$publication/html/css/@colors"/>
+                <xsl:when test="not($html.css.colors = '')">
+                    <xsl:value-of select="$html.css.colors"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>default</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="not($b-theme-has-darkmode)">
-        <xsl:attribute name="data-darkmode">
-            <xsl:text>disabled</xsl:text>
         </xsl:attribute>
     </xsl:if>
 </xsl:template>

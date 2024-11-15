@@ -252,7 +252,7 @@
     <!-- other exsl:document uses.                                             -->
     <exsl:document href="{$file}" method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no">
         <html>
-            <xsl:call-template name="html-theme-html-hook"/>
+            <xsl:call-template name="html-theme-attributes"/>
             <head>
                 <xsl:text>&#xa;</xsl:text> <!-- a little formatting help -->
                 <xsl:call-template name="converter-blurb-html" />
@@ -815,7 +815,7 @@ width: 100%
 <xsl:template match="frontmatter" mode="epub">
     <exsl:document href="{$content-dir}/{$xhtml-dir}/cover-page.xhtml" method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no">
         <html>
-            <xsl:call-template name="html-theme-html-hook"/>
+            <xsl:call-template name="html-theme-attributes"/>
             <!-- head element should not be empty -->
             <head>
                 <meta charset="utf-8"/>
@@ -864,7 +864,7 @@ width: 100%
     </exsl:document>
     <exsl:document href="{$content-dir}/{$xhtml-dir}/table-contents.xhtml" method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no">
         <html xmlns:epub="http://www.idpf.org/2007/ops">
-            <xsl:call-template name="html-theme-html-hook"/>
+            <xsl:call-template name="html-theme-attributes"/>
             <head>
                 <meta charset="utf-8"/>
                 <xsl:call-template name="mathjax-css"/>
@@ -1258,7 +1258,7 @@ width: 100%
         <!-- cribbed from "file-wrap" elsewhere -->
         <exsl:document href="{$content-dir}/{$xhtml-dir}/{$endnote-file}" method="xml" omit-xml-declaration="yes" encoding="UTF-8" indent="no">
             <html>
-                <xsl:call-template name="html-theme-html-hook"/>
+                <xsl:call-template name="html-theme-attributes"/>
                 <head>
                     <xsl:text>&#xa;</xsl:text> <!-- a little formatting help -->
                     <xsl:call-template name="converter-blurb-html" />
