@@ -11189,7 +11189,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     </button>
 </xsl:template>
 
-<xsl:template name="light-dark-toggle">
+<xsl:template name="light-dark-button">
     <button id="light-dark-button" class="light-dark-button button" title="Dark Mode">
         <xsl:call-template name="insert-symbol">
             <xsl:with-param name="name" select="'dark_mode'"/>
@@ -11271,7 +11271,7 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
             <xsl:call-template name="calculator" />
         </xsl:if>
         <xsl:if test="$b-theme-has-darkmode">
-            <xsl:call-template name="light-dark-toggle" />
+            <xsl:call-template name="light-dark-button" />
         </xsl:if>
     </span>
 </xsl:template>
