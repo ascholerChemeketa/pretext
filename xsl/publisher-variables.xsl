@@ -26,8 +26,7 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
     xmlns:exsl="http://exslt.org/common"
     xmlns:str="http://exslt.org/strings"
     xmlns:dyn="http://exslt.org/dynamic"
-    xmlns:func="http://exslt.org/functions"
-    extension-element-prefixes="exsl str dyn func"
+    extension-element-prefixes="exsl str dyn"
 >
 
 <!-- ######################### -->
