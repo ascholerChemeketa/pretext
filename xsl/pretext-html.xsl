@@ -12795,7 +12795,7 @@ TODO:
     <xsl:if test="$b-has-mermaid">
         <script type="module">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-            let theme = '<xsl:value-of select="$publication/common/mermaid/@theme"/>';
+            let theme = '<xsl:value-of select="$mermaid-theme"/>';
             if (isDarkMode())
                 theme = 'dark';
             mermaid.initialize({
