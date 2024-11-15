@@ -2397,7 +2397,7 @@ along with PreTeXt.  If not, see <http://www.gnu.org/licenses/>.
 <!-- Test if current theme supports dark mode                           -->
 <xsl:variable name="theme-has-darkmode">
     <xsl:call-template name="get-theme-option">
-        <xsl:with-param name="optname" select="'provide-dark-mode'"></xsl:with-param>
+        <xsl:with-param name="optname" select="'provide-dark-mode'"/>
     </xsl:call-template>
 </xsl:variable>
 <xsl:variable name="b-theme-has-darkmode" select="$theme-has-darkmode = 'yes'"/>
