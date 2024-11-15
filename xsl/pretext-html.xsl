@@ -10481,8 +10481,8 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
                 </xsl:choose>
                 <!-- ignore MathJax signals everywhere, then enable selectively -->
                 <xsl:text> ignore-math</xsl:text>
+                <xsl:value-of select="$extra-body-classes"/>
             </xsl:attribute>
-            <xsl:value-of select="$extra-body-classes"/>
             <!-- assistive "Skip to main content" link    -->
             <!-- this *must* be first for maximum utility -->
             <xsl:call-template name="skip-to-content-link" />
