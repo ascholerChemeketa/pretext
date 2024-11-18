@@ -117,7 +117,7 @@ pre[class*="language-"] {
     position: relative;
     padding-left: 3.8em;
     counter-reset: linenumber;
-    overflow: visible;
+    overflow: auto;
     
     > code {
       position: relative;
