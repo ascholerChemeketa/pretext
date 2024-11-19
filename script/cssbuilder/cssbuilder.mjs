@@ -106,7 +106,7 @@ function getTargets(options) {
     { out: 'theme-default-legacy', in: path.join(cssRoot, 'targets/html/legacy/default/theme-default.scss'), autobuild: true },
     { out: 'theme-min-legacy', in: path.join(cssRoot, 'targets/html/legacy/min/theme-min.scss'), autobuild: true },
     { out: 'theme-crc-legacy', in: path.join(cssRoot, 'targets/html/legacy/crc/theme-crc.scss'), autobuild: true },
-    { out: 'theme-soundwriting', in: path.join(cssRoot, 'targets/html/legacy/soundwriting/theme-soundwriting.scss'), autobuild: true },
+    { out: 'theme-soundwriting-legacy', in: path.join(cssRoot, 'targets/html/legacy/soundwriting/theme-soundwriting.scss'), autobuild: true },
     { out: 'theme-wide-legacy', in: path.join(cssRoot, 'targets/html/legacy/wide/theme-wide.scss'), autobuild: true },
     // -------------------------------------------------------------------------
     // Modern web targets
