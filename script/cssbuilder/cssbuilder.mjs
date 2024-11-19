@@ -194,15 +194,8 @@ async function getESBuildConfig(options) {
             // Tack on any config variables to the top of the file
             let prefix = '';
             if (options['selected-target'] && options['config-options']) {
-              if (options['config-options']['variables']) {
-                for (const [key, value] of Object.entries(options['config-options']['variables'])) {
-                  prefix += `$${key}: ${value};\n`;
-                }
-              }
-              if (options['config-options']['options']) {
-                for (const [key, value] of Object.entries(options['config-options']['options'])) {
-                  prefix += `$${key}: ${value};\n`;
-                }
+              for (const [key, value] of Object.entries(options['config-options']['options'])) {
+                prefix += `$${key}: ${value};\n`;
               }
             }
             return isRoot ? prefix + source : source;
