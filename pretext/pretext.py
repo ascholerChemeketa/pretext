@@ -1117,7 +1117,7 @@ def dynamic_substitutions(xml_source, pub_file, stringparams, xmlid_root, dest_d
     if external_abs:
         external_dir = os.path.join(tmp_dir, "external")
         shutil.copytree(external_abs, external_dir)
-    copy_html_css_js(tmp_dir)
+    copy_html_js(tmp_dir)
 
     # Build list of id's into a scratch directory/file
     id_filename = os.path.join(tmp_dir, "dynamic-ids.txt")
@@ -2404,8 +2404,8 @@ def preview_images(xml_source, pub_file, stringparams, xmlid_root, dest_dir):
     # Copy in external resources (e.g., js code)
     _, external_abs = get_managed_directories(xml_source, pub_file)
     copy_managed_directories(tmp_dir, external_abs=external_abs)
-    # place CSS and JS in scratch directory
-    copy_html_css_js(tmp_dir)
+    # place JS in scratch directory
+    copy_html_js(tmp_dir)
 
     # filenames lead to placement in current working directory
     # so change to temporary directory, and copy out
@@ -3839,8 +3839,8 @@ def html(
     # consulted during the XSL run and so need to be placed beforehand
     copy_managed_directories(tmp_dir, external_abs=external_abs, generated_abs=generated_abs)
 
-    # place CSS and JS in scratch directory
-    copy_html_css_js(tmp_dir)
+    # place JS in scratch directory
+    copy_html_js(tmp_dir)
 
     # build or copy theme
     build_or_copy_theme(xml, pub_file, stringparams, tmp_dir)
@@ -4704,16 +4704,11 @@ def copy_managed_directories(build_dir, external_abs=None, generated_abs=None):
         shutil.copytree(generated_abs, generated_dir)
 
 
-def copy_html_css_js(work_dir):
+def copy_html_js(work_dir):
     '''Copy all necessary CSS and JS into working directory'''
 
     # Place support files where expected.
     # We are not careful about placing only modules that are needed, all are copied.
-    css_src = os.path.join(get_ptx_path(), "css/dist/modules")
-    css_dest = os.path.join(work_dir, "_static", "pretext", "css")
-    if os.path.isdir(css_src):
-        shutil.copytree(css_src, css_dest)
-
     js_src = os.path.join(get_ptx_path(), "js")
     js_dest = os.path.join(work_dir, "_static", "pretext", "js")
     shutil.copytree(js_src, js_dest)

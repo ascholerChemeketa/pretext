@@ -118,10 +118,6 @@ function getTargets(options) {
     { out: 'theme-paper', in: path.join(cssRoot, 'targets/html/paper/theme-paper.scss') },
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
-    // Other modules - these are individually and conditionally loaded on pretext pages
-    { out: 'modules/pretext_search', in: path.join(cssRoot, 'targets/modules/pretext_search.scss'), autobuild: true },
-    // -------------------------------------------------------------------------
-    // -------------------------------------------------------------------------
     // Non-web targets
     { out: 'reveal', in: path.join(cssRoot, 'targets/revealjs/reveal.scss'), autobuild: true },
     { out: 'kindle', in: path.join(cssRoot, 'targets/ebook/kindle/kindle.scss'), autobuild: true },

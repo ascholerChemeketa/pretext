@@ -22,6 +22,7 @@ $navbar-breakpoint: 800px !default;
 @use 'printing';
 @use 'worksheet';
 @use 'google-search';
+@use 'pretext-search';
 @use 'interactives/runestone';
 @use 'interactives/webwork';
 @use 'interactives/sagecell';
