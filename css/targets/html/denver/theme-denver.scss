@@ -16,12 +16,12 @@ $background-color-dark: #23241f !default;
 
 // ---------------------------------------------
 // components
-@use 'components/page-parts/parts-tricolumn' with(
-  $scrolling-toc: false,
+@use 'components/page-parts/parts-paper' with(
+  $scrolling-toc: true,
 );
 
 
-@use 'components/chunks/chunks-levin';
+@use 'components/chunks/chunks-denver';
 
 @use 'components/pretext';
 //@use 'components/pretext' with (
@@ -51,8 +51,12 @@ $secondary-color: map.get(palette-chunks.$colors, 'color-meta');
   // $secondary-color: $secondary-color
 );
 
-$light-colors: map.merge(palette-light.$colors, palette-chunks.$colors);
+$palette-chunk-colors: map.merge(palette-chunks.$colors, (
+  "examplebody": var(--mainbackground),
+  "exampleborder": var(--color-main),
+));
 
+$light-colors: map.merge(palette-light.$colors, $palette-chunk-colors);
 
 @use 'colors/palette-dark' as palette-dark with (
   $primary-color: $primary-color-dark,
