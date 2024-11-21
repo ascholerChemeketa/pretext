@@ -2,7 +2,7 @@
 // different definitions for these variables to this file before the theme
 // is compiled.
 
-$color-scheme: 'default' !default;
+$color-scheme: 'bold2' !default;
 $color-main: null !default;
 $color-do: null !default;
 $color-fact: null !default;
@@ -16,15 +16,17 @@ $background-color-dark: #23241f !default;
 
 // ---------------------------------------------
 // components
-@use 'components/page-parts/parts-default' with(
+@use 'components/page-parts/parts-tricolumn' with(
   $scrolling-toc: false,
 );
 
+
 @use 'components/chunks/chunks-levin';
 
-@use 'components/pretext' with (
-  $navbar-breakpoint: parts-default.$navbar-breakpoint,
-);
+@use 'components/pretext';
+//@use 'components/pretext' with (
+//  $navbar-breakpoint: parts-default.$navbar-breakpoint,
+//);
 
 // ---------------------------------------------
 // fonts and colors

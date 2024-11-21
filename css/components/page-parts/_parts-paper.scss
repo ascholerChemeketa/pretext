@@ -1,0 +1,184 @@
+//Some basic variables
+$centered-content: true !default;
+$scrolling-toc: true !default;
+$nav-height: 36px !default;
+$navbar-breakpoint: 800px !default;
+
+
+//The following variables represent the *max* width of everything.  When the screen shrinks, we will reduce some of these.
+
+// The sidebar contains the TOC. It is left of the page, with a right-margin to separate it.
+$sidebar-width: 240px !default;
+$sidebar-right-margin: 72px !default;
+$min-sidebar-right-margin: 24px !default;
+$sidebar-total-width: $sidebar-width + $sidebar-right-margin;
+
+// ptx-content contains the main content.  It is contained in ptx-main
+$content-width: 600px !default;
+$content-side-margin: 120px !default;
+
+$sidebar-breakpoint: $content-width + $sidebar-total-width + 24px; // a little extra for padding
+
+// ptx-main contains the ptx-content and footer.  It has a width equal to the content plus the content's margins.
+// There is a right margin that counters the size of the sidebar+sidebarmargin.
+$main-width: $content-width + (2 * $content-side-margin);
+$main-right-margin: $sidebar-total-width;
+
+// ptx-page contains the sidebar and ptx-main.  It's width is the sum of main, main-right-margin, and sidebar-total-width.
+$page-width: $sidebar-total-width + $main-width + $main-right-margin;
+
+
+@use 'body' with (
+  $max-width: 100%,
+  $content-width: $content-width,
+  $content-side-margin: $content-side-margin,
+  $content-side-margin-tight: 5%,
+  $centered-content: $centered-content,
+  );
+@use 'banner' with (
+  $navbar-breakpoint: $navbar-breakpoint,
+);
+
+
+@use 'navbar' with (
+  $max-width: 100%,
+  $nav-height: $nav-height,
+  $navbar-breakpoint: $navbar-breakpoint,
+);
+
+@use 'toc-default' with (
+  $scrolling: $scrolling-toc,
+  $sidebar-width: $sidebar-width,
+  $navbar-breakpoint: $navbar-breakpoint,
+  $sidebar-breakpoint: $sidebar-breakpoint,
+);
+
+//@use 'summary-links';
+@use 'footer' with (
+  $navbar-breakpoint: $navbar-breakpoint,
+);
+
+// Now we set up widths as CSS variables that shrink as the screen shrinks.  Hopefully this will respect some sort of priority?
+:root {
+  --sidebar-width: #{$sidebar-width};
+  --sidebar-right-margin: #{$sidebar-right-margin};
+  --sidebar-total-width: calc(var(--sidebar-width) + var(--sidebar-right-margin));
+  --content-width: #{$content-width};
+  --content-margin:#{$content-side-margin};
+  --main-width: calc(var(--content-width) + 2 * var(--content-margin));
+  --main-right-margin: var(--sidebar-total-width);
+  --main-left-margin-without-sidebar: max(0px, (100% - var(--main-width)) / 2);
+  --main-left-margin: max(0px, calc(var(--main-left-margin-without-sidebar) - var(--sidebar-total-width)));
+  --page-width: calc(var(--sidebar-total-width) + var(--main-width) + var(--main-right-margin));
+}
+
+
+.ptx-masthead .ptx-banner {
+  max-width: var(--main-width);
+  padding: 10px 10px;
+}
+
+.ptx-page {
+  max-width: var(--page-width);
+}
+
+body.pretext .ptx-navbar {
+  padding-left: max(0px, (100% - var(--main-width)) / 2 - var(--sidebar-total-width));
+  padding-right: max(0px, (100% - var(--main-width)) / 2);
+  // toc-toggle
+  .toc-toggle {
+    justify-content: left;
+    margin-right: var(--sidebar-right-margin);
+    gap: 1em;
+    width: var(--sidebar-width);
+  }
+}
+
+// .ptx-main is the center column; it's margins are the two side columns
+.ptx-main {
+  margin-right: var(--main-right-margin);
+  max-width: calc(var(--content-width) + 2 * var(--content-margin));
+  //min-width: var(--main-width);
+  box-shadow: 5px 10px 40px -10px var(--assembborder);
+  //container-name: not-ptx-main; // to override the container query in body;
+  container-type: normal;
+}
+
+// replace the sidebar with a margin matching it's width
+.ptx-sidebar.hidden + .ptx-main {
+    margin-left: var(--main-left-margin-without-sidebar);
+  }
+
+.ptx-sidebar {
+  margin-right: var(--sidebar-right-margin);
+}
+
+.ptx-toc {
+  margin-top: 36px;
+  border-right: none;
+  border-left: none;
+  position: sticky;
+  top: $nav-height;
+
+  @if $scrolling-toc {
+    scrollbar-width: auto;
+    scrollbar-color: var(--mainbackground) var(--mainbackground);
+    &:hover {
+      scrollbar-color: var(--page-border-color) var(--mainbackground);
+    }
+  }
+
+}
+
+// Base width/margins
+// ptx-main ensures iframe pages don't get these margins
+.ptx-main > .ptx-content {
+  max-width: var(--content-width);
+  margin: 32px var(--content-margin) 60px;
+}
+
+
+// Some hacks to get runestone components looking better:
+.Codemirror {
+  font-size: 14px;
+}
+
+.ptx-runestone-container:has(.parsons_section,.ac_section,.codelens) {
+  width: calc(100% + 1.5 * var(--content-margin));
+  margin-left: calc(-0.75 * var(--content-margin));
+}
+
+
+// Breakpoints to shrink margins as the screen shrinks
+// First we eat the right margin of the main content
+@media screen and (width <= #{$page-width}){
+  :root {
+    --main-right-margin: 0;
+    --page-width: 100%;
+  };
+  body.pretext .ptx-navbar .toc-toggle {
+      margin-right: unset;
+  }
+}
+// When the the main content is almost to the edge of the screen, we remove the drop-shadow
+// (and also shrink the distance between the content and the sidebar)
+@media screen and (width <= #{$main-width + $sidebar-width + 2 * $sidebar-right-margin}){
+  :root {
+    --sidebar-right-margin: calc((100% - #{$main-width + $sidebar-width}) / 2);
+  }
+  .ptx-main {
+    box-shadow: unset;
+  }
+}
+
+// In "mobile" mode, resize everything appropriately
+@media screen and (width <= #{$navbar-breakpoint}){
+  .ptx-page > .ptx-main .ptx-content {
+    width: 90%;
+  }
+  .ptx-masthead .ptx-banner {
+    width: 100%;
+    padding: 10px 10px;
+  }
+}
+

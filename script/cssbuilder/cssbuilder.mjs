@@ -114,8 +114,8 @@ function getTargets(options) {
     // only default is prebuilt
     { out: 'theme-salem', in: path.join(cssRoot, 'targets/html/salem/theme-salem.scss')},
     { out: 'theme-denver', in: path.join(cssRoot, 'targets/html/denver/theme-denver.scss') },
+    { out: 'theme-greeley', in: path.join(cssRoot, 'targets/html/greeley/theme-greeley.scss') },
     { out: 'theme-tacoma', in: path.join(cssRoot, 'targets/html/tacoma/theme-tacoma.scss') },
-    { out: 'theme-paper', in: path.join(cssRoot, 'targets/html/paper/theme-paper.scss') },
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // Non-web targets

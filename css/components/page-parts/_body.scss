@@ -3,6 +3,7 @@ $max-width: 1200px !default;  // 0 == no max width
 
 $content-width: 600px !default;
 $content-side-margin: 48px !default;
+$content-side-margin-tight: 28px !default;
 $sidebar-breakpoint: 856px !default;
 $centered-content: false !default;
 
@@ -100,12 +101,12 @@ body.pretext > a.assistive {
 @container ptx-main (width < #{$content-width + 2 * $content-side-margin}) {
   .ptx-page > .ptx-main {
     .ptx-content {
-      margin-left: 28px;
-      margin-right: 28px;
+      margin-left: #{$content-side-margin-tight};
+      margin-right: #{$content-side-margin-tight};
     }
   }
   :root {
-    --content-margin: 28px;
-    --content-width: calc(100% - 28px);
+    --content-margin: #{$content-side-margin-tight};
+    --content-width: calc(100% - 2 * #{$content-side-margin-tight});
   }
 }

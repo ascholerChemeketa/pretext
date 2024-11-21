@@ -17,8 +17,9 @@ $background-color-dark: #23241f !default;
 // Basic components: 
 //@use 'components/pretext';// with ($inline-section-headings: false);
 @use 'components/pretext';
-@use 'shell';
-@use 'heading-tweaks';
+@use 'components/page-parts/parts-paper';
+//@use 'shell';
+@use 'customization';
 @use 'components/chunks/chunks-minimal';
 
 //@use 'heading-tweaks';
@@ -43,6 +44,9 @@ $primary-color: map.get(palette-single.$colors, 'primary-color');
     $primary-color: $primary-color-dark,
     $background-color: $background-color-dark,
 );
+
+
+
 
 :root {
     color-scheme: light;

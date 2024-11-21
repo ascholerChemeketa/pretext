@@ -56,10 +56,15 @@ $navbar-breakpoint: 800px !default;
     background: var(--mainbackground);
     min-height: 30vh;
     max-height: 80vh;
-    overflow-y:scroll;
     border-right: 2px solid var(--tocborder);
     border-bottom: 2px solid var(--tocborder);
     width: $sidebar-width;
+  }
+  // We only need to scroll if the sidebar doesn't already have scrolling
+  @if not $scrolling {
+    .ptx-sidebar {
+      overflow-y: scroll;
+    }
   }
 }
 
