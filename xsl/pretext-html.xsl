@@ -11913,16 +11913,25 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
         <xsl:text>&#xa;]&#xa;</xsl:text>
         <xsl:text>&#xa;</xsl:text>
         <!-- the Javascript function to make the index -->
-        <xsl:text>var ptx_lunr_idx = lunr(function () {&#xa;</xsl:text>
-        <xsl:text>  this.ref('id')&#xa;</xsl:text>
-        <xsl:text>  this.field('title')&#xa;</xsl:text>
-        <xsl:text>  this.field('body')&#xa;</xsl:text>
-        <xsl:text>  this.metadataWhitelist = ['position']&#xa;</xsl:text>
-        <xsl:text>&#xa;</xsl:text>
-        <xsl:text>  ptx_lunr_docs.forEach(function (doc) {&#xa;</xsl:text>
-        <xsl:text>    this.add(doc)&#xa;</xsl:text>
-        <xsl:text>  }, this)&#xa;</xsl:text>
-        <xsl:text>})&#xa;</xsl:text>
+        <xsl:text>
+const ptx_lunr_idx = lunr(function () {
+  this.pipeline.remove(lunr.stemmer);
+  this.ref('id');
+  this.field('title');
+  this.field('body');
+  this.field('ptxindex');
+  this.metadataWhitelist = ['position'];
+
+  ptx_lunr_docs.forEach(function (doc, position) {
+    doc.idxPosition = position;
+    this.add(doc);
+  }, this)
+})
+
+const ptx_lunr_db = ptx_lunr_docs.reduce((accumulator, doc) => {
+  accumulator[doc.id] = doc;
+  return accumulator;
+}, {});&#xa;</xsl:text>
     </exsl:document>
 </xsl:template>
 
@@ -12075,6 +12084,18 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:call-template name="escape-json-string">
         <xsl:with-param name="text">
             <xsl:apply-templates select="exsl:node-set($title-html)" mode="serialize"/>
+        </xsl:with-param>
+    </xsl:call-template>
+    <xsl:text>",&#xa;</xsl:text>
+    <!-- the number of the division -->
+    <xsl:text>  "ptxindex": "</xsl:text>
+    <xsl:call-template name="escape-json-string">
+        <!-- grab all text in children of idx (including text nodes)         -->
+        <!-- guarantee spaces between values after removing extra whitespace -->
+        <xsl:with-param name="text">
+            <xsl:for-each select=".//idx/node()">
+              <xsl:value-of select="concat(normalize-space(.), ' ')"/>
+            </xsl:for-each>
         </xsl:with-param>
     </xsl:call-template>
     <xsl:text>",&#xa;</xsl:text>
