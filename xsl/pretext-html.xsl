@@ -2581,6 +2581,8 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
             <xsl:apply-templates select="." mode="body-css-class"/>
             <xsl:text> born-hidden-knowl</xsl:text>
         </xsl:attribute>
+        <!-- possibly insert aria-label -->
+        <xsl:apply-templates select="." mode="aria-label-attribute" />
         <!-- the clickable that is visible on the page -->
         <summary class="knowl__link">
            <xsl:apply-templates select="." mode="heading-birth" />
@@ -2632,6 +2634,9 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- We devise the more straightforward blocks first, -->
 <!-- saving the exceptions for subsequent exposition  -->
+
+<!-- Most blocks do not need a special aria label -->
+<xsl:template match="*" mode="aria-label-attribute" />
 
 <!-- REMARK-LIKE -->
 <!-- A simple block with full titles and generic contents -->
@@ -2856,12 +2861,20 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
 
 <!-- When born use this heading -->
 <xsl:template match="&ASIDE-LIKE;" mode="heading-birth">
-    <xsl:apply-templates select="." mode="heading-full-implicit-number" />
+    <xsl:apply-templates select="." mode="heading-title" />
 </xsl:template>
 
 <!-- Heading for interior of xref-knowl content -->
 <xsl:template match="&ASIDE-LIKE;" mode="heading-xref-knowl">
-    <xsl:apply-templates select="." mode="heading-full-implicit-number" />
+    <xsl:apply-templates select="." mode="heading-title" />
+</xsl:template>
+
+<!-- aside-like should get an aria-label that includes the type-name -->
+<!-- (Aside:, Biographical Aside:, etc...) before any authored title -->
+<xsl:template match="&ASIDE-LIKE;" mode="aria-label-attribute">
+    <xsl:attribute name="aria-label">
+        <xsl:apply-templates select="." mode="heading-full-implicit-number" />
+    </xsl:attribute>
 </xsl:template>
 
 <!-- Primary content of generic "body" template   -->
