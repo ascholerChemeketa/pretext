@@ -6229,14 +6229,11 @@ Book (with parts), "section" at level 3
             <xsl:variable name="level">
                 <xsl:apply-templates select="." mode="unordered-list-level" />
             </xsl:variable>
+            <xsl:variable name="level-mod3" select="$level mod 3" />
             <xsl:choose>
-                <xsl:when test="$level='0'">disc</xsl:when>
-                <xsl:when test="$level='1'">circle</xsl:when>
-                <xsl:when test="$level='2'">square</xsl:when>
-                <xsl:when test="$level='3'">disc</xsl:when>
-                <xsl:otherwise>
-                    <xsl:message>PTX:ERROR: unordered list is more than 4 levels deep (at level <xsl:value-of select="$level" />)</xsl:message>
-                </xsl:otherwise>
+                <xsl:when test="$level-mod3='0'">disc</xsl:when>
+                <xsl:when test="$level-mod3='1'">circle</xsl:when>
+                <xsl:when test="$level-mod3='2'">square</xsl:when>
             </xsl:choose>
         </xsl:otherwise>
     </xsl:choose>

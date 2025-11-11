@@ -7541,14 +7541,11 @@ along with MathBook XML.  If not, see <http://www.gnu.org/licenses/>.
     <xsl:variable name="level">
         <xsl:apply-templates select="." mode="unordered-list-level" />
     </xsl:variable>
+    <xsl:variable name="level-mod3" select="$level mod 3" />
     <xsl:choose>
-        <xsl:when test="$level='0'">\textbullet</xsl:when>
-        <xsl:when test="$level='1'">$\circ$</xsl:when>
-        <xsl:when test="$level='2'">$\blacksquare$</xsl:when>
-        <xsl:when test="$level='3'">\textbullet</xsl:when>
-        <xsl:otherwise>
-            <xsl:message>PTX:ERROR: unordered list is more than 4 levels deep</xsl:message>
-        </xsl:otherwise>
+        <xsl:when test="$level-mod3='0'">\textbullet</xsl:when>
+        <xsl:when test="$level-mod3='1'">$\circ$</xsl:when>
+        <xsl:when test="$level-mod3='2'">$\blacksquare$</xsl:when>
     </xsl:choose>
 </xsl:template>
 
