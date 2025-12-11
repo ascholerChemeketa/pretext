@@ -9,12 +9,14 @@
     <target name="html"
       format="html"
       source="sample-book.xml"
-      publication="publication-noparts.xml" />
+      publication="publication-noparts.xml">
+      <stringparams html.js.extra="external/permalink-review-links.js" />
+    </target>
     <target name="runestone"
       format="html"
       source="sample-book.xml"
       publication="publication-runestone-academy.xml">
-      <!-- <stringparams debug.rs.dev="yes" /> -->
+      <stringparams html.js.extra="external/permalink-review-links.js" />
     </target>
     <target name="pdf"
       format="pdf"
